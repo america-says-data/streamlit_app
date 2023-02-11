@@ -16,7 +16,7 @@ credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"]
 )
 
-gc = gspread.Client(credentials=credentials)
+gc = gspread.auth.authorize(credentials=credentials)
 
 sheet = gc.open_by_key("1wecLQmlElnGaUP92uVEgT0bdyqqwt4HTVlTaqyFFCIw")
 
