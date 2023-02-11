@@ -66,8 +66,8 @@ def build_players_table():
 			""")
 	df_question_tally_new_check = df_question_tally.groupby(["Season","Game","Team","Round","value"])["Question"].count().reset_index().rename(columns={"Question":"NUM_ANSWERS"})
 	
-	print(df_question_tally_new.head())
-	print(df_question_tally_new_check.head())
+	print(df_question_tally_new.head(40))
+	print(df_question_tally_new_check.head(40))
 
 
 	df_bonus_tally = pd.melt(df_game,
