@@ -11,12 +11,11 @@ st.write ("""
 
  
 
-#gc = gspread.service_account(filename='.config/gspread/service_account.json')
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"]
-)
-
-gc = gspread.Client(auth=credentials)
+gc = gspread.service_account(filename='.config/gspread/service_account.json')
+#credentials = service_account.Credentials.from_service_account_info(
+#    st.secrets["gcp_service_account"]
+#)
+#gc = gspread.Client(auth=credentials)
 
 sheet = gc.open_by_key("1wecLQmlElnGaUP92uVEgT0bdyqqwt4HTVlTaqyFFCIw")
 
