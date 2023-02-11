@@ -171,18 +171,13 @@ def top_player_overall():
 
 st.write("Histogram of Answers Correct - checking")
 st.bar_chart(ps.sqldf("""
-                select 100.00*COUNT(*) / (select count(*) from df_question where QUESTION_TEXT <> 'NA') as 'Percent Times that Number of Answers is Provided'
+                select 100.00*COUNT(*) / (select count(*) from df_question where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> '') as 'Percent Times that Number of Answers is Provided'
                 from df_question
-		where QUESTION_TEXT <> 'NA'
+		where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> ''
 		group by ANSWERS_CORRECT_BY_ANSWERING_TEAM
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
                 """))
 
-st.dataframe(ps.sqldf("""
-                select *
-                from df_question
-		where QUESTION_TEXT <> 'NA' and ANSWERS_CORRECT_BY_ANSWERING_TEAM = 0
-                """))
 
 
 option = st.selectbox(
