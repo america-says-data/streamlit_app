@@ -169,15 +169,15 @@ def top_player_overall():
 			limit 11
                 """)
 
+st.write("Histogram of Answers Correct")
 st.bar_chart(ps.sqldf("""
-                select COUNT(*) 
+                select COUNT(*) / (select count(*) from df_question where QUESTION_TEXT <> 'NA') as 'Percent Times that Number of Answers is Provided'
                 from df_question
 		where QUESTION_TEXT <> 'NA'
 		group by ANSWERS_CORRECT_BY_ANSWERING_TEAM
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
                 """))
 
-st.write("Histogram of Answers Correct")
 
 option = st.selectbox(
     'What would you like to explore?',
