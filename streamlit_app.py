@@ -169,7 +169,7 @@ def top_player_overall():
 			limit 11
                 """)
 
-st.write("Histogram of Answers Correct - checking")
+st.write("Histogram of Answers Correct (by answering team)")
 
 df_dist = ps.sqldf("""select 100.00*COUNT(*) / (select count(*) from df_question where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> '') as 'Percent Times that Number of Answers is Provided'
                 from df_question
