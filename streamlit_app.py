@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pandasql as ps
+from google.oauth2 import service_account
 import gspread
 import numpy as np
 
@@ -11,11 +12,13 @@ st.write ("""
  
 
 #gc = gspread.service_account(filename='.config/gspread/service_account.json')
-gc = gspread.service_account.Credentials.from_service_account_info(
+credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"]
 )
 
-sheet =gc.open_by_key("1wecLQmlElnGaUP92uVEgT0bdyqqwt4HTVlTaqyFFCIw")
+gc = gspread.Client(credentials=credentials)
+
+sheet = gc.open_by_key("1wecLQmlElnGaUP92uVEgT0bdyqqwt4HTVlTaqyFFCIw")
 
 @st.cache_data
 def get_tables():
