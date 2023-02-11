@@ -38,7 +38,7 @@ st.write("Last update - February 8th, 2023")
 
 
 #### TODO : Create streamlit loading text that says "Creating Player Table"
-#@st.cache_data
+@st.cache_data
 def build_players_table():
 	df_individual = df_team[["Season", "Game", "Game_id", "Team", "Team_Num", "Team_id", "Captain", "Member_2", "Member_3", "Member_4"]]
 	df_individual = pd.melt(df_individual, 
@@ -64,11 +64,8 @@ def build_players_table():
 			from df_question_tally 
 			group by SEASON, GAME, TEAM, ROUND, VALUE
 			""")
-	df_question_tally_new_check = df_question_tally.groupby(["Season","Game","Team","Round","value"])["Question"].count().reset_index().rename(columns={"Question":"NUM_ANSWERS"})
+##### delete soon	df_question_tally_new_check = df_question_tally.groupby(["Season","Game","Team","Round","value"])["Question"].count().reset_index().rename(columns={"Question":"NUM_ANSWERS"})
 	
-	print(df_question_tally_new.head(40))
-	print(df_question_tally_new_check.head(40))
-
 
 	df_bonus_tally = pd.melt(df_game,
                         id_vars =["Season", "Game", "Game_id", "Team_1", "Winner"],
