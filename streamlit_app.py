@@ -178,6 +178,12 @@ st.bar_chart(ps.sqldf("""
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
                 """))
 
+st.dataframe(ps.sqldf("""
+                select *
+                from df_question
+		where QUESTION_TEXT <> 'NA' and ANSWERS_CORRECT_BY_ANSWERING_TEAM = 0
+                """))
+
 
 option = st.selectbox(
     'What would you like to explore?',
