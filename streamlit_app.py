@@ -170,7 +170,7 @@ def top_player_overall():
                 """)
 
 st.bar_chart(ps.sqldf("""
-                select ANSWERS_CORRECT_BY_ANSWERING_TEAM, COUNT(*)
+                select COUNT(*) 
                 from df_question
 		where QUESTION_TEXT <> 'NA'
 		group by ANSWERS_CORRECT_BY_ANSWERING_TEAM
