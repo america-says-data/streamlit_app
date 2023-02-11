@@ -12,6 +12,8 @@ st.write ("""
  
 
 gc = gspread.service_account(filename='.config/gspread/service_account.json')
+
+#### TODO : figure out the versioning of oauth2 etc to handle secrets
 #credentials = service_account.Credentials.from_service_account_info(
 #    st.secrets["gcp_service_account"]
 #)
@@ -106,6 +108,7 @@ def build_players_table():
 
 	return df_player_unmelt
 
+
 df_players = build_players_table()
 
 @st.cache_data
@@ -166,7 +169,14 @@ def top_player_overall():
 			limit 11
                 """)
 
+st.bar_chart(ps.sqldf("""
+                select ANSWERS_CORRECT_BY_ANSWERING_TEAM, COUNT(*)
+                from df_questions
+		where QUESTION_TEXT <> 'NA'
+                order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
+                """))
 
+st.write("Histogram of Answers Correct")
 
 option = st.selectbox(
     'What would you like to explore?',
