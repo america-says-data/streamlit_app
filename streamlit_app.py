@@ -34,7 +34,7 @@ df_question, df_game, df_team, df_round = get_tables()
 
 st.write("Currently built off of ", len(df_game), " games")
 
-st.write("Last update - February 8th, 2023")
+st.write("Last update - February 10th, 2023")
 
 
 #### TODO : Create streamlit loading text that says "Creating Player Table"
@@ -64,8 +64,6 @@ def build_players_table():
 			from df_question_tally 
 			group by SEASON, GAME, TEAM, ROUND, VALUE
 			""")
-##### delete soon	df_question_tally_new_check = df_question_tally.groupby(["Season","Game","Team","Round","value"])["Question"].count().reset_index().rename(columns={"Question":"NUM_ANSWERS"})
-	
 
 	df_bonus_tally = pd.melt(df_game,
                         id_vars =["Season", "Game", "Game_id", "Team_1", "Winner"],
