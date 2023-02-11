@@ -176,7 +176,7 @@ st.bar_chart(ps.sqldf("""
 		where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> ''
 		group by ANSWERS_CORRECT_BY_ANSWERING_TEAM
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
-                """))
+                """).index+=1)
 
 
 
