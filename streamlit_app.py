@@ -59,7 +59,7 @@ def build_players_table():
                         id_vars =["Season", "Game", "Round", "Team", "Question", "Question_id"],
                         value_vars =["Team_Member_Answer_1", "Team_Member_Answer_2", "Team_Member_Answer_3", "Team_Member_Answer_4", "Team_Member_Answer_5", "Team_Member_Answer_6", "Team_Member_Answer_7"])
 
-	df_question_tally = ps.sqldf("""
+	df_question_tally_new = ps.sqldf("""
 			select SEASON, GAME, TEAM, ROUND, VALUE, COUNT(*) as NUM_ANSWERS
 			from df_question_tally
 			group by SEASON, GAME, TEAM, ROUND, VALUE
@@ -70,14 +70,14 @@ def build_players_table():
                         id_vars =["Season", "Game", "Game_id", "Team_1", "Winner"],
                         value_vars =["Team_Member_Tiebreaker", "Team_Member_Bonus_A_1_1", "Team_Member_Bonus_A_2_1", "Team_Member_Bonus_A_2_2", "Team_Member_Bonus_A_3_1", "Team_Member_Bonus_A_3_2", "Team_Member_Bonus_A_3_3","Team_Member_Bonus_A_4_1", "Team_Member_Bonus_A_4_2", "Team_Member_Bonus_A_4_3", "Team_Member_Bonus_A_4_4"])
 
-	df_bonus_tally = ps.sqldf("""
+	df_bonus_tally_new = ps.sqldf("""
                         select SEASON, GAME, CASE WHEN TEAM_1 = WINNER THEN 1 ELSE 2 END as "Team", "B" as "Round", VALUE, COUNT(*) as NUM_ANSWERS
                         from df_bonus_tally
                         group by SEASON, GAME, TEAM, ROUND, VALUE
                         """)
 
 
-	df_tally = df_question_tally.append(df_bonus_tally)
+	df_tally = df_question_tally_new.append(df_bonus_tally_new)
 
 
 	player_join_df = ps.sqldf("""
