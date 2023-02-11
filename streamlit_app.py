@@ -10,8 +10,8 @@ st.write ("""
 
  
 
-gc = gspread.service_account(filename='.config/gspread/service_account.json')
-
+#gc = gspread.service_account(filename='.config/gspread/service_account.json')
+gc = gspread.service_account(filename='.streamlit/secret.toml')
 
 sheet =gc.open_by_key("1wecLQmlElnGaUP92uVEgT0bdyqqwt4HTVlTaqyFFCIw")
 
