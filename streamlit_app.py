@@ -170,7 +170,7 @@ def top_player_overall():
                 """)
 
 st.write("Histogram of Answers Correct")
-st.dataframe(ps.sqldf("select count(*) from df_question where QUESTION_TEXT <> 'NA'")
+st.dataframe(ps.sqldf("select count(*) from df_question where QUESTION_TEXT <> 'NA'"))
 st.bar_chart(ps.sqldf("""
                 select COUNT(*) / (select count(*) from df_question where QUESTION_TEXT <> 'NA') as 'Percent Times that Number of Answers is Provided'
                 from df_question
