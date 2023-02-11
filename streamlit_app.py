@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pandasql as ps
-from sqlalchemy import text
+import io
 import gspread
 import numpy as np
 
@@ -60,7 +60,7 @@ def build_players_table():
                         id_vars =["Season", "Game", "Round", "Team", "Question", "Question_id"],
                         value_vars =["Team_Member_Answer_1", "Team_Member_Answer_2", "Team_Member_Answer_3", "Team_Member_Answer_4", "Team_Member_Answer_5", "Team_Member_Answer_6", "Team_Member_Answer_7"])
 
-	df_question_tally_new = ps.sqldf(text("""
+	df_question_tally_new = ps.sqldf(io.StringIO("""
 			select SEASON, GAME, TEAM, ROUND, VALUE, COUNT(*) as NUM_ANSWERS 
 			from df_question_tally 
 			group by SEASON, GAME, TEAM, ROUND, VALUE
