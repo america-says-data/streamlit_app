@@ -40,7 +40,7 @@ df_question, df_game, df_team, df_round = get_tables()
 
 st.write("Currently built off of ", len(df_game), " games")
 
-st.write("Last update - February 10th, 2023")
+st.write("Last update - February 12th, 2023")
 
 
 #### TODO : Create streamlit loading text that says "Creating Player Table"
