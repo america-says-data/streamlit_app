@@ -188,14 +188,16 @@ def top_player_overall():
 
 st.write("Histogram of Answers Correct (by answering team)")
 
-df_dist = ps.sqldf("""select 100.00*COUNT(*) / (select count(*) from df_question where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> '') as 'Percent Times that Number of Answers is Provided'
+df_dist = ps.sqldf("""select ANSWERS_CORRECT_BY_ANSWERING_TEAM, 
+		100.00*COUNT(*) / (select count(*) from df_question where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> '') as 'Percent Times that Number of Answers is Provided'
                 from df_question
 		where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> ''
 		and SEASON {season_select_clause}
 		group by ANSWERS_CORRECT_BY_ANSWERING_TEAM
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
                 """.format(season_select_clause=season_select_clause))
-df_dist.index+=1
+df_dist.reset_index(inplace=True)
+df_dist = df_dist.rename(columns = {'index':'Answers Correct'})
 
 st.bar_chart(df_dist)
 
