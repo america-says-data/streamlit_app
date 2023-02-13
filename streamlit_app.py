@@ -138,9 +138,8 @@ def best_question():
                 and q.SEASON = t.SEASON
                 and q.GAME = t.GAME
         where TIME_REMAINING is not null
-	and q.season {season_select_clause}
         order by TIME_REMAINING desc
-        """.format(season_select_clause=season_select_clause))
+        """)
 
 @st.cache_data(ttl=36000)
 def best_bonus_round():
@@ -148,9 +147,8 @@ def best_bonus_round():
                 select SEASON, GAME, WINNER, AFTER_SKIPPED_TIME_REMAINING, BONUS_Q_1, BONUS_Q_2, BONUS_Q_3, BONUS_Q_4
                 from df_game
                 where AFTER_SKIPPED_TIME_REMAINING is not null
-		and SEASON {season_select_clause}
                 order by AFTER_SKIPPED_TIME_REMAINING desc
-                """.format(season_select_clause=season_select_clause))
+                """)
 
 @st.cache_data(ttl=36000)
 def worst_question():
@@ -162,9 +160,8 @@ def worst_question():
                         and q.SEASON = t.SEASON
                         and q.GAME = t.GAME
                 where ANSWERS_CORRECT_BY_ANSWERING_TEAM <=2 and QUESTION_TEXT <> 'NA'
-		and q.SEASON {season_select_clause}
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM
-                """.format(season_select_clause=season_select_clause))
+                """)
 
 @st.cache_data(ttl=36000)
 def top_player_of_team():
@@ -176,20 +173,18 @@ def top_player_of_team():
                         on p.SEASON = t.SEASON
                         and p.GAME = t.GAME
                         and p.TEAM = t.TEAM
-		and p.SEASON {season_select_clause}
                 order by PERCENT_OF_TEAM_ANSWERS desc
 		limit 11
-                """.format(season_select_clause=season_select_clause))
+                """)
 
 @st.cache_data(ttl=36000)
 def top_player_overall():
 	return ps.sqldf("""
                         select p.PLAYER, p.ANSWERS_CORRECT_NO_BONUS, p.TOTAL_ANSWERS_CORRECT
                         from df_players p
-			and p.SEASON {season_select_clause}
                         order by TOTAL_ANSWERS_CORRECT desc
 			limit 11
-                """.format(season_select_clause=season_select_clause))
+                """)
 
 st.write("Histogram of Answers Correct (by answering team)")
 
