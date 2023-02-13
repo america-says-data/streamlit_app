@@ -197,7 +197,7 @@ df_dist = ps.sqldf("""select ANSWERS_CORRECT_BY_ANSWERING_TEAM,
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
                 """.format(season_select_clause=season_select_clause))
 df_dist.reset_index(inplace=True)
-df_dist = df_dist.rename(columns = {'index':'Answers Correct'})
+df_dist = df_dist.set_index("Answers_Correct_By_Answering_Team")
 
 print(df_dist.head())
 
