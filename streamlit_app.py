@@ -199,9 +199,7 @@ df_dist = ps.sqldf("""select ANSWERS_CORRECT_BY_ANSWERING_TEAM,
 df_dist.reset_index(inplace=True)
 df_dist = df_dist.set_index("Answers_Correct_By_Answering_Team")
 
-print(df_dist.head())
-
-st.bar_chart(df_dist)
+st.bar_chart(df_dist[["Percent Times that Number of Answers is Provided"]])
 
 
 
