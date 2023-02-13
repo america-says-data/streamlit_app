@@ -42,7 +42,24 @@ st.write("Currently built off of ", len(df_game), " games")
 
 st.write("Last update - February 12th, 2023")
 
+season_select = st.selectbox(
+    'What season would you like to look at?',
+    ('All Seasons', '1', '2', '3', '4', '5'))
 
+if season_select == "All Seasons":
+	season_select_clause = "IN ('1','2','3','4','5')"
+elif season_select == "1":
+	season_select_clause = "= '1'"
+elif season_select == "2":
+	season_select_clause = "= '2'"
+elif season_select == "3":
+	season_select_clause = "= '3'"
+elif season_select == "4":
+	season_select_clause = "= '4'"
+elif season_select == "5":
+	season_select_clause = "= '5'"
+	
+	
 #### TODO : Create streamlit loading text that says "Creating Player Table"
 @st.cache_data(ttl=36000)
 def build_players_table():
@@ -121,6 +138,7 @@ def best_question():
                 and q.SEASON = t.SEASON
                 and q.GAME = t.GAME
         where TIME_REMAINING is not null
+	and q.season {season_select_clause}
         order by TIME_REMAINING desc
         """)
 
@@ -130,6 +148,7 @@ def best_bonus_round():
                 select SEASON, GAME, WINNER, AFTER_SKIPPED_TIME_REMAINING, BONUS_Q_1, BONUS_Q_2, BONUS_Q_3, BONUS_Q_4
                 from df_game
                 where AFTER_SKIPPED_TIME_REMAINING is not null
+		and SEASON {season_select_clause}
                 order by AFTER_SKIPPED_TIME_REMAINING desc
                 """)
 
@@ -143,6 +162,7 @@ def worst_question():
                         and q.SEASON = t.SEASON
                         and q.GAME = t.GAME
                 where ANSWERS_CORRECT_BY_ANSWERING_TEAM <=2 and QUESTION_TEXT <> 'NA'
+		and q.SEASON {season_select_clause}
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM
                 """)
 
@@ -156,6 +176,7 @@ def top_player_of_team():
                         on p.SEASON = t.SEASON
                         and p.GAME = t.GAME
                         and p.TEAM = t.TEAM
+		and p.SEASON {season_select_clause}
                 order by PERCENT_OF_TEAM_ANSWERS desc
 		limit 11
                 """)
@@ -165,6 +186,7 @@ def top_player_overall():
 	return ps.sqldf("""
                         select p.PLAYER, p.ANSWERS_CORRECT_NO_BONUS, p.TOTAL_ANSWERS_CORRECT
                         from df_players p
+			and p.SEASON {season_select_clause}
                         order by TOTAL_ANSWERS_CORRECT desc
 			limit 11
                 """)
@@ -174,6 +196,7 @@ st.write("Histogram of Answers Correct (by answering team)")
 df_dist = ps.sqldf("""select 100.00*COUNT(*) / (select count(*) from df_question where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> '') as 'Percent Times that Number of Answers is Provided'
                 from df_question
 		where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> ''
+		and SEASON {season_select_clause}
 		group by ANSWERS_CORRECT_BY_ANSWERING_TEAM
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
                 """)
