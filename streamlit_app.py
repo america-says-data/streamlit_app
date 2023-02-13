@@ -140,7 +140,7 @@ def best_question():
         where TIME_REMAINING is not null
 	and q.season {season_select_clause}
         order by TIME_REMAINING desc
-        """)
+        """.format(season_select_clause=season_select_clause))
 
 @st.cache_data(ttl=36000)
 def best_bonus_round():
@@ -150,7 +150,7 @@ def best_bonus_round():
                 where AFTER_SKIPPED_TIME_REMAINING is not null
 		and SEASON {season_select_clause}
                 order by AFTER_SKIPPED_TIME_REMAINING desc
-                """)
+                """.format(season_select_clause=season_select_clause))
 
 @st.cache_data(ttl=36000)
 def worst_question():
@@ -164,7 +164,7 @@ def worst_question():
                 where ANSWERS_CORRECT_BY_ANSWERING_TEAM <=2 and QUESTION_TEXT <> 'NA'
 		and q.SEASON {season_select_clause}
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM
-                """)
+                """.format(season_select_clause=season_select_clause))
 
 @st.cache_data(ttl=36000)
 def top_player_of_team():
@@ -179,7 +179,7 @@ def top_player_of_team():
 		and p.SEASON {season_select_clause}
                 order by PERCENT_OF_TEAM_ANSWERS desc
 		limit 11
-                """)
+                """.format(season_select_clause=season_select_clause))
 
 @st.cache_data(ttl=36000)
 def top_player_overall():
@@ -189,7 +189,7 @@ def top_player_overall():
 			and p.SEASON {season_select_clause}
                         order by TOTAL_ANSWERS_CORRECT desc
 			limit 11
-                """)
+                """.format(season_select_clause=season_select_clause))
 
 st.write("Histogram of Answers Correct (by answering team)")
 
@@ -199,7 +199,7 @@ df_dist = ps.sqldf("""select 100.00*COUNT(*) / (select count(*) from df_question
 		and SEASON {season_select_clause}
 		group by ANSWERS_CORRECT_BY_ANSWERING_TEAM
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
-                """)
+                """.format(season_select_clause=season_select_clause))
 df_dist.index+=1
 
 st.bar_chart(df_dist)
