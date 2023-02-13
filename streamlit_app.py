@@ -199,6 +199,8 @@ df_dist = ps.sqldf("""select ANSWERS_CORRECT_BY_ANSWERING_TEAM,
 df_dist.reset_index(inplace=True)
 df_dist = df_dist.rename(columns = {'index':'Answers Correct'})
 
+print(df_dist.head())
+
 st.bar_chart(df_dist)
 
 
