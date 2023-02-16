@@ -40,7 +40,7 @@ df_question, df_game, df_team, df_round = get_tables()
 
 st.write("Currently built off of ", len(df_game), " games")
 
-st.write("Last update - February 12th, 2023")
+st.write("Last update - February 15th, 2023")
 
 season_select = st.selectbox(
     'What season would you like to look at?',
