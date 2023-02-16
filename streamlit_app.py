@@ -61,7 +61,7 @@ elif season_select == "5":
 	
 	
 #### TODO : Create streamlit loading text that says "Creating Player Table"
-@st.cache_data(ttl=36000)
+@st.cache_data(ttl=86400)
 def build_players_table():
 	df_individual = df_team[["Season", "Game", "Game_id", "Team", "Team_Num", "Team_id", "Captain", "Member_2", "Member_3", "Member_4"]]
 	df_individual = pd.melt(df_individual, 
@@ -128,7 +128,7 @@ def build_players_table():
 
 df_players = build_players_table()
 
-@st.cache_data(ttl=36000)
+@st.cache_data(ttl=86400)
 def best_question():
 	return ps.sqldf("""
         select distinct q.SEASON, q.GAME, q.ROUND, t.TEAM, TIME_REMAINING, QUESTION_TEXT
@@ -141,7 +141,7 @@ def best_question():
         order by TIME_REMAINING desc
         """)
 
-@st.cache_data(ttl=36000)
+@st.cache_data(ttl=86400)
 def best_bonus_round():
 	return ps.sqldf("""
                 select SEASON, GAME, WINNER, AFTER_SKIPPED_TIME_REMAINING, BONUS_Q_1, BONUS_Q_2, BONUS_Q_3, BONUS_Q_4
@@ -150,7 +150,7 @@ def best_bonus_round():
                 order by AFTER_SKIPPED_TIME_REMAINING desc
                 """)
 
-@st.cache_data(ttl=36000)
+@st.cache_data(ttl=86400)
 def worst_question():
 	return ps.sqldf("""
                 select distinct q.SEASON, q.GAME, q.ROUND, t.TEAM, ANSWERS_CORRECT_BY_ANSWERING_TEAM, QUESTION_TEXT
@@ -163,7 +163,7 @@ def worst_question():
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM
                 """)
 
-@st.cache_data(ttl=36000)
+@st.cache_data(ttl=86400)
 def top_player_of_team():
 	return ps.sqldf("""
                 select p.PLAYER, p.TEAM, p.TOTAL_ANSWERS_CORRECT, t.TOTAL_ANSWERS
@@ -177,7 +177,7 @@ def top_player_of_team():
 		limit 11
                 """)
 
-@st.cache_data(ttl=36000)
+@st.cache_data(ttl=86400)
 def top_player_overall():
 	return ps.sqldf("""
                         select p.PLAYER, p.ANSWERS_CORRECT_NO_BONUS, p.TOTAL_ANSWERS_CORRECT
