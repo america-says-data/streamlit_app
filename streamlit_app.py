@@ -4,6 +4,7 @@ import pandasql as ps
 from google.oauth2 import service_account
 import gspread
 import numpy as np
+import matplotlib.pyplot as plt
 
 st.write ("""
 # Analysis Application of *America Says Data* - GSN Game Show
@@ -219,7 +220,9 @@ df_dist_round = df_dist_round.set_index("Answers_Correct_By_Answering_Team")
 df_dist_round = df_dist_round[["Round", "Percent Times that Number of Answers is Provided"]].pivot(index="Answers_Correct_By_Answering_Team"
 									     , columns="Round"
 									     , values="Percent Times that Number of Answers is Provided")
+print(df_dist_round.head())
 
+ax = df.plot(x="X", y=["A", "B", "C"], kind="bar", rot=0)
 st.bar_chart(df_dist_round)
 
 
