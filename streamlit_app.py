@@ -216,12 +216,12 @@ df_dist_round = ps.sqldf("""select ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM,
                 """.format(season_select_clause=season_select_clause))
 
 df_dist_round = df_dist_round[["Answers_Correct_By_Answering_Team", "Round", "Percent Times that Number of Answers is Provided"]].pivot(
-										#index = "Answers_Correct_By_Answering_Team"
-										#, 
-										columns="Round"
+										index = "Answers_Correct_By_Answering_Team"
+										, columns="Round"
 									     	, values="Percent Times that Number of Answers is Provided"
 										)
 
+print(df_dist_round.head())
 fig, ax = plt.subplots()
 ax = df_dist_round.plot(x="Answers_Correct_By_Answering_Team", y=["1", "2", "3"], kind="bar", rot=0)
 
