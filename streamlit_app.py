@@ -214,8 +214,6 @@ df_dist_round = ps.sqldf("""select ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM,
 		group by ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
                 """.format(season_select_clause=season_select_clause))
-df_dist_round.reset_index(inplace=True)
-df_dist_round = df_dist_round.set_index("Answers_Correct_By_Answering_Team")
 
 df_dist_round = df_dist_round[["Answers_Correct_By_Answering_Team", "Round", "Percent Times that Number of Answers is Provided"]].pivot(
 										index = "Answers_Correct_By_Answering_Team"
