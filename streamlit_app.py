@@ -217,8 +217,7 @@ df_dist_round = ps.sqldf("""select ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM,
 df_dist_round.reset_index(inplace=True)
 df_dist_round = df_dist_round.set_index("Answers_Correct_By_Answering_Team")
 
-df_dist_round = df_dist_round[["Round", "Percent Times that Number of Answers is Provided"]].pivot(index="Answers_Correct_By_Answering_Team"
-									     , columns="Round"
+df_dist_round = df_dist_round[["Round", "Percent Times that Number of Answers is Provided"]].pivot(columns="Round"
 									     , values="Percent Times that Number of Answers is Provided")
 
 print(df_dist_round.head())
