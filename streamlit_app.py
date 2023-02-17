@@ -221,9 +221,10 @@ df_dist_round = df_dist_round[["Answers_Correct_By_Answering_Team", "Round", "Pe
 									     	, values="Percent Times that Number of Answers is Provided"
 										)
 
+df_dist_round.plot()
 print(df_dist_round.head())
 fig, ax = plt.subplots()
-ax = df_dist_round.plot(x="Answers_Correct_By_Answering_Team", y=["1", "2", "3"], kind="bar", rot=0)
+#ax = df_dist_round.plot(x="Answers_Correct_By_Answering_Team", y=["1", "2", "3"], kind="bar", rot=0)
 
 st.pyplot(fig)
 
