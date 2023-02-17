@@ -220,10 +220,9 @@ df_dist_round = df_dist_round.set_index("Answers_Correct_By_Answering_Team")
 df_dist_round = df_dist_round[["Round", "Percent Times that Number of Answers is Provided"]].pivot(columns="Round"
 									     , values="Percent Times that Number of Answers is Provided")
 
-print(df_dist_round.head())
 
-### ax = df.plot(x="X", y=["A", "B", "C"], kind="bar", rot=0)
-st.bar_chart(df_dist_round)
+
+st.pyplot(df_dist_round.plot(x="Answers_Correct_By_Answering_Team", y=["1", "2", "3"], kind="bar", rot=0))
 
 
 
