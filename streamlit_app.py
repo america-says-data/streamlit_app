@@ -221,11 +221,15 @@ df_dist_round = df_dist_round[["Answers_Correct_By_Answering_Team", "Round", "Pe
 									     	, values="Percent Times that Number of Answers is Provided"
 										)
 
+df_dist_round_st = df_dist_round
+df_dist_round_st.reset_index(inplace=True)
+df_dist_round_st = df_dist_round_st.set_index("Answers_Correct_By_Answering_Team")
+
+st.line_chart(df_dist_round_st)
 
 #### TODO: update the visuals (titles, axis, etc)
-fig = df_dist_round.plot(kind="bar").figure
-
-st.pyplot(fig)
+#fig = df_dist_round.plot(kind="bar").figure
+#st.pyplot(fig)
 
 
 
