@@ -226,6 +226,8 @@ print(df_dist_round.head())
 fig, ax = plt.subplots()
 #ax = df_dist_round.plot(x="Answers_Correct_By_Answering_Team", y=["1", "2", "3"], kind="bar", rot=0)
 
+plt.show()
+
 st.pyplot(fig)
 
 
