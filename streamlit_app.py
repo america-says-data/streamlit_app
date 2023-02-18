@@ -221,7 +221,7 @@ df_dist_round = df_dist_round[["Answers_Correct_By_Answering_Team", "Round", "Pe
 									     	, values="Percent Times that Number of Answers is Provided"
 										)
 
-fig = df_dist_round.plot(kind="bar")
+fig = df_dist_round.plot(kind="bar").figure
 
 st.pyplot(fig)
 
