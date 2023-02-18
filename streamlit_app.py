@@ -211,12 +211,14 @@ st.write("Histogram of Answers Correct by Round (by answering team)")
 
 
 df_dist_round = ps.sqldf("""select ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM, 
-		100.00*COUNT(*) / (select count(*) 
+		100.00*COUNT(*) / rc.rc_num as 'Percent Times that Number of Answers is Provided'
+                from df_question
+			join (select ROUND, count(*) rc_num 
 					from df_question 
 					where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null and QUESTION_TEXT <> ''
 					and SEASON {season_select_clause}
-					) as 'Percent Times that Number of Answers is Provided'
-                from df_question
+					group by ROUND
+					) rc
 		where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> ''
 		and SEASON {season_select_clause}
 		group by ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM
