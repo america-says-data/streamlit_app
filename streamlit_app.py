@@ -221,6 +221,7 @@ df_dist_round = df_dist_round[["Answers_Correct_By_Answering_Team", "Round", "Pe
 									     	, values="Percent Times that Number of Answers is Provided"
 										)
 
+print(df_dist_round.head(30))
 df_dist_round_st = df_dist_round
 df_dist_round_st.reset_index(inplace=True)
 df_dist_round_st = df_dist_round_st.set_index("Answers_Correct_By_Answering_Team")
