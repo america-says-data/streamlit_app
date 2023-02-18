@@ -240,6 +240,8 @@ df_dist_round_st = df_dist_round_st.set_index("Answers_Correct_By_Answering_Team
 
 df_dist_round_st = df_dist_round_st.rename_axis(None).rename(columns = {"1": "Round 1", "2":"Round 2", "3":"Round 3"})
 
+print(df_dist_round_st.columns())
+
 print(df_dist_round_st.head())
 
 st.line_chart(df_dist_round_st)
