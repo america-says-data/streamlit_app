@@ -226,18 +226,19 @@ df_dist_round = ps.sqldf("""select q.ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM,
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
                 """.format(season_select_clause=season_select_clause))
 
-print(df_dist_round.head(30))
 df_dist_round = df_dist_round[["Answers_Correct_By_Answering_Team", "Round", "Percent Times that Number of Answers is Provided"]].pivot(
 										index = "Answers_Correct_By_Answering_Team"
 										, columns="Round"
 									     	, values="Percent Times that Number of Answers is Provided"
 										)
 
-print(df_dist_round.head(30))
+
 df_dist_round_st = df_dist_round
 df_dist_round_st.reset_index(inplace=True)
 df_dist_round_st = df_dist_round_st.set_index("Answers_Correct_By_Answering_Team")
 
+
+df_dist_round_st.rename(columns = {"1": "Round 1", "2":"Round 2", "3":"Round 3"})
 st.line_chart(df_dist_round_st)
 
 #### TODO: update the visuals (titles, axis, etc)
