@@ -206,7 +206,7 @@ st.bar_chart(df_dist[["Percent Times that Number of Answers is Provided"]])
 st.write("Histogram of Answers Correct by Round (by answering team)")
 
 
-df_dist_round = ps.sqldf("""select ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM, 
+df_dist_round = ps.sqldf("""select ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM, COUNT(*),
 		100.00*COUNT(*) / (select count(*) from df_question where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> '') as 'Percent Times that Number of Answers is Provided'
                 from df_question
 		where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> ''
@@ -215,6 +215,7 @@ df_dist_round = ps.sqldf("""select ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM,
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
                 """.format(season_select_clause=season_select_clause))
 
+print(df_dist_round.head(30))
 df_dist_round = df_dist_round[["Answers_Correct_By_Answering_Team", "Round", "Percent Times that Number of Answers is Provided"]].pivot(
 										index = "Answers_Correct_By_Answering_Team"
 										, columns="Round"
