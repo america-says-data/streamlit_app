@@ -238,7 +238,7 @@ df_dist_round_st.reset_index(inplace=True)
 df_dist_round_st = df_dist_round_st.set_index("Answers_Correct_By_Answering_Team")
 
 
-df_dist_round_st.rename(columns = {"1": "Round 1", "2":"Round 2", "3":"Round 3"})
+df_dist_round_st = df_dist_round_st.rename(columns = {"1": "Round 1", "2":"Round 2", "3":"Round 3"})
 st.line_chart(df_dist_round_st)
 
 #### TODO: update the visuals (titles, axis, etc)
