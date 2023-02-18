@@ -190,7 +190,11 @@ def top_player_overall():
 st.write("Histogram of Answers Correct (by answering team)")
 
 df_dist = ps.sqldf("""select ANSWERS_CORRECT_BY_ANSWERING_TEAM, 
-		100.00*COUNT(*) / (select count(*) from df_question where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> '') as 'Percent Times that Number of Answers is Provided'
+		100.00*COUNT(*) / (select count(*) 
+				from df_question 
+				where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> ''
+				and SEASON {season_select_clause}
+				) as 'Percent Times that Number of Answers is Provided'
                 from df_question
 		where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> ''
 		and SEASON {season_select_clause}
@@ -206,8 +210,12 @@ st.bar_chart(df_dist[["Percent Times that Number of Answers is Provided"]])
 st.write("Histogram of Answers Correct by Round (by answering team)")
 
 
-df_dist_round = ps.sqldf("""select ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM, COUNT(*),
-		100.00*COUNT(*) / (select count(*) from df_question where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> '') as 'Percent Times that Number of Answers is Provided'
+df_dist_round = ps.sqldf("""select ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM, 
+		100.00*COUNT(*) / (select count(*) 
+					from df_question 
+					where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null and QUESTION_TEXT <> ''
+					and SEASON {season_select_clause}
+					) as 'Percent Times that Number of Answers is Provided'
                 from df_question
 		where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> ''
 		and SEASON {season_select_clause}
