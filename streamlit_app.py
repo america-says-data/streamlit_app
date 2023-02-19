@@ -124,17 +124,24 @@ def build_players_table():
 	
 	df_player_unmelt_test = ps.sqldf("""
 	select SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER, max(R1) '1', max(R2) '2', max(R3) '3', max(RB) 'B'
+	, sum(RC1) , sum(RC2) , sum(RC3) , sum(RCB)
 	from (select SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER,
 		CASE WHEN ROUND = '1' THEN NUM_ANSWERS ELSE 0 END AS 'R1',
 		CASE WHEN ROUND = '2' THEN NUM_ANSWERS ELSE 0 END AS 'R2',
 		CASE WHEN ROUND = '3' THEN NUM_ANSWERS ELSE 0 END AS 'R3',
-		CASE WHEN ROUND = 'B' THEN NUM_ANSWERS ELSE 0 END AS 'RB'
+		CASE WHEN ROUND = 'B' THEN NUM_ANSWERS ELSE 0 END AS 'RB',
+		
+		CASE WHEN ROUND = '1' THEN 1 ELSE 0 END AS 'RC1',
+		CASE WHEN ROUND = '2' THEN 1 ELSE 0 END AS 'RC2',
+		CASE WHEN ROUND = '3' THEN 1 ELSE 0 END AS 'RC3',
+		CASE WHEN ROUND = 'B' THEN 1 ELSE 0 END AS 'RCB'
+		
 	from player_join_df)
 	group by SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER
-	
+	order by sum(RCB) desc
 	""")
 	
-	print(df_player_unmelt_test)
+	print(df_player_unmelt_test.head(20))
 
 	df_player_unmelt = player_join_df.pivot(index = ["Season", "Game", "Team", "Player", "Player_Number"], columns = "Round", values = "NUM_ANSWERS").reset_index()
 
