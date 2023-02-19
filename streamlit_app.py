@@ -99,6 +99,14 @@ def build_players_table():
                         group by SEASON, GAME, TEAM, ROUND, VALUE
                         """)
 
+	checking_dataframe = ps.sqldf("""
+	SELECT SEASON, GAME, TEAM, ROUND, VALUE, NUM_ANSWERS, COUNT(*)
+	from df_bonus_tally_new
+	group by SEASON, GAME, TEAM, ROUND, VALUE, NUM_ANSWERS
+	order by COUNT(*) desc
+	""")
+	
+	print(checking_dataframe.head())
 
 	df_tally = df_question_tally_new.append(df_bonus_tally_new)
 
