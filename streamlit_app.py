@@ -98,7 +98,7 @@ def build_players_table():
 			, "Team_Member_Bonus_A_3_1", "Team_Member_Bonus_A_3_2"
 			, "Team_Member_Bonus_A_3_3","Team_Member_Bonus_A_4_1"
 			, "Team_Member_Bonus_A_4_2", "Team_Member_Bonus_A_4_3"
-			, "Team_Member_Bonus_A_4_4"]] = [["Team_Member_Tiebreaker", "Team_Member_Bonus_A_1_1"
+			, "Team_Member_Bonus_A_4_4"]] = df_bonus_tally[["Team_Member_Tiebreaker", "Team_Member_Bonus_A_1_1"
 							 , "Team_Member_Bonus_A_2_1", "Team_Member_Bonus_A_2_2"
 							 , "Team_Member_Bonus_A_3_1", "Team_Member_Bonus_A_3_2"
 							 , "Team_Member_Bonus_A_3_3","Team_Member_Bonus_A_4_1"
