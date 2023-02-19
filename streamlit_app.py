@@ -113,10 +113,7 @@ def build_players_table():
 		and i.PLAYER_NUMBER = CAST(q.VALUE AS INT)
         """)
 
-	print(player_join_df[["Season", "Game", "Team", "Player", "Player_Number"]].groupby(["Season", "Game", "Team", "Player", "Player_Number"]) \
-	      			.count() \
-	      			.sort_values(by = 'count', ascending=False) \
-                             	.head(5))
+	print(player_join_df[["Season", "Game", "Team", "Player", "Player_Number"]].groupby(["Season", "Game", "Team", "Player", "Player_Number"]).count().head())
 
 	df_player_unmelt = player_join_df.pivot(index = ["Season", "Game", "Team", "Player", "Player_Number"], columns = "Round", values = "NUM_ANSWERS").reset_index()
 
