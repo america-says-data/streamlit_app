@@ -89,21 +89,21 @@ def build_players_table():
 			group by SEASON, GAME, TEAM, ROUND, VALUE
 			""")
 
-	df_bonus_tally = pd.melt(df_game,
-                        id_vars =["Season", "Game", "Game_id", "Team_1", "Winner"],
-                        value_vars =["Team_Member_Tiebreaker", "Team_Member_Bonus_A_1_1", "Team_Member_Bonus_A_2_1", "Team_Member_Bonus_A_2_2", "Team_Member_Bonus_A_3_1", "Team_Member_Bonus_A_3_2", "Team_Member_Bonus_A_3_3","Team_Member_Bonus_A_4_1", "Team_Member_Bonus_A_4_2", "Team_Member_Bonus_A_4_3", "Team_Member_Bonus_A_4_4"])
-
-	df_bonus_tally[["Team_Member_Tiebreaker", "Team_Member_Bonus_A_1_1"
+	df_game[["Team_Member_Tiebreaker", "Team_Member_Bonus_A_1_1"
 			, "Team_Member_Bonus_A_2_1", "Team_Member_Bonus_A_2_2"
 			, "Team_Member_Bonus_A_3_1", "Team_Member_Bonus_A_3_2"
 			, "Team_Member_Bonus_A_3_3","Team_Member_Bonus_A_4_1"
 			, "Team_Member_Bonus_A_4_2", "Team_Member_Bonus_A_4_3"
-			, "Team_Member_Bonus_A_4_4"]] = df_bonus_tally[["Team_Member_Tiebreaker", "Team_Member_Bonus_A_1_1"
+			, "Team_Member_Bonus_A_4_4"]] = df_game[["Team_Member_Tiebreaker", "Team_Member_Bonus_A_1_1"
 							 , "Team_Member_Bonus_A_2_1", "Team_Member_Bonus_A_2_2"
 							 , "Team_Member_Bonus_A_3_1", "Team_Member_Bonus_A_3_2"
 							 , "Team_Member_Bonus_A_3_3","Team_Member_Bonus_A_4_1"
 							 , "Team_Member_Bonus_A_4_2", "Team_Member_Bonus_A_4_3"
 							 , "Team_Member_Bonus_A_4_4"]].apply(pd.to_numeric)
+	
+	df_bonus_tally = pd.melt(df_game,
+                        id_vars =["Season", "Game", "Game_id", "Team_1", "Winner"],
+                        value_vars =["Team_Member_Tiebreaker", "Team_Member_Bonus_A_1_1", "Team_Member_Bonus_A_2_1", "Team_Member_Bonus_A_2_2", "Team_Member_Bonus_A_3_1", "Team_Member_Bonus_A_3_2", "Team_Member_Bonus_A_3_3","Team_Member_Bonus_A_4_1", "Team_Member_Bonus_A_4_2", "Team_Member_Bonus_A_4_3", "Team_Member_Bonus_A_4_4"])
 	
 	
 	print(df_bonus_tally[df_bonus_tally.Game_id == '1-2018-Jun 18-Beachcombers vs Travel Buddies'])
