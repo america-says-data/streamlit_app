@@ -114,9 +114,9 @@ def build_players_table():
         """)
 
 	checking_dataframe = ps.sqldf("""
-		select SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER, NUM_ANSWERS, COUNT(*)
+		select SEASON, GAME, ROUND, TEAM, PLAYER, PLAYER_NUMBER, NUM_ANSWERS, COUNT(*)
 		from player_join_df
-		GROUP BY SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER, NUM_ANSWERS
+		GROUP BY SEASON, GAME, ROUND, TEAM, PLAYER, PLAYER_NUMBER, NUM_ANSWERS
 		ORDER BY COUNT(*) DESC
 		""")
 	print(checking_dataframe.head(20))
