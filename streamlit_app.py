@@ -113,7 +113,7 @@ def build_players_table():
 		and i.PLAYER_NUMBER = CAST(q.VALUE AS INT)
         """)
 
-
+	print(player_join_df[["Season", "Game", "Team", "Player", "Player_Number"]].nunique())
 
 	df_player_unmelt = player_join_df.pivot(index = ["Season", "Game", "Team", "Player", "Player_Number"], columns = "Round", values = "NUM_ANSWERS").reset_index()
 
