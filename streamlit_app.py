@@ -123,12 +123,14 @@ def build_players_table():
 	print(player_join_df.head())
 	
 	df_player_unmelt_test = ps.sqldf("""
-	select SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER,
+	select SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER, max('1') '1', max('2') '2', max('3') '3', max('B') 'B'
+	from (select SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER,
 		CASE WHEN ROUND = '1' THEN NUM_ANSWERS ELSE 0 END AS '1',
 		CASE WHEN ROUND = '2' THEN NUM_ANSWERS ELSE 0 END AS '2',
 		CASE WHEN ROUND = '3' THEN NUM_ANSWERS ELSE 0 END AS '3',
 		CASE WHEN ROUND = 'B' THEN NUM_ANSWERS ELSE 0 END AS 'B'
-	from player_join_df
+	from player_join_df)
+	group by SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER
 	
 	""")
 	
