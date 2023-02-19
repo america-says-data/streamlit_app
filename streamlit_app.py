@@ -78,7 +78,16 @@ def build_players_table():
 	df_individual["Player"] = df_individual["value"]+"-"+df_individual["Team"]
 	df_individual["Captain"] = np.where(df_individual['variable']=="Captain", True, False)
 
-
+	
+	df_question[["Team_Member_Answer_1", "Team_Member_Answer_2"
+		    , "Team_Member_Answer_3", "Team_Member_Answer_4"
+		    , "Team_Member_Answer_5", "Team_Member_Answer_6"
+		    , "Team_Member_Answer_7"]] =  df_question[["Team_Member_Answer_1", "Team_Member_Answer_2"
+		    					, "Team_Member_Answer_3", "Team_Member_Answer_4"
+		    					, "Team_Member_Answer_5", "Team_Member_Answer_6"
+		    					, "Team_Member_Answer_7"]].apply(pd.to_numeric)
+	
+	
 	df_question_tally = pd.melt(df_question,
                         id_vars =["Season", "Game", "Round", "Team", "Question", "Question_id"],
                         value_vars =["Team_Member_Answer_1", "Team_Member_Answer_2", "Team_Member_Answer_3", "Team_Member_Answer_4", "Team_Member_Answer_5", "Team_Member_Answer_6", "Team_Member_Answer_7"])
@@ -106,22 +115,12 @@ def build_players_table():
                         value_vars =["Team_Member_Tiebreaker", "Team_Member_Bonus_A_1_1", "Team_Member_Bonus_A_2_1", "Team_Member_Bonus_A_2_2", "Team_Member_Bonus_A_3_1", "Team_Member_Bonus_A_3_2", "Team_Member_Bonus_A_3_3","Team_Member_Bonus_A_4_1", "Team_Member_Bonus_A_4_2", "Team_Member_Bonus_A_4_3", "Team_Member_Bonus_A_4_4"])
 	
 	
-	print(df_bonus_tally[df_bonus_tally.Game_id == '1-2018-Jun 18-Beachcombers vs Travel Buddies'])
-	
 	df_bonus_tally_new = ps.sqldf("""
                         select SEASON, GAME, CASE WHEN TEAM_1 = WINNER THEN 1 ELSE 2 END as "Team", "B" as "Round", VALUE, COUNT(*) as NUM_ANSWERS
                         from df_bonus_tally
                         group by SEASON, GAME, TEAM, ROUND, VALUE
                         """)
 
-	checking_dataframe = ps.sqldf("""
-	SELECT SEASON, GAME, TEAM, ROUND, VALUE, NUM_ANSWERS, COUNT(*)
-	from df_bonus_tally_new
-	group by SEASON, GAME, TEAM, ROUND, VALUE, NUM_ANSWERS
-	order by COUNT(*) desc
-	""")
-	
-	print(checking_dataframe.head())
 
 	df_tally = df_question_tally_new.append(df_bonus_tally_new)
 
@@ -135,28 +134,7 @@ def build_players_table():
 		and i.TEAM_NUM = q.TEAM
 		and i.PLAYER_NUMBER = CAST(q.VALUE AS INT)
         """)
-	print(player_join_df[player_join_df.Player == 'Andre-Travel Buddies'])
 	
-	df_player_unmelt_test = ps.sqldf("""
-	select SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER, max(R1) '1', max(R2) '2', max(R3) '3', max(RB) 'B'
-	, sum(RC1) , sum(RC2) , sum(RC3) , sum(RCB)
-	from (select SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER,
-		CASE WHEN ROUND = '1' THEN NUM_ANSWERS ELSE 0 END AS 'R1',
-		CASE WHEN ROUND = '2' THEN NUM_ANSWERS ELSE 0 END AS 'R2',
-		CASE WHEN ROUND = '3' THEN NUM_ANSWERS ELSE 0 END AS 'R3',
-		CASE WHEN ROUND = 'B' THEN NUM_ANSWERS ELSE 0 END AS 'RB',
-		
-		CASE WHEN ROUND = '1' THEN 1 ELSE 0 END AS 'RC1',
-		CASE WHEN ROUND = '2' THEN 1 ELSE 0 END AS 'RC2',
-		CASE WHEN ROUND = '3' THEN 1 ELSE 0 END AS 'RC3',
-		CASE WHEN ROUND = 'B' THEN 1 ELSE 0 END AS 'RCB'
-		
-	from player_join_df)
-	group by SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER
-	order by sum(RCB) desc
-	""")
-	
-	print(df_player_unmelt_test.head(20))
 
 	df_player_unmelt = player_join_df.pivot(index = ["Season", "Game", "Team", "Player", "Player_Number"], columns = "Round", values = "NUM_ANSWERS").reset_index()
 
