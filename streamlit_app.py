@@ -120,7 +120,7 @@ def build_players_table():
 		and i.TEAM_NUM = q.TEAM
 		and i.PLAYER_NUMBER = CAST(q.VALUE AS INT)
         """)
-	print(player_join_df.head())
+	print(player_join_df[player_join_df.Player == 'Andre-Travel Buddies'])
 	
 	df_player_unmelt_test = ps.sqldf("""
 	select SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER, max(R1) '1', max(R2) '2', max(R3) '3', max(RB) 'B'
