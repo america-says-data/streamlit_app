@@ -111,17 +111,8 @@ def build_players_table():
 		and i.GAME = q.GAME
 		and i.TEAM_NUM = q.TEAM
 		and i.PLAYER_NUMBER = CAST(q.VALUE AS INT)
-	where i.Season IN ('1','2')
         """)
-
-	checking_dataframe = ps.sqldf("""
-		select SEASON, GAME, ROUND, TEAM, PLAYER, PLAYER_NUMBER, NUM_ANSWERS, COUNT(*)
-		from player_join_df
-		GROUP BY SEASON, GAME, ROUND, TEAM, PLAYER, PLAYER_NUMBER, NUM_ANSWERS
-		ORDER BY COUNT(*) DESC
-		""")
-	print(checking_dataframe.head(20))
-	
+	print(player_join_df.head())
 	
 	
 
