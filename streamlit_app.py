@@ -122,7 +122,17 @@ def build_players_table():
         """)
 	print(player_join_df.head())
 	
+	df_player_unmelt_test = ps.sqldf("""
+	select SEASON, GAME, TEAM, PLAYER, PLAYER_NUMBER,
+	CASE WHEN ROUND = '1' THEN NUM_ANSWERS ELSE 0 END AS '1'
+	CASE WHEN ROUND = '2' THEN NUM_ANSWERS ELSE 0 END AS '2'
+	CASE WHEN ROUND = '3' THEN NUM_ANSWERS ELSE 0 END AS '3'
+	CASE WHEN ROUND = 'B' THEN NUM_ANSWERS ELSE 0 END AS 'B'
+	from player_join_df
 	
+	""")
+	
+	print(df_player_unmelt_test)
 
 	df_player_unmelt = player_join_df.pivot(index = ["Season", "Game", "Team", "Player", "Player_Number"], columns = "Round", values = "NUM_ANSWERS").reset_index()
 
