@@ -111,6 +111,7 @@ def build_players_table():
 		and i.GAME = q.GAME
 		and i.TEAM_NUM = q.TEAM
 		and i.PLAYER_NUMBER = CAST(q.VALUE AS INT)
+	where i.Season IN ('1','2')
         """)
 
 	checking_dataframe = ps.sqldf("""
