@@ -193,6 +193,13 @@ def top_player_overall():
 			limit 11
                 """)
 
+
+
+
+print(df_question.sample()['Question_text'])
+
+### PAGE LAYOUT
+
 with tab1:
 	st.header("Random America Says Question")
 	if st.button('Produce Question!'):
