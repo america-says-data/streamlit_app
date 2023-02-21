@@ -217,7 +217,7 @@ with tab1:
 		
 	
 	
-	if (st.button('Produce Question!'), on_click = callback) 
+	if (st.button('Produce Question!', on_click = callback) 
 		or st.sessions_state.button_clicked):
 		if 'question' in st.session_state:
 			del st.session_state.question
