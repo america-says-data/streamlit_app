@@ -207,6 +207,11 @@ def option_case(answer_string):
 def question_callback():
 	st.session_state.question_button = True
 
+def answer_callback_1():
+	st.session_state.answer_button_1 = True
+def answer_callback_2():
+	st.session_state.answer_button_2 = True
+
 ### PAGE LAYOUT
 
 with tab1:
@@ -219,6 +224,8 @@ with tab1:
 			st.session_state.question = df_question[df_question.Question_Text.notnull()].sample()
 			if 'question_button' not in st.session_state:
 				st.session_state.question_button = False
+			if 'answer_button_1' not in st.session_state:
+				st.session_state.answer_button_1 = False
 			
 			
 			
@@ -236,12 +243,16 @@ with tab1:
 			answer_7 = st.session_state.question.iloc[0]['Answer_7']
 			
 			
-			if st.button(option_case(answer_1)):
+			if st.button(option_case(answer_1), on_click = answer_callback_1) or st.session_state.answer_callback_1):
 				st.write(answer_1)
-			#if "button_clicked_1" not in st.session_state:
-			#	st.session_state.button_clicked_1 = False		
-			#if (st.button(option_case(answer_1), on_click=callback1) or st.session_state.button_clicked_1):
-			#	st.write(answer_1)
+			if st.button(option_case(answer_2), on_click = answer_callback_2) or st.session_state.answer_callback_2):
+				st.write(answer_2)
+
+				
+		if st.button('Reset Answers'):
+			st.session_state.answer_button_1 = False
+			st.session_state.answer_button_2 = False
+	
 
 
 with tab2:
