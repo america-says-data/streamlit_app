@@ -227,19 +227,14 @@ def callback7():
 with tab1:
 	st.header("Random America Says Question")
 	
-	if "button_clicked_top" not in st.session_state:
-		st.session_state.button_clicked_top = False
-		
-	
-	
-	if (st.button('Produce Question!', on_click = callback) 
-		or st.session_state.button_clicked_top):
+	if st.button('Produce Question!'):
 		if 'question' in st.session_state:
 			del st.session_state.question
-			del st.session_state.button_clicked_1
 		if 'question' not in st.session_state:
 			st.session_state.question = df_question[df_question.Question_Text.notnull()].sample()
-
+			
+			
+			
 			st.write(st.session_state.question.iloc[0]['Question_Text'])
 		
 			answer_1 = st.session_state.question.iloc[0]['Answer_1']
