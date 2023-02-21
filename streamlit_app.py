@@ -199,10 +199,6 @@ def top_player_overall():
 ### PAGE LAYOUT
 
 with tab1:
-	btn = st.button("Click Me!")
-	if (btn):
-		st.markdown(
-                    '<style> .streamlit-button.primary-button{visibility: hidden;} .streamlit-button.primary-button:after{content: "Clicked"; visibility: visible; position:relative;-webkit-tap-highlight-color: rgba(38,39,48,0);box-sizing: border-box;font-family: inherit;font-size: inherit;overflow: visible;text-transform: none;display: inline-flex;align-items: center;justify-content: center;font-weight: 400;border-radius: .25rem;margin: 0;line-height: 1.6;color: #262730;cursor: pointer;padding: .25rem .75rem;background-color: #fff;border: 1px solid #e6eaf1; left: 0;}</style>', unsafe_allow_html=True)
 	st.header("Random America Says Question")
 	
 	if st.button('Produce Question!'):
@@ -212,17 +208,10 @@ with tab1:
 
 		st.write(st.session_state.question.iloc[0]['Question_Text'])
 		
-		container_1, container_2, container_3, container_4, container_5, container_6, container_7 = st.empty(), st.empty(), st.empty(), st.empty(), st.empty(), st.empty(), st.empty()
-		
-		button_A = container_1.button('Btn A')
-		if button_A:
-			container_1.empty()
-			button_B = container_1.button('Btn B')
-	
-		button_C = container_2.button('Btn 3')
-		if button_C:
-			container_2.empty()
-			button_C = container_2.button('Btn 8')
+		if st.button('Btn A'):
+			st.write('clicked')
+		if st.button('Btn B'):
+			st.write('clicked')
 
 
 with tab2:
