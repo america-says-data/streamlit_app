@@ -208,10 +208,6 @@ with tab1:
 
 			st.write(st.session_state.question.iloc[0]['Question_Text'])
 		
-			if st.button('Btn A'):
-				st.write('clicked')
-			if st.button('Btn B'):
-				st.write('clicked')
 
 
 with tab2:
