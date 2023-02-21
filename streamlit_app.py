@@ -223,7 +223,7 @@ with tab1:
 			
 			
 	if 'question' in st.session_state:
-		if ( st.button('Reveal Question', on_click = question_callback 
+		if ( st.button('Reveal Question', on_click = question_callback) 
 			      or st.session_state.question_button):
 			st.write(st.session_state.question.iloc[0]['Question_Text'])
 		
