@@ -211,7 +211,17 @@ def answer_callback_1():
 	st.session_state.answer_button_1 = True
 def answer_callback_2():
 	st.session_state.answer_button_2 = True
-
+def answer_callback_3():
+	st.session_state.answer_button_3 = True
+def answer_callback_4():
+	st.session_state.answer_button_4 = True
+def answer_callback_5():
+	st.session_state.answer_button_5 = True
+def answer_callback_6():
+	st.session_state.answer_button_6 = True
+def answer_callback_7():
+	st.session_state.answer_button_7 = True
+	
 ### PAGE LAYOUT
 
 with tab1:
@@ -226,8 +236,32 @@ with tab1:
 				st.session_state.question_button = False
 			if 'answer_button_1' not in st.session_state:
 				st.session_state.answer_button_1 = False
+			else:
+				st.session_state.answer_button_1 = False
 			if 'answer_button_2' not in st.session_state:
 				st.session_state.answer_button_2 = False
+			else:
+				st.session_state.answer_button_2 = False
+			if 'answer_button_3' not in st.session_state:
+				st.session_state.answer_button_3 = False
+			else:
+				st.session_state.answer_button_3 = False
+			if 'answer_button_4' not in st.session_state:
+				st.session_state.answer_button_4 = False
+			else:
+				st.session_state.answer_button_4 = False
+			if 'answer_button_5' not in st.session_state:
+				st.session_state.answer_button_5 = False
+			else:
+				st.session_state.answer_button_5 = False
+			if 'answer_button_6' not in st.session_state:
+				st.session_state.answer_button_6 = False
+			else:
+				st.session_state.answer_button_6 = False
+			if 'answer_button_7' not in st.session_state:
+				st.session_state.answer_button_7 = False
+			else:
+				st.session_state.answer_button_7 = False
 			
 			
 			
@@ -249,11 +283,26 @@ with tab1:
 				st.write(answer_1)
 			if (st.button(option_case(answer_2), on_click = answer_callback_2) or st.session_state.answer_button_2):
 				st.write(answer_2)
+			if (st.button(option_case(answer_3), on_click = answer_callback_3) or st.session_state.answer_button_3):
+				st.write(answer_3)
+			if (st.button(option_case(answer_4), on_click = answer_callback_4) or st.session_state.answer_button_4):
+				st.write(answer_4)
+			if (st.button(option_case(answer_5), on_click = answer_callback_5) or st.session_state.answer_button_5):
+				st.write(answer_5)
+			if (st.button(option_case(answer_6), on_click = answer_callback_6) or st.session_state.answer_button_6):
+				st.write(answer_6)
+			if (st.button(option_case(answer_7), on_click = answer_callback_7) or st.session_state.answer_button_7):
+				st.write(answer_7)
 
 				
 		if st.button('Reset Answers'):
 			st.session_state.answer_button_1 = False
 			st.session_state.answer_button_2 = False
+			st.session_state.answer_button_3 = False
+			st.session_state.answer_button_4 = False
+			st.session_state.answer_button_5 = False
+			st.session_state.answer_button_6 = False
+			st.session_state.answer_button_7 = False
 	
 
 
