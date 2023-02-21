@@ -200,14 +200,15 @@ def top_player_overall():
 
 with tab1:
 	st.header("Random America Says Question")
+	
 	if st.button('Produce Question!'):
+		container_1, container_2, container_3, container_4, container_5, container_6, container_7 = st.empty(), st.empty(), st.empty(), st.empty(), st.empty(), st.empty(), st.empty()
 		del st.session_state.question
 		if 'question' not in st.session_state:
 			st.session_state.question = df_question[df_question.Question_Text.notnull()].sample()
 
 		st.write(st.session_state.question.iloc[0]['Question_Text'])
 	
-		container_1, container_2, container_3, container_4, container_5, container_6, container_7 = st.empty(), st.empty(), st.empty(), st.empty(), st.empty(), st.empty(), st.empty()
 		button_A = container_1.button('Btn A')
 		if button_A:
 			container_1.empty()
