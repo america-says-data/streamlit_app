@@ -227,7 +227,7 @@ def callback7():
 with tab1:
 	st.header("Random America Says Question")
 	
-	if "button_clicked" not in st.session_state:
+	if "button_clicked_top" not in st.session_state:
 		st.session_state.button_clicked_top = False
 		
 	
@@ -249,19 +249,32 @@ with tab1:
 			answer_6 = st.session_state.question.iloc[0]['Answer_6']
 			answer_7 = st.session_state.question.iloc[0]['Answer_7']
 					
-					
+			if "button_clicked_1" not in st.session_state:
+				st.session_state.button_clicked_1 = False		
 			if (st.button(option_case(answer_1), on_click=callback1) or st.sessions_state.button_clicked_1):
 				st.write(answer_1)
+			if "button_clicked_2" not in st.session_state:
+				st.session_state.button_clicked_2 = False
 			if (st.button(option_case(answer_2), on_click=callback1) or st.sessions_state.button_clicked_2):
 				st.write(answer_2)
+			if "button_clicked_3" not in st.session_state:
+				st.session_state.button_clicked_3 = False
 			if (st.button(option_case(answer_3), on_click=callback1) or st.sessions_state.button_clicked_3):
 				st.write(answer_3)
+			if "button_clicked_4" not in st.session_state:
+				st.session_state.button_clicked_4 = False
 			if (st.button(option_case(answer_4), on_click=callback1) or st.sessions_state.button_clicked_4):
 				st.write(answer_4)
+			if "button_clicked_5" not in st.session_state:
+				st.session_state.button_clicked_5 = False
 			if (st.button(option_case(answer_5), on_click=callback1) or st.sessions_state.button_clicked_5):
 				st.write(answer_5)
+			if "button_clicked_6" not in st.session_state:
+				st.session_state.button_clicked_6 = False
 			if (st.button(option_case(answer_6), on_click=callback1) or st.sessions_state.button_clicked_6):
 				st.write(answer_6)
+			if "button_clicked_7" not in st.session_state:
+				st.session_state.button_clicked_7 = False
 			if (st.button(option_case(answer_7), on_click=callback1) or st.sessions_state.button_clicked_7):
 				st.write(answer_7)
 
