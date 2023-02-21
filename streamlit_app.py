@@ -202,7 +202,8 @@ with tab1:
 	st.header("Random America Says Question")
 	
 	if st.button('Produce Question!'):
-		del st.session_state.question
+		if 'question' in st.session_state:
+			del st.session_state.question
 		if 'question' not in st.session_state:
 			st.session_state.question = df_question[df_question.Question_Text.notnull()].sample()
 
