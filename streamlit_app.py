@@ -43,23 +43,8 @@ st.write("Currently built off of ", len(df_game), " games")
 
 st.write("Last update - February 15th, 2023")
 
-season_select = st.selectbox(
-    'What season would you like to look at?',
-    ('All Seasons', '1', '2', '3', '4', '5'))
+tab1, tab2= st.tabs(["Quick Question", "Stats"])
 
-if season_select == "All Seasons":
-	season_select_clause = "IN ('1','2','3','4','5')"
-elif season_select == "1":
-	season_select_clause = "= '1'"
-elif season_select == "2":
-	season_select_clause = "= '2'"
-elif season_select == "3":
-	season_select_clause = "= '3'"
-elif season_select == "4":
-	season_select_clause = "= '4'"
-elif season_select == "5":
-	season_select_clause = "= '5'"
-	
 	
 #### TODO : Create streamlit loading text that says "Creating Player Table"
 @st.cache_data(ttl=86400)
@@ -208,9 +193,33 @@ def top_player_overall():
 			limit 11
                 """)
 
-st.write("Histogram of Answers Correct (by answering team)")
+with tab1:
+	if st.button('Say hello'):
+		st.button('Say goodbye')
 
-df_dist = ps.sqldf("""select ANSWERS_CORRECT_BY_ANSWERING_TEAM, 
+
+with tab2:
+	season_select = st.selectbox(
+    		'What season would you like to look at?',
+		    ('All Seasons', '1', '2', '3', '4', '5'))
+
+	if season_select == "All Seasons":
+		season_select_clause = "IN ('1','2','3','4','5')"
+	elif season_select == "1":
+		season_select_clause = "= '1'"
+	elif season_select == "2":
+		season_select_clause = "= '2'"
+	elif season_select == "3":
+		season_select_clause = "= '3'"
+	elif season_select == "4":
+		season_select_clause = "= '4'"
+	elif season_select == "5":
+		season_select_clause = "= '5'"
+	
+
+	st.write("Histogram of Answers Correct (by answering team)")
+
+	df_dist = ps.sqldf("""select ANSWERS_CORRECT_BY_ANSWERING_TEAM, 
 		100.00*COUNT(*) / (select count(*) 
 				from df_question 
 				where QUESTION_TEXT <> 'NA' and QUESTION_TEXT is not null AND QUESTION_TEXT <> ''
@@ -222,16 +231,16 @@ df_dist = ps.sqldf("""select ANSWERS_CORRECT_BY_ANSWERING_TEAM,
 		group by ANSWERS_CORRECT_BY_ANSWERING_TEAM
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
                 """.format(season_select_clause=season_select_clause))
-df_dist.reset_index(inplace=True)
-df_dist = df_dist.set_index("Answers_Correct_By_Answering_Team")
+	df_dist.reset_index(inplace=True)
+	df_dist = df_dist.set_index("Answers_Correct_By_Answering_Team")
 
-st.bar_chart(df_dist[["Percent Times that Number of Answers is Provided"]])
-
-
-st.write("Histogram of Answers Correct by Round (by answering team)")
+	st.bar_chart(df_dist[["Percent Times that Number of Answers is Provided"]])
 
 
-df_dist_round = ps.sqldf("""select q.ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM, 
+	st.write("Histogram of Answers Correct by Round (by answering team)")
+
+
+	df_dist_round = ps.sqldf("""select q.ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM, 
 		100.00*COUNT(*) / rc.rc_num as 'Percent Times that Number of Answers is Provided'
                 from df_question q
 			join (select ROUND, count(*) rc_num 
@@ -247,21 +256,21 @@ df_dist_round = ps.sqldf("""select q.ROUND, ANSWERS_CORRECT_BY_ANSWERING_TEAM,
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM 
                 """.format(season_select_clause=season_select_clause))
 
-df_dist_round = df_dist_round[["Answers_Correct_By_Answering_Team", "Round", "Percent Times that Number of Answers is Provided"]].pivot(
+	df_dist_round = df_dist_round[["Answers_Correct_By_Answering_Team", "Round", "Percent Times that Number of Answers is Provided"]].pivot(
 										index = "Answers_Correct_By_Answering_Team"
 										, columns="Round"
 									     	, values="Percent Times that Number of Answers is Provided"
 										)
 
 
-df_dist_round_st = df_dist_round
-df_dist_round_st.reset_index(inplace=True)
-df_dist_round_st = df_dist_round_st.set_index("Answers_Correct_By_Answering_Team")
+	df_dist_round_st = df_dist_round
+	df_dist_round_st.reset_index(inplace=True)
+	df_dist_round_st = df_dist_round_st.set_index("Answers_Correct_By_Answering_Team")
 
 
-df_dist_round_st = df_dist_round_st.rename_axis(None).rename(columns = {1: "Round 1", 2:"Round 2", 3:"Round 3"})
+	df_dist_round_st = df_dist_round_st.rename_axis(None).rename(columns = {1: "Round 1", 2:"Round 2", 3:"Round 3"})
 
-st.line_chart(df_dist_round_st)
+	st.line_chart(df_dist_round_st)
 
 #### TODO: update the visuals (titles, axis, etc)
 #fig = df_dist_round.plot(kind="bar").figure
@@ -269,31 +278,31 @@ st.line_chart(df_dist_round_st)
 
 
 
-option = st.selectbox(
-    'What would you like to explore?',
-    ('Best Question', 'Worst Question', 'Best Bonus Round', 'Top Player of Team', 'Top Player Overall', 'Custom Query...'))
+	option = st.selectbox(
+    		'What would you like to explore?',
+		    ('Best Question', 'Worst Question', 'Best Bonus Round', 'Top Player of Team', 'Top Player Overall', 'Custom Query...'))
 
-if option == 'Best Question':
-	final_df = best_question()
-elif option == 'Best Bonus Round':
-	final_df = best_bonus_round()
-elif option == 'Worst Question':
-	final_df = worst_question()
-elif option == 'Top Player Overall':
-        final_df = top_player_overall()
-elif option == 'Top Player of Team':
-        final_df = top_player_of_team()
+	if option == 'Best Question':
+		final_df = best_question()
+	elif option == 'Best Bonus Round':
+		final_df = best_bonus_round()
+	elif option == 'Worst Question':
+		final_df = worst_question()
+	elif option == 'Top Player Overall':
+        	final_df = top_player_overall()
+	elif option == 'Top Player of Team':
+        	final_df = top_player_of_team()
 
-else:
-	text_input = st.text_input(
-        "Write your query here (df_question, df_game, df_team, df_players, df_round)",
-        label_visibility="visible",
-        disabled=False,
-        placeholder="QUERY",
-    )
-	final_df = ps.sqldf(text_input)
+	else:
+		text_input = st.text_input(
+	        "Write your query here (df_question, df_game, df_team, df_players, df_round)",
+        	label_visibility="visible",
+	        disabled=False,
+        	placeholder="QUERY",
+    		)
+		final_df = ps.sqldf(text_input)
 	
 
-st.dataframe(final_df)
+	st.dataframe(final_df)
 
 
