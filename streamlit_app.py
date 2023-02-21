@@ -194,8 +194,11 @@ def top_player_overall():
                 """)
 
 with tab1:
-	if st.button('Say hello'):
-		st.button('Say goodbye')
+	container_2 = st.empty()
+      	button_A = container_2.button('Btn A')
+      	if button_A:
+        	container_2.empty()
+		button_B = container_2.button('Btn B')
 
 
 with tab2:
