@@ -206,12 +206,12 @@ with tab1:
 		if 'question' not in st.session_state:
 			st.session_state.question = df_question[df_question.Question_Text.notnull()].sample()
 
-		st.write(st.session_state.question.iloc[0]['Question_Text'])
+			st.write(st.session_state.question.iloc[0]['Question_Text'])
 		
-		if st.button('Btn A'):
-			st.write('clicked')
-		if st.button('Btn B'):
-			st.write('clicked')
+			if st.button('Btn A'):
+				st.write('clicked')
+			if st.button('Btn B'):
+				st.write('clicked')
 
 
 with tab2:
