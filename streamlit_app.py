@@ -227,10 +227,8 @@ with tab1:
 			answer_7 = st.session_state.question.iloc[0]['Answer_7']
 		
 		
-			if st.button(option_case(answer_1)):
-				st.write(answer_1)
-			if st.button(option_case(answer_2)):
-				st.write(answer_2)
+			check1 = st.checkbox(option_case(answer_1))
+			check2 = st.checkbox(option_case(answer_2))
 			if st.button(option_case(answer_3)):
 				st.write(answer_3)
 			if st.button(option_case(answer_4)):
@@ -242,6 +240,10 @@ with tab1:
 			if st.button(option_case(answer_7)):
 				st.write(answer_7)
 
+			if check1:
+				st.write(answer_1)
+			if check2:
+				st.write(answer_2)
 
 with tab2:
 	season_select = st.selectbox(
