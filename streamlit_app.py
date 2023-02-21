@@ -221,6 +221,15 @@ def answer_callback_6():
 	st.session_state.answer_button_6 = True
 def answer_callback_7():
 	st.session_state.answer_button_7 = True
+
+def answer_reset():
+	st.session_state.answer_button_1 = False
+	st.session_state.answer_button_2 = False
+	st.session_state.answer_button_3 = False
+	st.session_state.answer_button_4 = False
+	st.session_state.answer_button_5 = False
+	st.session_state.answer_button_6 = False
+	st.session_state.answer_button_7 = False
 	
 ### PAGE LAYOUT
 
@@ -295,17 +304,7 @@ with tab1:
 				st.write(answer_7)
 
 				
-		if st.button('Reset Answers'):
-			st.session_state.answer_button_1 = False
-			st.session_state.answer_button_2 = False
-			st.session_state.answer_button_3 = False
-			if 'answer_button_4' not in st.session_state:
-				st.session_state.answer_button_4 = False
-			else:
-				st.session_state.answer_button_4 = False
-			st.session_state.answer_button_5 = False
-			st.session_state.answer_button_6 = False
-			st.session_state.answer_button_7 = False
+		st.button('Reset Answers', on_click=answer_reset):
 	
 
 
