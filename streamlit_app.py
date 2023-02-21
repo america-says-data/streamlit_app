@@ -236,6 +236,7 @@ with tab1:
 		or st.session_state.button_clicked_top):
 		if 'question' in st.session_state:
 			del st.session_state.question
+			del st.session_state.button_clicked_1
 		if 'question' not in st.session_state:
 			st.session_state.question = df_question[df_question.Question_Text.notnull()].sample()
 
