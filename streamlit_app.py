@@ -199,6 +199,11 @@ with tab1:
 	if button_A:
 		container_2.empty()
 		button_B = container_2.button('Btn B')
+	
+	button_C = container_2.button('Btn 3')
+	if button_C:
+		container_2.empty()
+		button_C = container_2.button('Btn 8')
 
 
 with tab2:
