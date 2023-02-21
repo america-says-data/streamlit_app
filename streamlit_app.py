@@ -205,7 +205,22 @@ def option_case(answer_string):
 		
 
 def callback():
-	st.session_state.button_clicked = True
+	st.session_state.button_clicked_top = True
+
+def callback1():
+	st.session_state.button_clicked_1 = True
+def callback2():
+	st.session_state.button_clicked_2 = True
+def callback3():
+	st.session_state.button_clicked_3 = True
+def callback4():
+	st.session_state.button_clicked_4 = True
+def callback5():
+	st.session_state.button_clicked_5 = True
+def callback6():
+	st.session_state.button_clicked_6 = True
+def callback7():
+	st.session_state.button_clicked_7 = True
 
 ### PAGE LAYOUT
 
@@ -218,7 +233,7 @@ with tab1:
 	
 	
 	if (st.button('Produce Question!', on_click = callback) 
-		or st.sessions_state.button_clicked):
+		or st.sessions_state.button_clicked_top):
 		if 'question' in st.session_state:
 			del st.session_state.question
 		if 'question' not in st.session_state:
@@ -235,25 +250,20 @@ with tab1:
 			answer_7 = st.session_state.question.iloc[0]['Answer_7']
 					
 					
-			if st.button(option_case(answer_1)):
+			if (st.button(option_case(answer_1), on_click=callback1 or st.sessions_state.button_clicked_1):
 				st.write(answer_1)
-			if st.button(option_case(answer_2)):
+			if (st.button(option_case(answer_2), on_click=callback1 or st.sessions_state.button_clicked_2):
 				st.write(answer_2)
-			if st.button(option_case(answer_3)):
+			if (st.button(option_case(answer_3), on_click=callback1 or st.sessions_state.button_clicked_3):
 				st.write(answer_3)
-			if st.button(option_case(answer_4)):
+			if (st.button(option_case(answer_4), on_click=callback1 or st.sessions_state.button_clicked_4):
 				st.write(answer_4)
-			if st.button(option_case(answer_5)):
+			if (st.button(option_case(answer_5), on_click=callback1 or st.sessions_state.button_clicked_5):
 				st.write(answer_5)
-			if st.button(option_case(answer_6)):
+			if (st.button(option_case(answer_6), on_click=callback1 or st.sessions_state.button_clicked_6):
 				st.write(answer_6)
-			if st.button(option_case(answer_7)):
+			if (st.button(option_case(answer_7), on_click=callback1 or st.sessions_state.button_clicked_7):
 				st.write(answer_7)
-
-			if check1:
-				st.write(answer_1)
-			if check2:
-				st.write(answer_2)
 
 with tab2:
 	season_select = st.selectbox(
