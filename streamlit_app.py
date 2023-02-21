@@ -234,10 +234,10 @@ with tab1:
 			answer_5 = st.session_state.question.iloc[0]['Answer_5']
 			answer_6 = st.session_state.question.iloc[0]['Answer_6']
 			answer_7 = st.session_state.question.iloc[0]['Answer_7']
-				
-		    
-		    	if st.button(option_case(answer_1)):
-		    		st.write(answer_1)
+			
+			
+			if st.button(option_case(answer_1)):
+				st.write(answer_1)
 			#if "button_clicked_1" not in st.session_state:
 			#	st.session_state.button_clicked_1 = False		
 			#if (st.button(option_case(answer_1), on_click=callback1) or st.session_state.button_clicked_1):
