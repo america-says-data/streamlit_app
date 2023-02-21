@@ -243,9 +243,9 @@ with tab1:
 			answer_7 = st.session_state.question.iloc[0]['Answer_7']
 			
 			
-			if st.button(option_case(answer_1), on_click = answer_callback_1) or st.session_state.answer_callback_1):
+			if (st.button(option_case(answer_1), on_click = answer_callback_1) or st.session_state.answer_callback_1):
 				st.write(answer_1)
-			if st.button(option_case(answer_2), on_click = answer_callback_2) or st.session_state.answer_callback_2):
+			if (st.button(option_case(answer_2), on_click = answer_callback_2) or st.session_state.answer_callback_2):
 				st.write(answer_2)
 
 				
