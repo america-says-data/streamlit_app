@@ -304,7 +304,7 @@ with tab1:
 				st.write(answer_7)
 
 				
-		st.button('Reset Answers', on_click=answer_reset):
+		st.button('Reset Answers', on_click = answer_reset):
 	
 
 
