@@ -194,6 +194,9 @@ def top_player_overall():
                 """)
 
 with tab1:
+	st.header("Random America Says Question")
+	if st.button('Produce Question!'):
+    		st.dataframe(df_question.sample()['Question_text'])
 	container_2 = st.empty()
 	button_A = container_2.button('Btn A')
 	if button_A:
