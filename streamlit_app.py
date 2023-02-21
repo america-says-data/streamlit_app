@@ -218,29 +218,29 @@ with tab1:
 
 			st.write(st.session_state.question.iloc[0]['Question_Text'])
 		
-		answer_1 = st.session_state.question.iloc[0]['Answer_1']
-		answer_2 = st.session_state.question.iloc[0]['Answer_2']
-		answer_3 = st.session_state.question.iloc[0]['Answer_3']
-		answer_4 = st.session_state.question.iloc[0]['Answer_4']
-		answer_5 = st.session_state.question.iloc[0]['Answer_5']
-		answer_6 = st.session_state.question.iloc[0]['Answer_6']
-		answer_7 = st.session_state.question.iloc[0]['Answer_7']
+			answer_1 = st.session_state.question.iloc[0]['Answer_1']
+			answer_2 = st.session_state.question.iloc[0]['Answer_2']
+			answer_3 = st.session_state.question.iloc[0]['Answer_3']
+			answer_4 = st.session_state.question.iloc[0]['Answer_4']
+			answer_5 = st.session_state.question.iloc[0]['Answer_5']
+			answer_6 = st.session_state.question.iloc[0]['Answer_6']
+			answer_7 = st.session_state.question.iloc[0]['Answer_7']
 		
 		
-		if st.button(option_case(st.session_state.question.iloc[0]['Answer_1'])):
-			st.write(st.session_state.question.iloc[0]['Answer_1'])
-		if st.button(option_case(answer_2)):
-			st.write(answer_2)
-		if st.button(option_case(answer_3)):
-			st.write(answer_3)
-		if st.button(option_case(answer_4)):
-			st.write(answer_4)
-		if st.button(option_case(answer_5)):
-			st.write(answer_5)
-		if st.button(option_case(answer_6)):
-			st.write(answer_6)
-		if st.button(option_case(answer_7)):
-			st.write(answer_7)
+			if st.button(option_case(answer_1)):
+				st.write(answer_1)
+			if st.button(option_case(answer_2)):
+				st.write(answer_2)
+			if st.button(option_case(answer_3)):
+				st.write(answer_3)
+			if st.button(option_case(answer_4)):
+				st.write(answer_4)
+			if st.button(option_case(answer_5)):
+				st.write(answer_5)
+			if st.button(option_case(answer_6)):
+				st.write(answer_6)
+			if st.button(option_case(answer_7)):
+				st.write(answer_7)
 
 
 with tab2:
