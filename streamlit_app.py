@@ -207,11 +207,7 @@ with tab1:
 
 		st.write(st.session_state.question.iloc[0]['Question_Text'])
 	
-		container_1, container_2, 
-			container_3, container_4, 
-			container_5, container_6, container_7 = st.empty(), st.empty(), 
-								st.empty(), st.empty(), 
-								st.empty(), st.empty(), st.empty()
+		container_1, container_2, container_3, container_4, container_5, container_6, container_7 = st.empty(), st.empty(), st.empty(), st.empty(), st.empty(), st.empty(), st.empty()
 		button_A = container_1.button('Btn A')
 		if button_A:
 			#container_1.empty()
