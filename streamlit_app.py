@@ -41,7 +41,7 @@ df_question, df_game, df_team, df_round = get_tables()
 
 st.write("Currently built off of ", len(df_game), " games")
 
-st.write("Last update - February 15th, 2023")
+st.write("Last update - February 20th, 2023")
 
 tab1, tab2= st.tabs(["Quick Question", "Stats"])
 
@@ -209,12 +209,12 @@ with tab1:
 		container_1, container_2 = st.empty(), st.empty()
 		button_A = container_1.button('Btn A')
 		if button_A:
-			container_1.empty()
+			#container_1.empty()
 			button_B = container_1.button('Btn B')
 	
 		button_C = container_2.button('Btn 3')
 		if button_C:
-			container_2.empty()
+			#container_2.empty()
 			button_C = container_2.button('Btn 8')
 
 
