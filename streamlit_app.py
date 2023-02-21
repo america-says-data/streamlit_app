@@ -203,19 +203,19 @@ with tab1:
 	if st.button('Produce Question!'):
 		del st.session_state.question
 		if 'question' not in st.session_state:
-			st.session_state.question = df_question.sample()
+			st.session_state.question = df_question[df_question.Question_Text.notnull()].sample()
 
 		st.write(st.session_state.question.iloc[0]['Question_Text'])
 	
 		container_1, container_2, container_3, container_4, container_5, container_6, container_7 = st.empty(), st.empty(), st.empty(), st.empty(), st.empty(), st.empty(), st.empty()
 		button_A = container_1.button('Btn A')
 		if button_A:
-			#container_1.empty()
+			container_1.empty()
 			button_B = container_1.button('Btn B')
 	
 		button_C = container_2.button('Btn 3')
 		if button_C:
-			#container_2.empty()
+			container_2.empty()
 			button_C = container_2.button('Btn 8')
 
 
