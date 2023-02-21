@@ -226,6 +226,8 @@ with tab1:
 				st.session_state.question_button = False
 			if 'answer_button_1' not in st.session_state:
 				st.session_state.answer_button_1 = False
+			if 'answer_button_2' not in st.session_state:
+				st.session_state.answer_button_2 = False
 			
 			
 			
