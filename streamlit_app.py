@@ -203,12 +203,13 @@ print(df_question.sample()['Question_Text'])
 with tab1:
 	st.header("Random America Says Question")
 	if st.button('Produce Question!'):
-    		st.dataframe(df_question.sample()['Question_Text'])
-	container_2 = st.empty()
-	button_A = container_2.button('Btn A')
+		random_question = df_question.sample()
+    		st.write(random_question.iloc[0]['Question_Text'])
+	container_1, container_2 = st.empty(), st.empty()
+	button_A = container_1.button('Btn A')
 	if button_A:
-		container_2.empty()
-		button_B = container_2.button('Btn B')
+		container_1.empty()
+		button_B = container_1.button('Btn B')
 	
 	button_C = container_2.button('Btn 3')
 	if button_C:
