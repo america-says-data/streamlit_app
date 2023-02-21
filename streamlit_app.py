@@ -215,10 +215,10 @@ with tab1:
 	if st.button('Produce Question!'):
 		if 'question' in st.session_state:
 			del st.session_state.question
-			del st.session_state.question_button
 		if 'question' not in st.session_state:
 			st.session_state.question = df_question[df_question.Question_Text.notnull()].sample()
-			
+			if 'question_button' not in st.session_state:
+				st.session_state.question_button = False
 			
 			
 			
