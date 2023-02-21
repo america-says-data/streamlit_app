@@ -204,7 +204,8 @@ def option_case(answer_string):
 	return ''.join(new_string_list).upper()
 		
 
-
+def question_callback():
+	st.session_state.question_button = True
 
 ### PAGE LAYOUT
 
@@ -214,12 +215,16 @@ with tab1:
 	if st.button('Produce Question!'):
 		if 'question' in st.session_state:
 			del st.session_state.question
+			del st.session_state.question_button
 		if 'question' not in st.session_state:
 			st.session_state.question = df_question[df_question.Question_Text.notnull()].sample()
 			
 			
+			
+			
 	if 'question' in st.session_state:
-		if st.button('Reveal Question'):
+		if ( st.button('Reveal Question', on_click = question_callback 
+			      or st.session_state.question_button):
 			st.write(st.session_state.question.iloc[0]['Question_Text'])
 		
 			answer_1 = st.session_state.question.iloc[0]['Answer_1']
@@ -229,11 +234,14 @@ with tab1:
 			answer_5 = st.session_state.question.iloc[0]['Answer_5']
 			answer_6 = st.session_state.question.iloc[0]['Answer_6']
 			answer_7 = st.session_state.question.iloc[0]['Answer_7']
-					
-			if "button_clicked_1" not in st.session_state:
-				st.session_state.button_clicked_1 = False		
-			if (st.button(option_case(answer_1), on_click=callback1) or st.session_state.button_clicked_1):
-				st.write(answer_1)
+				
+		    
+		    	if st.button(option_case(answer_1)):
+		    		st.write(answer_1)
+			#if "button_clicked_1" not in st.session_state:
+			#	st.session_state.button_clicked_1 = False		
+			#if (st.button(option_case(answer_1), on_click=callback1) or st.session_state.button_clicked_1):
+			#	st.write(answer_1)
 
 
 with tab2:
