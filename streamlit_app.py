@@ -204,13 +204,21 @@ def option_case(answer_string):
 	return ''.join(new_string_list).upper()
 		
 
+def callback():
+	st.session_state.button_clicked = True
 
 ### PAGE LAYOUT
 
 with tab1:
 	st.header("Random America Says Question")
 	
-	if st.button('Produce Question!'):
+	if "button_clicked" not in st.session_state:
+		st.session_state.button_clicked_top = False
+		
+	
+	
+	if (st.button('Produce Question!'), on_click = callback) 
+		or st.sessions_state.button_clicked):
 		if 'question' in st.session_state:
 			del st.session_state.question
 		if 'question' not in st.session_state:
@@ -225,10 +233,12 @@ with tab1:
 			answer_5 = st.session_state.question.iloc[0]['Answer_5']
 			answer_6 = st.session_state.question.iloc[0]['Answer_6']
 			answer_7 = st.session_state.question.iloc[0]['Answer_7']
-		
-		
-			check1 = st.checkbox(option_case(answer_1))
-			check2 = st.checkbox(option_case(answer_2))
+					
+					
+			if st.button(option_case(answer_1)):
+				st.write(answer_1)
+			if st.button(option_case(answer_2)):
+				st.write(answer_2)
 			if st.button(option_case(answer_3)):
 				st.write(answer_3)
 			if st.button(option_case(answer_4)):
