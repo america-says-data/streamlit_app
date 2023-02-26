@@ -288,19 +288,19 @@ with tab1:
 			answer_7 = st.session_state.question.iloc[0]['Answer_7']
 			
 			
-			if (st.button(option_case(answer_1), on_click = answer_callback_1) or st.session_state.answer_button_1):
+			if (st.button(option_case(answer_1), on_click = answer_callback_1, key = 1) or st.session_state.answer_button_1):
 				st.write(answer_1)
-			if (st.button(option_case(answer_2), on_click = answer_callback_2) or st.session_state.answer_button_2):
+			if (st.button(option_case(answer_2), on_click = answer_callback_2, key = 2) or st.session_state.answer_button_2):
 				st.write(answer_2)
-			if (st.button(option_case(answer_3), on_click = answer_callback_3) or st.session_state.answer_button_3):
+			if (st.button(option_case(answer_3), on_click = answer_callback_3, key = 3) or st.session_state.answer_button_3):
 				st.write(answer_3)
-			if (st.button(option_case(answer_4), on_click = answer_callback_4) or st.session_state.answer_button_4):
+			if (st.button(option_case(answer_4), on_click = answer_callback_4, key = 4) or st.session_state.answer_button_4):
 				st.write(answer_4)
-			if (st.button(option_case(answer_5), on_click = answer_callback_5) or st.session_state.answer_button_5):
+			if (st.button(option_case(answer_5), on_click = answer_callback_5, key = 5) or st.session_state.answer_button_5):
 				st.write(answer_5)
-			if (st.button(option_case(answer_6), on_click = answer_callback_6) or st.session_state.answer_button_6):
+			if (st.button(option_case(answer_6), on_click = answer_callback_6, key = 6) or st.session_state.answer_button_6):
 				st.write(answer_6)
-			if (st.button(option_case(answer_7), on_click = answer_callback_7) or st.session_state.answer_button_7):
+			if (st.button(option_case(answer_7), on_click = answer_callback_7, key = 7) or st.session_state.answer_button_7):
 				st.write(answer_7)
 
 				
