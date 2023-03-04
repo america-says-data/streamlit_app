@@ -420,6 +420,8 @@ with tab2:
 					and TEAM_MEMBER_ANSWER_5 <> -1
 					and TEAM_MEMBER_ANSWER_6 <> -1
 					and TEAM_MEMBER_ANSWER_7 <> -1
+					and ANSWERS_CORRECT_BY_CLEAN_UP_TEAM <> 'NA'
+					and ANSWERS_CORRECT_BY_CLEAN_UP_TEAM is not null
 					)
 					group by SEASON
 					order by SEASON
