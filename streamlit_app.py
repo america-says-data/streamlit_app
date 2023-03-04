@@ -206,10 +206,11 @@ def best_individual_round():
                         from df_players
 			where "1" = 7 or "2" = 7 or "3" = 7
 			) p
+			join df_team t on t.TEAM = p.TEAM and t.GAME = p.GAME and t.SEASON = p.SEASON
 			join df_question q
 				on p.SEASON = q.SEASON
 				and p.GAME = q.GAME
-				and p.TEAM = q.TEAM
+				and t.TEAM_NUM = q.TEAM
 				and p.ROUND = q.ROUND
 			order by q.TIME_REMAINING desc
                 """)
