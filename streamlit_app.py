@@ -193,6 +193,27 @@ def top_player_overall():
 			limit 11
                 """)
 
+@st.cache_data(ttl=86400)
+def best_individual_round():
+	return ps.sqldf("""
+			select p.PLAYER, q.SEASON, q.GAME, q.QUESTION_TEXT, q.TIME_REMAINING
+                        from (
+			select PLAYER
+			, case when "1" = 7 then 1
+				when "2" = 7 then 2
+				else 3 end as ROUND
+                        from df_players
+			where "1" = 7 or "2" = 7 or "3" = 7
+			) p
+			join df_questions q
+				on p.SEASON = q.SEASON
+				and p.GAME = q.GAME
+				and p.TEAM = q.TEAM
+				and p.ROUND = q.ROUND
+			order by q.TIME_REMAINING desc
+                """)
+
+
 
 def option_case(answer_string):
 	new_string_list = []
@@ -387,10 +408,31 @@ with tab2:
 #st.pyplot(fig)
 
 
+	st.write("Average answers cleaned up by Season")
+	df_season_cleanup = ps.sqldf("""select SEASON, avg(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as 'Average Answers Cleaned Up'
+					from (
+					select SEASON, ANSWERS_CORRECT_BY_CLEAN_UP_TEAM
+					from df_questions
+					where TEAM_MEMBER_ANSWER_1 <> -1
+					and TEAM_MEMBER_ANSWER_2 <> -1
+					and TEAM_MEMBER_ANSWER_3 <> -1
+					and TEAM_MEMBER_ANSWER_4 <> -1
+					and TEAM_MEMBER_ANSWER_5 <> -1
+					and TEAM_MEMBER_ANSWER_6 <> -1
+					and TEAM_MEMBER_ANSWER_7 <> -1
+					)
+					group by SEASON
+					order by SEASON
+					""")
+	
+	df_season_cleanup = df_season_cleanup.set_index("Season")
+	
+	st.bar_chart(df_season_cleanup[["Average Answers Cleaned Up"]])
+
 
 	option = st.selectbox(
     		'What would you like to explore?',
-		    ('Best Question', 'Worst Question', 'Best Bonus Round', 'Top Player of Team', 'Top Player Overall', 'Custom Query...'))
+		    ('Best Question', 'Worst Question', 'Best Bonus Round', 'Top Player of Team', 'Top Player Overall', 'Best Individual Round', 'Custom Query...'))
 
 	if option == 'Best Question':
 		final_df = best_question()
@@ -402,6 +444,8 @@ with tab2:
         	final_df = top_player_overall()
 	elif option == 'Top Player of Team':
         	final_df = top_player_of_team()
+	elif option == 'Best Individual Round':
+		final_df = best_individual_round()
 
 	else:
 		text_input = st.text_input(
