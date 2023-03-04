@@ -205,7 +205,7 @@ def best_individual_round():
                         from df_players
 			where "1" = 7 or "2" = 7 or "3" = 7
 			) p
-			join df_questions q
+			join df_question q
 				on p.SEASON = q.SEASON
 				and p.GAME = q.GAME
 				and p.TEAM = q.TEAM
@@ -412,7 +412,7 @@ with tab2:
 	df_season_cleanup = ps.sqldf("""select SEASON, avg(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as 'Average Answers Cleaned Up'
 					from (
 					select SEASON, ANSWERS_CORRECT_BY_CLEAN_UP_TEAM
-					from df_questions
+					from df_question
 					where TEAM_MEMBER_ANSWER_1 <> -1
 					and TEAM_MEMBER_ANSWER_2 <> -1
 					and TEAM_MEMBER_ANSWER_3 <> -1
