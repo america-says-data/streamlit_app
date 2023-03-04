@@ -41,7 +41,7 @@ df_question, df_game, df_team, df_round = get_tables()
 
 st.write("Currently built off of ", len(df_game), " games")
 
-st.write("Last update - February 26th, 2023")
+st.write("Last update - March 3rd, 2023")
 
 tab1, tab2= st.tabs(["Quick Question", "Stats"])
 
