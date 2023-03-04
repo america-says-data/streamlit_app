@@ -424,7 +424,7 @@ with tab2:
 					group by SEASON
 					order by SEASON
 					""")
-	
+	df_season_cleanup.reset_index(inplace=True)
 	df_season_cleanup = df_season_cleanup.set_index("Season")
 	
 	st.bar_chart(df_season_cleanup[["Average Answers Cleaned Up"]])
