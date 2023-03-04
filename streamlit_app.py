@@ -409,7 +409,7 @@ with tab2:
 
 
 	st.write("Average answers cleaned up by Season")
-	df_season_cleanup = ps.sqldf("""select SEASON, avg(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as 'Average Answers Cleaned Up'
+	df_season_cleanup = ps.sqldf("""select SEASON as 'Season', avg(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as 'Average Answers Cleaned Up'
 					from (
 					select SEASON, ANSWERS_CORRECT_BY_CLEAN_UP_TEAM
 					from df_question
