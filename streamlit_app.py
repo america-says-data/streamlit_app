@@ -134,6 +134,7 @@ def build_players_table():
 
 
 df_players = build_players_table()
+print(df_players.head())
 
 @st.cache_data(ttl=86400)
 def best_question():
@@ -426,9 +427,7 @@ with tab2:
 					group by SEASON
 					order by SEASON
 					""")
-	print(df_season_cleanup)
 	df_season_cleanup.reset_index(inplace=True)
-	print(df_season_cleanup)
 	df_season_cleanup = df_season_cleanup.set_index("Season")
 	
 	st.bar_chart(df_season_cleanup[["Average Answers Cleaned Up"]])
