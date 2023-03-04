@@ -199,7 +199,7 @@ def best_individual_round():
 	return ps.sqldf("""
 			select p.PLAYER, q.SEASON, q.GAME, q.QUESTION_TEXT, q.TIME_REMAINING
                         from (
-			select PLAYER
+			select PLAYER, SEASON, GAME, TEAM 
 			, case when "1" = 7 then 1
 				when "2" = 7 then 2
 				else 3 end as ROUND
