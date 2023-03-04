@@ -197,7 +197,7 @@ def top_player_overall():
 @st.cache_data(ttl=86400)
 def best_individual_round():
 	return ps.sqldf("""
-			select p.PLAYER, q.SEASON, q.GAME, q.QUESTION_TEXT, q.TIME_REMAINING
+			select p.PLAYER, q.TIME_REMAINING, q.QUESTION_TEXT, q.ROUND, q.SEASON, q.GAME, q.DATE, q.YEAR
                         from (
 			select PLAYER, SEASON, GAME, TEAM 
 			, case when "1" = 7 then 1
