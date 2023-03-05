@@ -167,7 +167,7 @@ def worst_question():
                         on q.TEAM = t.TEAM_NUM
                         and q.SEASON = t.SEASON
                         and q.GAME = t.GAME
-                where ANSWERS_CORRECT_BY_ANSWERING_TEAM <=2 and QUESTION_TEXT <> 'NA'
+                where ANSWERS_CORRECT_BY_ANSWERING_TEAM <=1 and QUESTION_TEXT <> 'NA'
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM
                 """)
 
