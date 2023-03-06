@@ -5,6 +5,9 @@ from google.oauth2 import service_account
 import gspread
 import numpy as np
 import matplotlib.pyplot as plt
+import plotly.figure_factory as ff
+import plotly.express as px
+import plotly.graph_objs as go
 from sklearn.linear_model import LogisticRegression
 
 st.write ("""
@@ -51,10 +54,13 @@ y =  df_win_prediction.win
 logreg = LogisticRegression(random_state=13).fit(X.values.reshape(-1,1), y)
 
 test_score = np.arange(0, 14400, 100)
-
 test_probabilities = logreg.predict_proba(test_score.reshape(-1,1))[:,1]
+df_win_probability = pd.DataFrame(zip(test_score,test_probabilities), columns = ['test_score','test_probabilities'])
 
 print(sum(df_win_prediction.win) / len(df_win_prediction))
+fig = px.line(df_win_probability, x="test_score", y="test_probabilities", title='Probability of Win Based on Team Score')
+
+st.plotly_chart(fig, use_container_width=True)
 # print(test_probabilities)
 ###
 ###
