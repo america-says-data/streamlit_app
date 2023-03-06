@@ -160,6 +160,25 @@ def build_players_table():
 
 df_players = build_players_table()
 
+@st.cache_data(ttl=86400)
+def create_probability():
+	df_win_prediction = df_team[df_team.Bonus_Rounds_Complete.notnull()][['Score_check', 'Bonus_Rounds_Complete']]
+	df_win_prediction['win'] = np.where(df_win_prediction['Bonus_Rounds_Complete'] == 4, 1, 0)
+	
+	# extract x y for prediction
+	X = df_win_prediction.Score_check
+	y =  df_win_prediction.win
+	# logistic regression for prediction
+	logreg = LogisticRegression(random_state=13).fit(X.values.reshape(-1,1), y)
+
+	test_score = np.arange(0, 14400, 100)
+	test_probabilities = logreg.predict_proba(test_score.reshape(-1,1))[:,1]
+	df_win_probability = pd.DataFrame(zip(test_score,test_probabilities), columns = ['test_score','test_probabilities'])
+
+	current_win_rate = print(sum(df_win_prediction.win) / len(df_win_prediction))
+	return current_win_rate, df_win_probability
+
+win_rate, win_prob = create_probability()
 
 @st.cache_data(ttl=86400)
 def best_question():
@@ -431,9 +450,6 @@ with tab2:
 	st.line_chart(df_dist_round_st)
 
 #### TODO: update the visuals (titles, axis, etc)
-#fig = df_dist_round.plot(kind="bar").figure
-#st.pyplot(fig)
-
 
 	st.write("Average answers cleaned up by Season")
 	df_season_cleanup = ps.sqldf("""select SEASON as 'Season', avg(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as 'Average Answers Cleaned Up'
@@ -459,6 +475,15 @@ with tab2:
 	st.bar_chart(df_season_cleanup[["Average Answers Cleaned Up"]])
 
 
+	fig = px.line(df_win_probability, x="test_score", y="test_probabilities", title='Probability of Win Based on Team Score')
+	fig.add_vline(y=win_rate, line_dash="dot",
+              annotation_text="Historical Win Rate", 
+              annotation_position="top left")
+	
+	st.plotly_chart(fig, use_container_width=True)
+	
+	
+	
 	option = st.selectbox(
     		'What would you like to explore?',
 		    ('Best Question', 'Worst Question', 'Best Bonus Round', 'Top Player of Team', 'Top Player Overall', 'Best Individual Round', 'Custom Query...'))
