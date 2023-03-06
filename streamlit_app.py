@@ -48,7 +48,7 @@ print(df_win_prediction)
 X = df_win_prediction.Score_check
 y =  df_win_prediction.win
 
-clf = LogisticRegression(random_state=13).fit(X.reshape(-1,1), y)
+clf = LogisticRegression(random_state=13).fit(X.values.reshape(-1,1), y)
 print(clf)
 ###
 ###
