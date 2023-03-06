@@ -455,7 +455,7 @@ with tab2:
 
 
 	fig = px.line(win_prob, x="test_score", y="test_probabilities", title='Probability of Win Based on Team Score')
-	fig.add_vline(y=win_rate, line_dash="dot",
+	fig.add_hline(y=win_rate, line_dash="dot",
               annotation_text="Historical Win Rate", 
               annotation_position="top left")
 	
