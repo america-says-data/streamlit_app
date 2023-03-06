@@ -362,6 +362,9 @@ with tab1:
 ####
 #################################################################################################################################################
 with tab2:
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## Season collection
+##----------------------------------------------------------------------------------------------------------------------------------------------------
 	season_select = st.selectbox(
     		'What season would you like to look at?',
 		    ('All Seasons', '1', '2', '3', '4', '5'))
@@ -379,6 +382,10 @@ with tab2:
 	elif season_select == "5":
 		season_select_clause = "= '5'"
 	
+
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## Answers correct histogram (by season)
+##----------------------------------------------------------------------------------------------------------------------------------------------------
 
 	st.write("Histogram of Answers Correct (by answering team)")
 
@@ -399,7 +406,11 @@ with tab2:
 
 	st.bar_chart(df_dist[["Percent Times that Number of Answers is Provided"]])
 
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## Answers correct by round (by season)
+##----------------------------------------------------------------------------------------------------------------------------------------------------
 
+	
 	st.write("Histogram of Answers Correct by Round (by answering team)")
 
 
@@ -437,6 +448,10 @@ with tab2:
 
 #### TODO: update the visuals (titles, axis, etc)
 
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## season clean up comparison (covid season 4 drop)
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+
 	st.write("Average answers cleaned up by Season")
 	df_season_cleanup = ps.sqldf("""select SEASON as 'Season', avg(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as 'Average Answers Cleaned Up'
 					from (
@@ -460,14 +475,21 @@ with tab2:
 	
 	st.bar_chart(df_season_cleanup[["Average Answers Cleaned Up"]])
 
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## prediction chart
+##----------------------------------------------------------------------------------------------------------------------------------------------------
 
 	fig = px.line(win_prob, x="test_score", y="test_probabilities", title='Probability of Win Based on Team Score')
 	fig.add_hline(y=win_rate, line_dash="dot", annotation_text="Historical Win Rate: {:.2%}".format(win_rate), annotation_position="bottom right")
 	
 	st.plotly_chart(fig, use_container_width=True)
+
+
 	
-	st.write(win_rate)
-	
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## stat selection option
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+
 	option = st.selectbox(
     		'What would you like to explore?',
 		    ('Best Question', 'Worst Question', 'Best Bonus Round', 'Top Player of Team', 'Top Player Overall', 'Best Individual Round', 'Custom Query...'))
