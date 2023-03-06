@@ -43,27 +43,6 @@ def get_tables():
 
 df_question, df_game, df_team, df_round = get_tables()
 
-###
-###delete all these spaces
-df_win_prediction = df_team[df_team.Bonus_Rounds_Complete.notnull()][['Score_check', 'Bonus_Rounds_Complete']]
-df_win_prediction['win'] = np.where(df_win_prediction['Bonus_Rounds_Complete'] == 4, 1, 0)
-print(df_win_prediction) 
-X = df_win_prediction.Score_check
-y =  df_win_prediction.win
-# logistic regression for prediction
-logreg = LogisticRegression(random_state=13).fit(X.values.reshape(-1,1), y)
-
-test_score = np.arange(0, 14400, 100)
-test_probabilities = logreg.predict_proba(test_score.reshape(-1,1))[:,1]
-df_win_probability = pd.DataFrame(zip(test_score,test_probabilities), columns = ['test_score','test_probabilities'])
-
-print(sum(df_win_prediction.win) / len(df_win_prediction))
-fig = px.line(df_win_probability, x="test_score", y="test_probabilities", title='Probability of Win Based on Team Score')
-
-st.plotly_chart(fig, use_container_width=True)
-# print(test_probabilities)
-###
-###
 st.write("Currently built off of ", len(df_game), " games")
 
 st.write("Last update - March 3rd, 2023")
