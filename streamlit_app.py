@@ -5,6 +5,7 @@ from google.oauth2 import service_account
 import gspread
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LogisticRegression
 
 st.write ("""
 # Analysis Application of *America Says Data* - GSN Game Show
@@ -41,11 +42,13 @@ df_question, df_game, df_team, df_round = get_tables()
 
 ###
 ###delete all these spaces
-print(df_team.head())
-
 df_win_prediction = df_team[df_team.Bonus_Rounds_Complete.notnull()][['Score_check', 'Bonus_Rounds_Complete']]
 df_win_prediction['win'] = np.where(df_win_prediction['Bonus_Rounds_Complete'] == 4, 1, 0)
 print(df_win_prediction) 
+
+
+clf = LogisticRegression(random_state=13).fit(df_win_prediction.Score_check, df_win_prediction.win)
+print(clf)
 ###
 ###
 st.write("Currently built off of ", len(df_game), " games")
