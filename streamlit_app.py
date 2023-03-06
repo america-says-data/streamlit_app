@@ -39,11 +39,19 @@ def get_tables():
 
 df_question, df_game, df_team, df_round = get_tables()
 
+###
+###delete all these spaces
+print(df_team.head())
+
+
+print(df_team[df_team.Bonus_Rounds_Complete <> 'NA'][['Score_check', 'Bonus_Rounds_Complete']]) 
+###
+###
 st.write("Currently built off of ", len(df_game), " games")
 
 st.write("Last update - March 3rd, 2023")
 
-tab1, tab2= st.tabs(["Quick Question", "Stats"])
+tab1, tab2 = st.tabs(["Quick Question", "Stats"])
 
 	
 #### TODO : Create streamlit loading text that says "Creating Player Table"
@@ -134,7 +142,7 @@ def build_players_table():
 
 
 df_players = build_players_table()
-print(df_players.head())
+
 
 @st.cache_data(ttl=86400)
 def best_question():
