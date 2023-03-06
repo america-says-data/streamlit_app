@@ -45,9 +45,10 @@ df_question, df_game, df_team, df_round = get_tables()
 df_win_prediction = df_team[df_team.Bonus_Rounds_Complete.notnull()][['Score_check', 'Bonus_Rounds_Complete']]
 df_win_prediction['win'] = np.where(df_win_prediction['Bonus_Rounds_Complete'] == 4, 1, 0)
 print(df_win_prediction) 
+X = df_win_prediction.Score_check
+y =  df_win_prediction.win
 
-
-clf = LogisticRegression(random_state=13).fit(df_win_prediction.Score_check.reshape(-1, 1), df_win_prediction.win.reshape(-1, 1))
+clf = LogisticRegression(random_state=13).fit(X.reshape(-1,1), y)
 print(clf)
 ###
 ###
