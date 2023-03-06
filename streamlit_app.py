@@ -454,7 +454,7 @@ with tab2:
 	st.bar_chart(df_season_cleanup[["Average Answers Cleaned Up"]])
 
 
-	fig = px.line(df_win_probability, x="test_score", y="test_probabilities", title='Probability of Win Based on Team Score')
+	fig = px.line(win_prob, x="test_score", y="test_probabilities", title='Probability of Win Based on Team Score')
 	fig.add_vline(y=win_rate, line_dash="dot",
               annotation_text="Historical Win Rate", 
               annotation_position="top left")
