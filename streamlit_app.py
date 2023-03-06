@@ -154,7 +154,7 @@ def create_probability():
 	test_probabilities = logreg.predict_proba(test_score.reshape(-1,1))[:,1]
 	df_win_probability = pd.DataFrame(zip(test_score,test_probabilities), columns = ['test_score','test_probabilities'])
 
-	current_win_rate = print(sum(df_win_prediction.win) / len(df_win_prediction))
+	current_win_rate = sum(df_win_prediction.win) / len(df_win_prediction)
 	return current_win_rate, df_win_probability
 
 win_rate, win_prob = create_probability()
@@ -455,7 +455,7 @@ with tab2:
 
 
 	fig = px.line(win_prob, x="test_score", y="test_probabilities", title='Probability of Win Based on Team Score')
-	fig.add_hline(y=win_rate, line_dash="dot")#, annotation_text="Historical Win Rate") #, annotation_position="bottom right")
+	fig.add_hline(y=win_rate, line_dash="dot", annotation_text="Historical Win Rate", annotation_position="bottom right")
 	
 	st.plotly_chart(fig, use_container_width=True)
 	
