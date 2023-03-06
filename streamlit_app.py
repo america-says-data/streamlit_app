@@ -455,7 +455,8 @@ with tab2:
 
 
 	fig = px.line(win_prob, x="test_score", y="test_probabilities", title='Probability of Win Based on Team Score')
-	fig.add_hline(y=win_rate, line_dash="dot", annotation_text="Historical Win Rate: {:.0%}".format(win_rate), annotation_position="bottom right")
+	fig.add_hline(y=win_rate, line_dash="dot", annotation_text="Historical Win Rate: {:.2%}".format(win_rate), annotation_position="bottom right"
+		      , annotation_text="Historical Win Rate: {:.2%}".format(win_rate), annotation_position="top left")
 	
 	st.plotly_chart(fig, use_container_width=True)
 	
