@@ -47,9 +47,14 @@ df_win_prediction['win'] = np.where(df_win_prediction['Bonus_Rounds_Complete'] =
 print(df_win_prediction) 
 X = df_win_prediction.Score_check
 y =  df_win_prediction.win
+# logistic regression for prediction
+logreg = LogisticRegression(random_state=13).fit(X.values.reshape(-1,1), y)
 
-clf = LogisticRegression(random_state=13).fit(X.values.reshape(-1,1), y)
-print(clf)
+test_score = np.arange(0, 14400, 100)
+
+test_probabilities = logreg.predict(test_score)
+
+print(test_probabilities)
 ###
 ###
 st.write("Currently built off of ", len(df_game), " games")
