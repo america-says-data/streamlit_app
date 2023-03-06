@@ -277,7 +277,11 @@ def answer_reset():
 	st.session_state.answer_button_6 = False
 	st.session_state.answer_button_7 = False
 	
-### PAGE LAYOUT
+#################################################################################################################################################
+#### FIRST TAB!!! RANDOM QUESTION
+####
+#################################################################################################################################################
+
 
 with tab1:
 	st.header("Random America Says Question")
@@ -353,7 +357,10 @@ with tab1:
 		st.button('Reset Answers', on_click = answer_reset)
 	
 
-
+#################################################################################################################################################
+#### SECOND TAB!!! STATS
+####
+#################################################################################################################################################
 with tab2:
 	season_select = st.selectbox(
     		'What season would you like to look at?',
@@ -455,8 +462,7 @@ with tab2:
 
 
 	fig = px.line(win_prob, x="test_score", y="test_probabilities", title='Probability of Win Based on Team Score')
-	fig.add_hline(y=win_rate, line_dash="dot", annotation_text="Historical Win Rate: {:.2%}".format(win_rate), annotation_position="bottom right"
-		      , annotation_text="Historical Win Rate: {:.2%}".format(win_rate), annotation_position="top left")
+	fig.add_hline(y=win_rate, line_dash="dot", annotation_text="Historical Win Rate: {:.2%}".format(win_rate), annotation_position="bottom right")
 	
 	st.plotly_chart(fig, use_container_width=True)
 	
