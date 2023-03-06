@@ -44,7 +44,7 @@ df_question, df_game, df_team, df_round = get_tables()
 print(df_team.head())
 
 
-print(df_team[df_team.Bonus_Rounds_Complete <> 'NA'][['Score_check', 'Bonus_Rounds_Complete']]) 
+print(df_team[df_team.Bonus_Rounds_Complete != 'NA'][['Score_check', 'Bonus_Rounds_Complete']]) 
 ###
 ###
 st.write("Currently built off of ", len(df_game), " games")
