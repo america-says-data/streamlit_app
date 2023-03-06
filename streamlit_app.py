@@ -459,7 +459,7 @@ with tab2:
 	
 	st.plotly_chart(fig, use_container_width=True)
 	
-	
+	st.write(win_rate)
 	
 	option = st.selectbox(
     		'What would you like to explore?',
