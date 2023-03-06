@@ -52,7 +52,7 @@ logreg = LogisticRegression(random_state=13).fit(X.values.reshape(-1,1), y)
 
 test_score = np.arange(0, 14400, 100)
 
-test_probabilities = logreg.predict(test_score)
+test_probabilities = logreg.predict(test_score.reshape(-1,1))
 
 print(test_probabilities)
 ###
