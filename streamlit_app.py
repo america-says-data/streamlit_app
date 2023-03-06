@@ -43,8 +43,9 @@ df_question, df_game, df_team, df_round = get_tables()
 ###delete all these spaces
 print(df_team.head())
 
-
-print(df_team[df_team.Bonus_Rounds_Complete.notnull()][['Score_check', 'Bonus_Rounds_Complete']]) 
+df_win_prediction = df_team[df_team.Bonus_Rounds_Complete.notnull()][['Score_check', 'Bonus_Rounds_Complete']]
+df_win_prediction['win'] = np.where(df_team.Bonus_Rounds_Complete == 4, 1, 0)
+print(df_win_prediction) 
 ###
 ###
 st.write("Currently built off of ", len(df_game), " games")
