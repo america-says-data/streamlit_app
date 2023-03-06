@@ -47,7 +47,7 @@ df_win_prediction['win'] = np.where(df_win_prediction['Bonus_Rounds_Complete'] =
 print(df_win_prediction) 
 
 
-clf = LogisticRegression(random_state=13).fit(df_win_prediction.Score_check, df_win_prediction.win)
+clf = LogisticRegression(random_state=13).fit(df_win_prediction.Score_check.reshape(-1, 1), df_win_prediction.win.reshape(-1, 1))
 print(clf)
 ###
 ###
