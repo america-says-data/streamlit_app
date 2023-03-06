@@ -54,7 +54,8 @@ test_score = np.arange(0, 14400, 100)
 
 test_probabilities = logreg.predict_proba(test_score.reshape(-1,1))[:,1]
 
-print(test_probabilities)
+print(sum(df_win_prediction.win) / len(df_win_prediction))
+# print(test_probabilities)
 ###
 ###
 st.write("Currently built off of ", len(df_game), " games")
