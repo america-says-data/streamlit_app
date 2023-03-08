@@ -466,13 +466,13 @@ with tab2:
 					CASE WHEN TEAM_MEMBER_ANSWER_7 is NULL THEN 1 ELSE 0 END AS ANSWERS_MISSED_BY_CLEAN_UP_TEAM
 					
 					from df_question
-					where TEAM_MEMBER_ANSWER_1 <> -1
-					and TEAM_MEMBER_ANSWER_2 <> -1
-					and TEAM_MEMBER_ANSWER_3 <> -1
-					and TEAM_MEMBER_ANSWER_4 <> -1
-					and TEAM_MEMBER_ANSWER_5 <> -1
-					and TEAM_MEMBER_ANSWER_6 <> -1
-					and TEAM_MEMBER_ANSWER_7 <> -1
+					where TEAM_MEMBER_ANSWER_1 <> '-1'
+					and TEAM_MEMBER_ANSWER_2 <> '-1'
+					and TEAM_MEMBER_ANSWER_3 <> '-1'
+					and TEAM_MEMBER_ANSWER_4 <> '-1'
+					and TEAM_MEMBER_ANSWER_5 <> '-1'
+					and TEAM_MEMBER_ANSWER_6 <> '-1'
+					and TEAM_MEMBER_ANSWER_7 <> '-1'
 					and ANSWERS_CORRECT_BY_CLEAN_UP_TEAM <> 'NA'
 					and ANSWERS_CORRECT_BY_CLEAN_UP_TEAM is not NULL
 					)
@@ -482,7 +482,7 @@ with tab2:
 	df_season_cleanup.reset_index(inplace=True)
 	df_season_cleanup = df_season_cleanup.set_index("Season")
 	
-	st.line_chart(df_season_cleanup[["Average Answers Cleaned Up", "Percent Possible Answers Cleaned Up"]])
+	st.bar_chart(df_season_cleanup[["Average Answers Cleaned Up", "Percent Possible Answers Cleaned Up"]])
 
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## prediction chart
