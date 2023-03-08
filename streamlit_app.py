@@ -453,9 +453,18 @@ with tab2:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
 	st.write("Average answers cleaned up by Season")
-	df_season_cleanup = ps.sqldf("""select SEASON as 'Season', avg(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as 'Average Answers Cleaned Up'
+	df_season_cleanup = ps.sqldf("""select SEASON as 'Season', avg(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as 'Average Answers Cleaned Up',
+					sum(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) / sum(ANSWERS_MISSED_BY_CLEAN_UP_TEAM) as 'Percent Possible Answers Cleaned Up'
 					from (
-					select SEASON, ANSWERS_CORRECT_BY_CLEAN_UP_TEAM
+					select SEASON, ANSWERS_CORRECT_BY_CLEAN_UP_TEAM,
+					CASE WHEN TEAM_MEMBER_ANSWER_1 is null THEN 1 ELSE 0 END +
+					CASE WHEN TEAM_MEMBER_ANSWER_2 is null THEN 1 ELSE 0 END +
+					CASE WHEN TEAM_MEMBER_ANSWER_3 is null THEN 1 ELSE 0 END +
+					CASE WHEN TEAM_MEMBER_ANSWER_4 is null THEN 1 ELSE 0 END +
+					CASE WHEN TEAM_MEMBER_ANSWER_5 is null THEN 1 ELSE 0 END +
+					CASE WHEN TEAM_MEMBER_ANSWER_6 is null THEN 1 ELSE 0 END +
+					CASE WHEN TEAM_MEMBER_ANSWER_7 is null THEN 1 ELSE 0 END AS ANSWERS_MISSED_BY_CLEAN_UP_TEAM
+					
 					from df_question
 					where TEAM_MEMBER_ANSWER_1 <> -1
 					and TEAM_MEMBER_ANSWER_2 <> -1
@@ -473,7 +482,7 @@ with tab2:
 	df_season_cleanup.reset_index(inplace=True)
 	df_season_cleanup = df_season_cleanup.set_index("Season")
 	
-	st.bar_chart(df_season_cleanup[["Average Answers Cleaned Up"]])
+	st.line_chart(df_season_cleanup[["Average Answers Cleaned Up", "Percent Possible Answers Cleaned Up"]])
 
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## prediction chart
