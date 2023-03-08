@@ -474,7 +474,7 @@ with tab2:
 	df_season_cleanup.reset_index(inplace=True)
 	df_season_cleanup = df_season_cleanup.set_index("Season")
 	
-	st.line_chart(df_season_cleanup[["Average Answers"]])
+	st.bar_chart(df_season_cleanup[["Average Answers"]])
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## season clean up comparison (covid season 4 drop)
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -497,7 +497,7 @@ with tab2:
 	df_season_cleanup.reset_index(inplace=True)
 	df_season_cleanup = df_season_cleanup.set_index("Season")
 	
-	st.line_chart(df_season_cleanup[["Average Answers Cleaned Up", "Percent Possible Answers Cleaned Up"]])
+	st.line_chart(df_season_cleanup[["Average Answers", "Average Answers Cleaned Up", "Average Answers Missed by Both Teams", "Percent Possible Answers Cleaned Up"]])
 
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## prediction chart
