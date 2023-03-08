@@ -46,7 +46,7 @@ def get_tables():
 							(df_question["Team_Member_Answer_5"] == -1) |
 							(df_question["Team_Member_Answer_6"] == -1) |
 							(df_question["Team_Member_Answer_7"] == -1) | 
-							(df_question["Answers_Correct_By_Clean_Up_Team"].isNull()), 0, 1)
+							(df_question["Answers_Correct_By_Clean_Up_Team"].isna()), 0, 1)
 							
 	
 	return df_question, df_game, df_team, df_round
