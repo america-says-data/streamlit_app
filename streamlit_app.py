@@ -462,12 +462,32 @@ with tab2:
 ## season clean up comparison (covid season 4 drop)
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
+	st.write("Average answers by Season")
+	df_season_cleanup = ps.sqldf("""select SEASON as 'Season', avg(ANSWERS_CORRECT_BY_ANSWERING_TEAM) as 'Average Answers'
+					from (
+					select SEASON, ANSWERS_CORRECT_BY_ANSWERING_TEAM
+					from df_question
+					)
+					group by SEASON
+					order by SEASON
+					""")
+	df_season_cleanup.reset_index(inplace=True)
+	df_season_cleanup = df_season_cleanup.set_index("Season")
+	
+	st.line_chart(df_season_cleanup[["Average Answers"]])
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## season clean up comparison (covid season 4 drop)
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+
 	st.write("Average answers cleaned up by Season")
-	df_season_cleanup = ps.sqldf("""select SEASON as 'Season', avg(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as 'Average Answers Cleaned Up',
-					sum(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) / sum(ANSWERS_MISSED_BY_CLEAN_UP_TEAM) as 'Percent Possible Answers Cleaned Up'
+	df_season_cleanup = ps.sqldf("""select SEASON as 'Season'
+					, avg(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as 'Average Answers Cleaned Up'
+					, avg(ANSWERS_MISSED_BY_CLEAN_UP_TEAM) as 'Average Answers Missed by Both Teams'
+					, sum(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) / sum(CLEAN_UP_OPPORTUNITIES) as 'Percent Possible Answers Cleaned Up'
 					from (
 					select SEASON, ANSWERS_CORRECT_BY_CLEAN_UP_TEAM,
-					7 - (ANSWERS_CORRECT_BY_ANSWERING_TEAM + ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as ANSWERS_MISSED_BY_CLEAN_UP_TEAM
+					7 - (ANSWERS_CORRECT_BY_ANSWERING_TEAM + ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as ANSWERS_MISSED_BY_CLEAN_UP_TEAM,
+					7 - ANSWERS_CORRECT_BY_ANSWERING_TEAM as CLEAN_UP_OPPORTUNITIES
 					from df_question
 					where USE_QUESTION_CLEAN_UP = 1
 					)
