@@ -39,10 +39,22 @@ def get_tables():
 	df_question["Time_Remaining"] = df_question["Time_Remaining"].astype(float)
 	df_game["After_Skipped_Time_Remaining"] = df_game["After_Skipped_Time_Remaining"].astype(float)
 
+	df_question["Use_Question_Clean_Up"] = np.where((df_question["Team_Member_Answer_1"] == -1 or
+							df_question["Team_Member_Answer_2"] == -1 or
+							df_question["Team_Member_Answer_3"] == -1 or
+							df_question["Team_Member_Answer_4"] == -1 or
+							df_question["Team_Member_Answer_5"] == -1 or
+							df_question["Team_Member_Answer_6"] == -1 or
+							df_question["Team_Member_Answer_7"] == -1 or 
+							df_question["Answers_Correct_By_Clean_Up_Team"] is Null), 0, 1) 
+							
+	
 	return df_question, df_game, df_team, df_round
 
 df_question, df_game, df_team, df_round = get_tables()
 
+print(df_question.head())
+							
 st.write("Currently built off of ", len(df_game), " games")
 
 st.write("Last update - March 3rd, 2023")
