@@ -550,7 +550,7 @@ with tab2:
 	        "What question are you looking for?")
 	
 	st.dataframe(ps.sqldf("""SELECT QUESTION_TEXT, ANSWER_1, ANSWER_2, ANSWER_3, ANSWER_4, ANSWER_5, ANSWER_6, ANSWER_7 
-					FROM df_question where QUESTION_TEXT like '%{}%' limit 10""") 
+					FROM df_question where QUESTION_TEXT like '%{}%' limit 10""")) 
 
 #################################################################################################################################################
 #### THIRD TAB!!! STATS
