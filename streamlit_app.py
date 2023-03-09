@@ -549,25 +549,29 @@ with tab2:
 	
 	question_input = st.text_input(
 	        "What question are you looking for?")
-# 	if question_input == "":
-# 		question_input = "unknown"
-	st.dataframe(ps.sqldf("""SELECT * FROM ((SELECT QUESTION_TEXT, ANSWER_1, ANSWER_2, ANSWER_3, ANSWER_4, ANSWER_5, ANSWER_6, ANSWER_7 
-					FROM df_question where QUESTION_TEXT like '%{q_word}%')
-				UNION
-				(SELECT BONUS_Q_1 as QUESTION_TEXT, BONUS_A_1_1 as ANSWER_1, 'B1' AS ANSWER_2, 'B1' AS ANSWER_3, 'B1' AS ANSWER_4, 'B1' AS ANSWER_5, 'B1' AS ANSWER_6, 'B1' AS ANSWER_7 
-					FROM df_game where BONUS_Q_1 like '%{q_word}%')
-				UNION
-				(SELECT BONUS_Q_2 as QUESTION_TEXT, BONUS_A_2_1 as ANSWER_1, BONUS_A_2_2 as ANSWER_2, 'B2' as ANSWER_3, 'B2' AS ANSWER_4, 'B2' AS ANSWER_5, 'B2' AS ANSWER_6, 'B2' AS ANSWER_7 
-					FROM df_game where BONUS_Q_2 like '%{q_word}%')
-				UNION
-				(SELECT BONUS_Q_3 as QUESTION_TEXT, BONUS_A_3_1 as ANSWER_1, BONUS_A_3_2 as ANSWER_2, BONUS_A_3_3 as ANSWER_3, 'B3' AS ANSWER_4, 'B3' AS ANSWER_5, 'B3' AS ANSWER_6, 'B3' AS ANSWER_7 
-					FROM df_game where BONUS_Q_3 like '%{q_word}%')
-				UNION
-				(SELECT BONUS_Q_4 as QUESTION_TEXT, BONUS_A_4_1 as ANSWER_1, BONUS_A_4_2 as ANSWER_2, BONUS_A_4_3 as ANSWER_3, BONUS_A_4_4 as ANSWER_4, 'B4' AS ANSWER_5, 'B4' AS ANSWER_6, 'B4' AS ANSWER_7 
-					FROM df_game where BONUS_Q_4 like '%{q_word}%'))
-				limit 15
-					""".format(q_word = question_input))) 
 
+	df_total = ps.sqldf("""SELECT QUESTION_TEXT, ANSWER_1, ANSWER_2, ANSWER_3, ANSWER_4, ANSWER_5, ANSWER_6, ANSWER_7 
+					FROM df_question where QUESTION_TEXT like '%{}%'
+					limit 10
+					""".format(question_input))
+	df_b1 = ps.sqldf("""SELECT BONUS_Q_1 as QUESTION_TEXT, BONUS_A_1_1 as ANSWER_1, 'B1' AS ANSWER_2, 'B1' AS ANSWER_3, 'B1' AS ANSWER_4, 'B1' AS ANSWER_5, 'B1' AS ANSWER_6, 'B1' AS ANSWER_7 
+					FROM df_game where BONUS_Q_1 like '%{}%'
+					limit 10
+					""".format(question_input))
+	df_b2 = ps.sqldf("""SELECT BONUS_Q_2 as QUESTION_TEXT, BONUS_A_2_1 as ANSWER_1, BONUS_A_2_2 as ANSWER_2, 'B2' as ANSWER_3, 'B2' AS ANSWER_4, 'B2' AS ANSWER_5, 'B2' AS ANSWER_6, 'B2' AS ANSWER_7 
+					FROM df_game where BONUS_Q_2 like '%{}%'
+					limit 10
+					""".format(question_input))
+	df_b3 = ps.sqldf("""SELECT BONUS_Q_3 as QUESTION_TEXT, BONUS_A_3_1 as ANSWER_1, BONUS_A_3_2 as ANSWER_2, BONUS_A_3_3 as ANSWER_3, 'B3' AS ANSWER_4, 'B3' AS ANSWER_5, 'B3' AS ANSWER_6, 'B3' AS ANSWER_7 
+					FROM df_game where BONUS_Q_3 like '%{}%'
+					limit 10
+					""".format(question_input))
+	df_b4 = ps.sqldf("""SELECT BONUS_Q_4 as QUESTION_TEXT, BONUS_A_4_1 as ANSWER_1, BONUS_A_4_2 as ANSWER_2, BONUS_A_4_3 as ANSWER_3, BONUS_A_4_4 as ANSWER_4, 'B4' AS ANSWER_5, 'B4' AS ANSWER_6, 'B4' AS ANSWER_7 
+					FROM df_game where BONUS_Q_4 like '%{}%'
+					limit 10
+					""".format(question_input))
+
+	st.dataframe(df_total.append(df_b1).append(df_b2).append(df_b3).append(df_b4))
 #################################################################################################################################################
 #### THIRD TAB!!! STATS
 ####
