@@ -562,6 +562,6 @@ with tab3:
 ## find game
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
-	season_find = st.selectbox('Select Season', options=['select']+list(df_game.Season.values))
+	season_find = st.selectbox('Select Season', options=['select']+list(df_game.Season.unique()))
 		     
 		     
