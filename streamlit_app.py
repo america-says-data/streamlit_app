@@ -571,7 +571,7 @@ with tab2:
 					limit 10
 					""".format(question_input))
 
-	st.dataframe(df_total.append(df_b1).append(df_b2).append(df_b3).append(df_b4))
+	st.dataframe(pd.concat([df_total, df_b1, df_b2, df_b3, df_b4]))
 #################################################################################################################################################
 #### THIRD TAB!!! STATS
 ####
