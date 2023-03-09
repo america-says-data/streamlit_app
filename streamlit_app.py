@@ -546,9 +546,11 @@ with tab2:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## question finder
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
+	
 	question_input = st.text_input(
 	        "What question are you looking for?")
-
+	if question_input = "":
+		question_input = "unknown"
 	st.dataframe(ps.sqldf("""(SELECT QUESTION_TEXT, ANSWER_1, ANSWER_2, ANSWER_3, ANSWER_4, ANSWER_5, ANSWER_6, ANSWER_7 
 					FROM df_question where QUESTION_TEXT like '%{q_word}%')
 				UNION
