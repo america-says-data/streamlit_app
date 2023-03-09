@@ -57,7 +57,7 @@ st.write("Currently built off of ", len(df_game), " games")
 
 st.write("Last update - March 3rd, 2023")
 
-tab1, tab2 = st.tabs(["Quick Question", "Stats"])
+tab1, tab2, tab3 = st.tabs(["Quick Question", "Stats", "Game Select"])
 
 	
 #### TODO : Create streamlit loading text that says "Creating Player Table"
@@ -543,4 +543,25 @@ with tab2:
 
 	st.dataframe(final_df)
 
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## question finder
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+	question_input = st.text_input(
+	        "What question are you looking for?")
+	
+	st.dataframe(ps.sqldf("""SELECT QUESTION_TEXT, ANSWER_1, ANSWER_2, ANSWER_3, ANSWER_4, ANSWER_5, ANSWER_6, ANSWER_7 
+					FROM df_question where QUESTION_TEXT like '%{}%' limit 10""") 
 
+#################################################################################################################################################
+#### THIRD TAB!!! STATS
+####
+#################################################################################################################################################
+with tab3:
+	
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## find game
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+
+	season_find = st.selectbox('Select Season', options=['select']+list(df_game.Season.values))
+		     
+		     
