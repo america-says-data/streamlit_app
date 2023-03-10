@@ -55,7 +55,7 @@ df_question, df_game, df_team, df_round = get_tables()
 
 st.write("Currently built off of ", len(df_game), " games")
 
-st.write("Last update - March 3rd, 2023")
+st.write("Last update - March 10th, 2023")
 
 tab1, tab2, tab3 = st.tabs(["Quick Question", "Stats", "Game Select"])
 
@@ -578,6 +578,7 @@ with tab2:
 #################################################################################################################################################
 with tab3:
 	
+	st.write("UNDER CONSTRUCTION - be able to look up games and see how those teams and players compare to the rest of the games played")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## find game
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
