@@ -392,7 +392,16 @@ with tab2:
 	elif season_select == "5":
 		season_select_clause = "= '5'"
 	
-
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## percent chance question breakdown
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+	st.write("'It happens all the time on this show!'")
+	st.write("""Does it? Here we break down how many times teams clear the board, clear the board in the 3rd round, 
+				and clear the board in the third round when it's the only option for victory.""")
+		
+	per_chance_happens = ps.sqldf("select * df_question where QUESTION_TEXT is not null")
+	print(len(per_chance_happens))
+	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## Answers correct histogram (by season)
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
