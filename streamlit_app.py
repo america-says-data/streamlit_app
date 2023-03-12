@@ -542,7 +542,7 @@ with tab2:
 	st.write("""Does it? Here we break down how many times teams clear the board, clear the board in the 3rd round, 
 				and clear the board in the third round when it's the only option for victory.""")
 		
-	st.dataframe(df_hattots)	
+	st.dataframe(df_hattots.set_index("Season"))	
 
 	st.markdown("""---""")
 
