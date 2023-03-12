@@ -469,16 +469,7 @@ with tab2:
 	elif season_select == "5":
 		season_select_clause = "= '5'"
 	
-##----------------------------------------------------------------------------------------------------------------------------------------------------
-## percent chance question breakdown
-##----------------------------------------------------------------------------------------------------------------------------------------------------
-	st.write("'It happens all the time on this show!'")
-	st.write("""Does it? Here we break down how many times teams clear the board, clear the board in the 3rd round, 
-				and clear the board in the third round when it's the only option for victory.""")
-		
-	st.dataframe(df_hattots)	
 
-	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## Answers correct histogram (by season)
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -543,6 +534,17 @@ with tab2:
 	st.line_chart(df_dist_round_st)
 
 #### TODO: update the visuals (titles, axis, etc)
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## percent chance question breakdown
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+	st.write("'It happens all the time on this show!'")
+	st.write("""Does it? Here we break down how many times teams clear the board, clear the board in the 3rd round, 
+				and clear the board in the third round when it's the only option for victory.""")
+		
+	st.dataframe(df_hattots)	
+
+	
+
 
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## season clean up comparison (covid season 4 drop)
