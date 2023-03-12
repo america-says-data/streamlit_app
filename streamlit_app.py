@@ -35,7 +35,8 @@ def get_tables():
 	df_question = df_question.replace('NA', np.nan)
 	df_game = df_game.replace('NA', np.nan)
 	df_team = df_team.replace('NA', np.nan)
-		
+
+	df_round = df_round[df_round["Season"] != ""]		
 	df_question["Time_Remaining"] = df_question["Time_Remaining"].astype(float)
 	df_game["After_Skipped_Time_Remaining"] = df_game["After_Skipped_Time_Remaining"].astype(float)
 
@@ -147,7 +148,83 @@ def build_players_table():
 	return df_player_unmelt
 
 
+@st.cache_data(ttl=86400)
+def build_hattots():
+	df_round["Score_total"] = df_round["Score_total"].astype(int)
+	df_round["Score_after_round"] = df_round[["Team_id", "Score_total"]].groupby("Team_id").cumsum()
+	df_round["Score_before_round"] = df_round[["Team_id", "Score_after_round"]].groupby("Team_id").shift(1)
+	df_round["Opponent"] = np.where(df_round.Team_id.str[-1:] == '1', df_round.Team_id.str[:-1]+'2',df_round.Team_id.str[:-1]+'1')
+	df_round["Opponent_score_after_round"] = df_round[["Opponent", "Round"]].merge(df_round[["Team_id", "Round", "Score_after_round"]], left_on = ["Opponent", "Round"], right_on = ["Team_id", "Round"])[["Score_after_round"]]
+	df_round["Opponent_score_before_round"] = df_round[["Opponent", "Round"]].merge(df_round[["Team_id", "Round", "Score_before_round"]], left_on = ["Opponent", "Round"], right_on = ["Team_id", "Round"])[["Score_before_round"]]
+	df_round["Question_Text"] =  df_round[["Question_id"]].merge(df_question[["Question_id", "Question_Text"]], on = "Question_id")[["Question_Text"]]
+
+	df_round_1 = df_round[df_round.Question_Text.notnull()]
+	df_round_2 = df_round[(df_round.Question_Text.notnull()) & (df_round.Round == 3)]
+	df_round_3 = df_round[(df_round.Question_Text.notnull()) & (df_round.Round == 3)
+                                & (df_round.Opponent_score_before_round >= df_round.Score_before_round)
+                                & (df_round.Opponent_score_after_round >
+                                        df_round.Score_before_round + (df_round.Score_total - df_round.Score_no_clean_up) + 1800)]
+
+	df_round_1_agg = ps.sqldf("""select SEASON
+                                        , count(*) as 'Total_questions'
+                                        , SUM(CASE WHEN SCORE_TOTAL > SCORE_TOTAL_NO_BONUS THEN 1 ELSE 0 END) as 'Boards_Cleared'
+                                        from df_round_1
+                                        group by SEASON""")
+
+	df_round_2_agg = ps.sqldf("""select SEASON
+                                        , count(*) as 'Third_Round_Total_questions'
+                                        , SUM(CASE WHEN SCORE_TOTAL > SCORE_TOTAL_NO_BONUS THEN 1 ELSE 0 END) as 'Third_Round_Boards_Cleared'
+                                        from df_round_2
+                                        group by SEASON""")
+
+	df_round_3_agg = ps.sqldf("""select SEASON
+                                        , count(*) as 'Third_Round_Deficit_Total_questions'
+                                        , SUM(CASE WHEN SCORE_TOTAL > SCORE_TOTAL_NO_BONUS THEN 1 ELSE 0 END) as 'Third_Round_Deficit_Boards_Cleared'
+                                        from df_round_3
+                                        group by SEASON""")
+
+	df_hattots = ps.sqldf("""select o.SEASON
+                                        , Total_questions
+                                        , Boards_Cleared
+                                        , Third_Round_Total_questions
+                                        , Third_Round_Boards_Cleared
+                                        , Third_Round_Deficit_Total_questions
+                                        , Third_Round_Deficit_Boards_Cleared
+                                        from df_round_1_agg o
+                                        join df_round_2_agg t on o.SEASON = t.SEASON
+                                        join df_round_3_agg e on t.SEASON = e.SEASON
+                                        """)
+	df_hattots =  ps.sqldf("""select * from df_hattots
+                                UNION
+                                select 'Total' as SEASON
+                                        , sum(Total_questions) Total_questions
+                                        , sum(Boards_Cleared) Boards_Cleared
+                                        , sum(Third_Round_Total_questions) Third_Round_Total_questions
+                                        , sum(Third_Round_Boards_Cleared) Third_Round_Boards_Cleared
+                                        , sum(Third_Round_Deficit_Total_questions) Third_Round_Deficit_Total_questions
+                                        , sum(Third_Round_Deficit_Boards_Cleared) Third_Round_Deficit_Boards_Cleared
+                                from df_hattots
+                                """)
+	
+	df_hattots = ps.sqldf("""select SEASON
+					, Total_questions
+					, Boards_Cleared
+					, 100 * Boards_Cleared / Total_questions Percent_Bonus
+ 					, Third_Round_Total_questions
+                                        , Third_Round_Boards_Cleared
+					, 100 * Third_Round_Boards_Cleared / Third_Round_Total_questions Percent_Bonus_Third_Round
+                                        , Third_Round_Deficit_Total_questions
+                                        , Third_Round_Deficit_Boards_Cleared
+					, 100 * Third_Round_Deficit_Boards_Cleared / Third_Round_Deficit_Total_questions Percent_Bonus_Winning_Deficit	
+					from df_hattots
+				""")
+	df_hattots["Percent_Bonus"] = df_hattots["Percent_Bonus"].astype(str)+'%'
+	df_hattots["Percent_Bonus_Third_Round"] = df_hattots["Percent_Bonus_Third_Round"].astype(str)+'%'
+	df_hattots["Percent_Bonus_Winning_Deficit"] = df_hattots["Percent_Bonus_Winning_Deficit"].astype(str)+'%'
+	return df_hattots
+
 df_players = build_players_table()
+df_hattots = build_hattots()
 
 @st.cache_data(ttl=86400)
 def create_probability():
@@ -395,12 +472,12 @@ with tab2:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## percent chance question breakdown
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
-	#st.write("'It happens all the time on this show!'")
-	#st.write("""Does it? Here we break down how many times teams clear the board, clear the board in the 3rd round, 
-	#			and clear the board in the third round when it's the only option for victory.""")
+	st.write("'It happens all the time on this show!'")
+	st.write("""Does it? Here we break down how many times teams clear the board, clear the board in the 3rd round, 
+				and clear the board in the third round when it's the only option for victory.""")
 		
-	per_chance_happens = ps.sqldf("select * from df_question where QUESTION_TEXT is not null")
-	print(len(per_chance_happens))
+	st.dataframe(df_hattots)	
+
 	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## Answers correct histogram (by season)
