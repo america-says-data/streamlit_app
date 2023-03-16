@@ -702,10 +702,10 @@ with tab3:
 		season_find = st.selectbox('Select Season', options=['select']+list(game_dates.Season.unique()))
 		
 		if season_find != 'select':
-			month_find = st.selectbox('Select Month', options=['select']+list(game_dates[game_dates.Season == season_find].Month.unique()))
+			month_find = st.selectbox('Select Month', options=['select']+list(game_dates[game_dates.Season == season_find].Year_month.unique()))
 	
 			if month_find != 'select':
-				game_find = st.selectbox('Select Game', options=['select']+list(game_dates[game_dates.Month == month_find].Game_id))
+				game_find = st.selectbox('Select Game', options=['select']+list(game_dates[game_dates.Year_month == month_find].Game_id))
 	
 	
 	
