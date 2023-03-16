@@ -688,7 +688,7 @@ with tab3:
 			first_letter.append(team_name[:1])
 
 	game_dates = df_game[['Season', 'Year', 'Date', 'Game_id']]
-	game_dates['Month'] = game_dates.Year + " " + game_dates.Date[:3] 
+	game_dates['Month'] = str(game_dates.Year) + " " + game_dates.Date[:3] 
 
 	team_table = pd.DataFrame(zip(team_list, first_letter), columns = ['Team_name', 'First_letter'])
 	team_table = team_table.sort_values(by = 'First_letter')
