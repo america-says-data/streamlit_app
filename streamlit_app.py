@@ -678,23 +678,29 @@ with tab3:
 ## find game
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
-	team_list = sorted(list(df_team.Team.unique()))
-	print(team_list)
+	team_list = list(df_team.Team.unique())
 	first_letter = []
 	for team_name in team_list:
-		if team_name.str[:4] == "The ":
-			print(team_name.str[4:5])
-			first_letter.append(team_name.str[4:5])
+		if team_name[:4] == "The ":
+			first_letter.append(team_name[4:5])
 		else:
-			first_letter.append(team_name.str[:1])
+			first_letter.append(team_name[:1])
 	
 
-	print(zip(team_list, first_letter))
+	team_table = pd.DataFrame(zip(team_list, first_letter), columns = ['Team_name', 'First_letter'])
+	team_table = team_table.sort_values(by = 'First_letter')
+	
+
 	team_or_season = st.selectbox('Select game by Team or Season', options=['select', 'Team', 'Season'])
+	
+
 	if team_or_season != 'select' and team_or_season == 'Season':
 		season_find = st.selectbox('Select Season', options=['select']+list(df_game.Season.unique()))
 	elif team_or_season != 'select' and team_or_season == 'Team':
-		team_find = st.selectbox('Select Team', options=['select']+team_character_list)	 
+		team_find = st.selectbox('Select Team', options=['select']+team_table.First_letter.unique())
+
+		if team_find != 'select':
+			team_name_find = st.selectbox('Select Team Name', options=['select']+team_table[team_table.First_letter == team_find].Team_name.unique())	 
 
 		
 st.write("##")		     
