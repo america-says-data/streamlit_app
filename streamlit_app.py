@@ -678,6 +678,7 @@ with tab3:
 ## find game
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
+	game = ""
 	team_list = list(df_team.Team.unique())
 	first_letter = []
 	for team_name in team_list:
@@ -685,7 +686,9 @@ with tab3:
 			first_letter.append(team_name[4:5])
 		else:
 			first_letter.append(team_name[:1])
-	
+
+	game_dates = df_game[['Season', 'Year', 'Date', 'Game_id']]
+	game_dates['Month'] = games_dates.Year + " " + games_dates.Date[:3] 
 
 	team_table = pd.DataFrame(zip(team_list, first_letter), columns = ['Team_name', 'First_letter'])
 	team_table = team_table.sort_values(by = 'First_letter')
@@ -695,13 +698,27 @@ with tab3:
 	
 
 	if team_or_season != 'select' and team_or_season == 'Season':
-		season_find = st.selectbox('Select Season', options=['select']+list(df_game.Season.unique()))
+		season_find = st.selectbox('Select Season', options=['select']+list(game_dates.Season.unique()))
+		
+		if season_find != 'select':
+			month_find = st.selectbox('Select Month', options=['select']+list(game_dates[game_dates.Season == season_find].Month.unique()))
+	
+			if month_find != 'select':
+				game_find = st.selectbox('Select Game', options=['select']+list(game_dates[game_dates.Month == month_find].Game_id))
+	
+	
+	
 	elif team_or_season != 'select' and team_or_season == 'Team':
-		team_find = st.selectbox('Select Team', options=['select']+list(team_table.First_letter.unique()))
+		team_find = st.selectbox('Select Team Initial', options=['select']+list(team_table.First_letter.unique()))
 
 		if team_find != 'select':
 			team_name_find = st.selectbox('Select Team Name', options=['select']+list(team_table[team_table.First_letter == team_find].Team_name.unique()))	 
-
+			
+			if team_name_find != 'select':
+				game_find = st.selectbox('Select Game', options=['select']+list(df_team[df_team.Team == team_name_find].Game_id))	 
+			
+		
+st.write(game_find)
 		
 st.write("##")		     
 st.text("feedback and questions - america.says.data@gmail.com")
