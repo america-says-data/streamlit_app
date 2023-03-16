@@ -695,7 +695,7 @@ with tab3:
 	
 
 	if team_or_season != 'select' and team_or_season == 'Season':
-		season_find = st.selectbox('Select Season', options=['select']+df_game.Season.unique())
+		season_find = st.selectbox('Select Season', options=['select']+list(df_game.Season.unique()))
 	elif team_or_season != 'select' and team_or_season == 'Team':
 		team_find = st.selectbox('Select Team', options=['select']+list(team_table.First_letter.unique()))
 
