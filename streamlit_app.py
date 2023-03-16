@@ -678,8 +678,11 @@ with tab3:
 ## find game
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
-	season_find = st.selectbox('Select Season', options=['select']+list(df_game.Season.unique()))
-	team_find = st.selectbox('Select Team', options=['select']+list(df_team.Team.str[:1].unique()))	 
+	team_or_season = st.selectbox('Select Season', options=['select', 'Team', 'Season'])
+	if team_or_season != 'select' and team_or_season == 'Season':
+		season_find = st.selectbox('Select Season', options=['select']+list(df_game.Season.unique()))
+	elif team_or_season != 'select' and team_or_season == 'Team':
+		team_find = st.selectbox('Select Team', options=['select']+sorted(list(df_team.Team.str[:1].unique())))	 
 
 		
 st.write("##")		     
