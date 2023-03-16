@@ -679,6 +679,8 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
 	season_find = st.selectbox('Select Season', options=['select']+list(df_game.Season.unique()))
-		     
-		     
+	team_find = st.selectbox('Select Team', options=['select']+list(df_team.Team.str[:1].unique().sort_values()))	 
+
+		
+st.write("##")		     
 st.text("feedback and questions - america.says.data@gmail.com")
