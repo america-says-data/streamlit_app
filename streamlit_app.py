@@ -16,13 +16,13 @@ st.write ("""
 
  
 
-#gc = gspread.service_account(filename='.config/gspread/service_account.json')
+gc = gspread.service_account(filename='.config/gspread/service_account.json')
 
 #### TODO : figure out the versioning of oauth2 etc to handle secrets
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"]
-)
-gc = gspread.oauth_from_dict(credentials=credentials)
+# credentials = service_account.Credentials.from_service_account_info(
+#     st.secrets["gcp_service_account"]
+# )
+# gc = gspread.oauth_from_dict(credentials=credentials)
 
 sheet = gc.open_by_key("1wecLQmlElnGaUP92uVEgT0bdyqqwt4HTVlTaqyFFCIw")
 
