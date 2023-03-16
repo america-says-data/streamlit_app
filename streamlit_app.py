@@ -678,11 +678,23 @@ with tab3:
 ## find game
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
-	team_or_season = st.selectbox('Select Season', options=['select', 'Team', 'Season'])
+	team_list = sorted(list(df_team.Team.unique()))
+	print(team_list)
+	first_letter = []
+	for team_name in team_list:
+		if team_name.str[:4] == "The ":
+			print(team_name.str[4:5])
+			first_letter.append(team_name.str[4:5])
+		else:
+			first_letter.append(team_name.str[:1])
+	
+
+	print(zip(team_list, first_letter))
+	team_or_season = st.selectbox('Select game by Team or Season', options=['select', 'Team', 'Season'])
 	if team_or_season != 'select' and team_or_season == 'Season':
 		season_find = st.selectbox('Select Season', options=['select']+list(df_game.Season.unique()))
 	elif team_or_season != 'select' and team_or_season == 'Team':
-		team_find = st.selectbox('Select Team', options=['select']+sorted(list(df_team.Team.str[:1].unique())))	 
+		team_find = st.selectbox('Select Team', options=['select']+team_character_list)	 
 
 		
 st.write("##")		     
