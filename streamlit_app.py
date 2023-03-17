@@ -373,7 +373,7 @@ def answer_reset():
 with tab1:
 	st.header("Random America Says Question")
 	
-	if st.button('Produce Question!'):
+	if st.button('Produce Question!', use_container_width = True):
 		if 'question' in st.session_state:
 			del st.session_state.question
 		if 'question' not in st.session_state:
