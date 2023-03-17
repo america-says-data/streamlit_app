@@ -741,9 +741,9 @@ with tab3:
 
 	game_find_dict = st.experimental_get_query_params()
 	try:
-        	game_find_1 = dict(game_find_dict)["game_id"][0]
-    	except (KeyError, TypeError):
-        	game_find_1 = ""
+		game_find_1 = dict(game_find_dict)["game_id"][0]
+	except (KeyError, TypeError):
+		game_find_1 = ""
 
 	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
