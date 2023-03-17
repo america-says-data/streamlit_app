@@ -738,9 +738,11 @@ with tab3:
 ## build game histogram
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
+
 	fig = px.histogram(df_team, x="Score_check", nbins=20, color_discrete_sequence=['lavender'])
+	
 	if game_find != "" and game_find != "select":
-		df_specific_game = df_team[df_team.Game_id == game_find][['Team', 'Score_check']]
+		df_specific_game = df_team[df_team.Game_id == game_find][['Team', 'Score_check', 'Percent_rank']]
 		team_1 = df_specific_game.iloc[0]
 		team_2 = df_specific_game.iloc[1]
 		if team_1.Score_check >= team_2.Score_check:
@@ -753,8 +755,19 @@ with tab3:
 		fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text=team_1.Team, annotation_position=team_1.pos, line_color="red")
 		fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text=team_2.Team, annotation_position=team_2.pos, line_color="blue")
 	
+		
 	st.plotly_chart(fig, use_container_width=True)
 
+	if game_find != "" and game_find != "select":
+		col1, col2 = st.columns(2)
+		st.write("Performances better than x% of teams:"
+		with col1:
+			st.header(team_1.Team)
+			st.header(team_1.Percent_rank + "%")
+		with col2:
+			st.header(team_2.Team)
+			st.header(team_2.Percent_rank + "%")
+		
 
 		
 st.write("##")		     
