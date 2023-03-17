@@ -739,7 +739,7 @@ with tab3:
 	
 ###### pull in current parameters for the actual game to be used - to be able to find via url
 
-	game_find_1 = st.experimental_get_query_params()
+	game_find_1 = st.experimental_get_query_params()[game_id]
 	st.write(game_find_1)
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
@@ -749,7 +749,7 @@ with tab3:
 	fig = px.histogram(df_team, x="Score_check", nbins=20, color_discrete_sequence=['lavender'])
 	
 	if game_find_1 != "" and game_find_1 != "select":
-		df_specific_game = df_team[df_team.Game_id == game_find][['Team', 'Score_check', 'Percent_rank']]
+		df_specific_game = df_team[df_team.Game_id == game_find_1][['Team', 'Score_check', 'Percent_rank']]
 		team_1 = df_specific_game.iloc[0]
 		team_2 = df_specific_game.iloc[1]
 		if team_1.Score_check >= team_2.Score_check:
@@ -772,7 +772,7 @@ with tab3:
 		
 	st.write("""##""")	
 		
-	if game_find != "" and game_find != "select":
+	if game_find_1 != "" and game_find_1 != "select":
 		col1, col2 = st.columns(2)
 
 		with col1:
@@ -788,7 +788,7 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 			
 	
-	if game_find != "" and game_find != "select":	
+	if game_find_1 != "" and game_find_1 != "select":	
 		st.write("Winning team probability of succeeding in the bonus round and winning $15,000")
 		if team_1.Score_check >= team_2.Score_check:
 			win_prob_val = win_prob[win_prob.test_score == team_1.Score_check]['test_probabilities'].iloc[0]
@@ -802,10 +802,11 @@ with tab3:
 
 	fig = px.histogram(df_players, x="Answers_Correct_No_Bonus", nbins=20, color_discrete_sequence=['lavender'])
 	
-	if game_find != "" and game_find != "select":
-		df_specific_player = df_players[df_players.Game_id == game_find][['Team', 'Player', 'Answers_Correct_No_Bonus', 'Percent_rank']]
+	if game_find_1 != "" and game_find_1 != "select":
+		df_specific_player = df_players[df_players.Game_id == game_find_1][['Team', 'Player', 'Answers_Correct_No_Bonus', 'Percent_rank']]
+		st.dataframe(df_specific_player.head())
 		df_specific_player = df_specific_player.groupby('Team').first()
-		st.write(df_specific_player.head())
+		st.dataframe(df_specific_player.head())
 		player_1 = df_specific_player[df_specific_player.Team == team_1.Team].iloc[0]
 		player_2 = df_specific_player[df_specific_player.Team == team_2.Team].iloc[0]
 		if player_1.Answers_Correct_No_Bonus >= player_2.Answers_Correct_No_Bonus:
@@ -830,7 +831,7 @@ with tab3:
 		
 	st.write("""##""")	
 		
-	if game_find != "" and game_find != "select":
+	if game_find_1 != "" and game_find_1 != "select":
 		col1, col2 = st.columns(2)
 
 		with col1:
