@@ -741,8 +741,7 @@ with tab3:
 
 	game_find_dict = st.experimental_get_query_params()
 	game_find_1 = game_find_dict.get('game_id', None)[0]
-	st.write(game_find_dict)
-	st.write(game_find_1)
+
 	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
