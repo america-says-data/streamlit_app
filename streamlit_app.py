@@ -745,6 +745,7 @@ with tab3:
 	except (KeyError, TypeError):
 		game_find_1 = ""
 
+	hide_teams = st.checkbox('No Spoilers')
 	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
@@ -763,9 +764,12 @@ with tab3:
 		else:
 			team_1['pos'] = "top left"
 			team_2['pos'] = "top right"
-	
-		fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text=team_1.Team, annotation_position=team_1.pos, line_color="red")
-		fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text=team_2.Team, annotation_position=team_2.pos, line_color="blue")
+		if hide_teams:
+			fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text="???", annotation_position=team_1.pos, line_color="red")
+			fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text="???", annotation_position=team_2.pos, line_color="blue")
+		else:
+			fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text=team_1.Team, annotation_position=team_1.pos, line_color="red")
+			fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text=team_2.Team, annotation_position=team_2.pos, line_color="blue")
 	
 		
 	st.plotly_chart(fig, use_container_width=True)
@@ -781,11 +785,17 @@ with tab3:
 		col1, col2 = st.columns(2)
 
 		with col1:
-			st.header(team_1.Team)
+			if hide_teams:
+				st.header("???")
+			else:
+				st.header(team_1.Team)
 			val_str = str(team_1.Percent_rank) + "%"
 			st.header(val_str)
 		with col2:
-			st.header(team_2.Team)
+			if hide_teams:
+				st.header("???")
+			else:
+				st.header(team_2.Team)
 			val_str = str(team_2.Percent_rank) + "%"
 			st.header(val_str)
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -799,7 +809,7 @@ with tab3:
 			win_prob_val = win_prob[win_prob.test_score == team_1.Score_check]['test_probabilities'].iloc[0]
 		else:
 			win_prob_val = win_prob[win_prob.test_score == team_2.Score_check]['test_probabilities'].iloc[0]
-		st.write("{:.2%}".format(win_prob_val))
+		st.header("Winning team has {:.2%} to win the $15,000".format(win_prob_val))
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build player performance
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -818,9 +828,12 @@ with tab3:
 		else:
 			player_1['pos'] = "top left"
 			player_2['pos'] = "top right"
-	
-		fig.add_vline(x=player_1.Answers_Correct_No_Bonus, line_dash="dot", annotation_text=player_1.Player, annotation_position=player_1.pos, line_color="red")
-		fig.add_vline(x=player_2.Answers_Correct_No_Bonus, line_dash="dot", annotation_text=player_2.Player, annotation_position=player_2.pos, line_color="blue")
+		if hide_teams:
+			fig.add_vline(x=player_1.Answers_Correct_No_Bonus, line_dash="dot", annotation_text="???", annotation_position=team_1.pos, line_color="red")
+			fig.add_vline(x=player_2.Answers_Correct_No_Bonus, line_dash="dot", annotation_text="???", annotation_position=team_2.pos, line_color="blue")
+		else:
+			fig.add_vline(x=player_1.Answers_Correct_No_Bonus, line_dash="dot", annotation_text=player_1.Player, annotation_position=player_1.pos, line_color="red")
+			fig.add_vline(x=player_2.Answers_Correct_No_Bonus, line_dash="dot", annotation_text=player_2.Player, annotation_position=player_2.pos, line_color="blue")
 	
 		
 	st.plotly_chart(fig, use_container_width=True)
@@ -838,11 +851,17 @@ with tab3:
 		col1, col2 = st.columns(2)
 
 		with col1:
-			st.header(player_1.Player)
+			if hide_teams:
+				st.header("???")
+			else:
+				st.header(player_1.Player)
 			val_str = str(player_1.Percent_rank) + "%"
 			st.header(val_str)
 		with col2:
-			st.header(player_2.Player)
+			if hide_teams:
+				st.header("???")
+			else:
+				st.header(player_2.Player)
 			val_str = str(player_2.Percent_rank) + "%"
 			st.header(val_str)
 			
