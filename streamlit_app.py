@@ -757,13 +757,13 @@ with tab3:
 	
 		
 	st.plotly_chart(fig, use_container_width=True)
-
+	st.write("Performances better than x% of teams:")
+		
+	st.write("##")	
+		
 	if game_find != "" and game_find != "select":
 		col1, col2 = st.columns(2)
-		st.write("Performances better than x% of teams:")
-		
-		st.write("##")	
-		
+
 		with col1:
 			st.header(team_1.Team)
 			val_str = str(team_1.Percent_rank) + "%"
