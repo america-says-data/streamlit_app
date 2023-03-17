@@ -761,12 +761,17 @@ with tab3:
 	if game_find != "" and game_find != "select":
 		col1, col2 = st.columns(2)
 		st.write("Performances better than x% of teams:")
+		
+		st.write("##")	
+		
 		with col1:
 			st.header(team_1.Team)
-			st.header(team_1.Percent_rank + "%")
+			val_str = team_1.Percent_rank.values.str() + "%"
+			st.header(val_str)
 		with col2:
 			st.header(team_2.Team)
-			st.header(team_2.Percent_rank + "%")
+			val_str = team_2.Percent_rank.values.str() + "%"
+			st.header(val_str)
 		
 
 		
