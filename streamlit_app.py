@@ -680,22 +680,26 @@ with tab3:
 
 	game_find = ""
 	team_list = list(df_team.Team.unique())
+	clean_name = []
 	first_letter = []
 	# set up alphabetical order for first letter and team name but removing "The" and "Team"
 	for team_name in team_list:
 		if team_name[:4] == "The ":
 			first_letter.append(team_name[4:5])
-		#elif team_name[:5] == "Team ":
-		#	first_letter.append(team_name[5:6])
+			clean_name.append(team_name[4:])
+		elif team_name[:5] == "Team ":
+			first_letter.append(team_name[5:6])
+			clean_name.append(team_name[5:])
 		else:
 			first_letter.append(team_name[:1])
+			clean_name.append(team_name)
 
 	game_dates = df_game[['Season', 'Year', 'Date', 'Game_id']]
 	game_dates['Month'] = game_dates.Date.str[:3]
 	game_dates['Year_month'] = game_dates.Year.astype(str).str.cat(game_dates.Month, sep='-')
 	
-	team_table = pd.DataFrame(zip(team_list, first_letter), columns = ['Team_name', 'First_letter'])
-	team_table = team_table.sort_values(by = ['First_letter', 'Team_name'])
+	team_table = pd.DataFrame(zip(team_list, first_letter, clean_name), columns = ['Team_name', 'First_letter', 'Clean_name])
+	team_table = team_table.sort_values(by = ['First_letter', 'Clean_name'])
 	
 
 	team_or_season = st.selectbox('Select game by Team or Season', options=['select', 'Team', 'Season'])
