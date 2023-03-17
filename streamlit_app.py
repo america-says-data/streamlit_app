@@ -784,7 +784,7 @@ with tab3:
 		else:
 			win_prob_val = win_prob[win_prob.test_score == team_2.Score_check]['test_probabilities'].values
 			print(win_prob_val)
-		st.write("{:.2%}".format(win_prob_val)
+		st.write("{:.2%}".format(win_prob_val))
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build player performance
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
