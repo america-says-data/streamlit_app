@@ -739,7 +739,7 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
 	fig = px.histogram(df_team, x="Score_check", nbins=20, color_discrete_sequence=['lavender'])
-	if game_find != "":
+	if game_find != "" and game_find != "select":
 		df_specific_game = df_team[df_team.Game_id == game_find][['Team', 'Score_check']]
 		team_1 = df_specific_game.iloc[0]
 		team_2 = df_specific_game.iloc[1]
