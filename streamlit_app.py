@@ -779,10 +779,10 @@ with tab3:
 	if game_find != "" and game_find != "select":	
 		st.write("Winning team probability of succeeding in the bonus round and winning $15,000")
 		if team_1.Score_check >= team_2.Score_check:
-			win_prob_val = win_prob[win_prob.test_score == team_1.Score_check]['test_probabilities'].values
+			win_prob_val = win_prob[win_prob.test_score == team_1.Score_check]['test_probabilities'].iloc[0]
 			st.write(win_prob_val)
 		else:
-			win_prob_val = win_prob[win_prob.test_score == team_2.Score_check]['test_probabilities'].values
+			win_prob_val = win_prob[win_prob.test_score == team_2.Score_check]['test_probabilities'].iloc[0]
 			st.write(win_prob_val)
 		st.write("{:.2%}".format(win_prob_val))
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
