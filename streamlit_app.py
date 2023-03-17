@@ -779,9 +779,9 @@ with tab3:
 	if game_find != "" and game_find != "select":	
 		st.write("Winning team probability of succeeding in the bonus round and winning $15,000")
 		if team_1.Score_check >= team_2.Score_check:
-			st.write("{:.2%}".format(win_prob[win_prob.test_score == team_1.Score_check]['test_probabilities']))
+			st.write("{:.2%}".format(win_prob[win_prob.test_score == team_1.Score_check]['test_probabilities'].values))
 		else:
-			st.write("{:.2%}".format(win_prob[win_prob.test_score == team_2.Score_check]['test_probabilities']))
+			st.write("{:.2%}".format(win_prob[win_prob.test_score == team_2.Score_check]['test_probabilities'].values))
 
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build player performance
