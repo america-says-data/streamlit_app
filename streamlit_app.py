@@ -51,7 +51,7 @@ def get_tables():
 							(df_question["Team_Member_Answer_6"] == -1) |
 							(df_question["Team_Member_Answer_7"] == -1) | 
 							(df_question["Answers_Correct_By_Clean_Up_Team"].isna()), 0, 1)
-	df_team["Percent_rank"] = 100*df_team.Score_check.rank(pct=True).apply(np.floor)					
+	df_team["Percent_rank"] = (100*df_team.Score_check.rank(pct=True)).apply(np.floor)					
 	
 	return df_question, df_game, df_team, df_round
 
