@@ -741,8 +741,10 @@ with tab3:
 
 	game_find_1 = st.experimental_get_query_params()
 	st.write(game_find_1)
-	game_find_1 = game_find_1['game_id']
-	st.write(game_find_1)
+	game_find_2 = game_find_1['game_id']
+	st.write(game_find_2)
+	game_find_3 = game_find_1.values()
+	st.write(game_find_3)
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
