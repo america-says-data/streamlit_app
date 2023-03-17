@@ -129,7 +129,7 @@ def build_players_table():
 
 
 	player_join_df = ps.sqldf("""
-        select i.SEASON, i.GAME, q.ROUND, i.TEAM, i.PLAYER, i.PLAYER_NUMBER, q.NUM_ANSWERS 
+        select i.SEASON, i.GAME, i.GAME_ID, q.ROUND, i.TEAM, i.PLAYER, i.PLAYER_NUMBER, q.NUM_ANSWERS 
         from df_individual i
         left join df_tally q
 		on i.SEASON = q.SEASON
@@ -139,7 +139,7 @@ def build_players_table():
         """)
 	
 
-	df_player_unmelt = player_join_df.pivot(index = ["Season", "Game", "Team", "Player", "Player_Number"], columns = "Round", values = "NUM_ANSWERS").reset_index()
+	df_player_unmelt = player_join_df.pivot(index = ["Season", "Game", "Game_id", "Team", "Player", "Player_Number"], columns = "Round", values = "NUM_ANSWERS").reset_index()
 
 
 
@@ -147,7 +147,8 @@ def build_players_table():
 
 	df_player_unmelt["Answers_Correct_No_Bonus"] = df_player_unmelt["1"]+df_player_unmelt["2"]+df_player_unmelt["3"]
 	df_player_unmelt["Total_Answers_Correct"] = df_player_unmelt["1"]+df_player_unmelt["2"]+df_player_unmelt["3"]+df_player_unmelt["B"]
-
+	
+	df_player_unmelt["Percent_rank"] = (100*df_player_unmelt.Answers_Correct_No_Bonus.rank(pct=True)).apply(np.floor)	
 	return df_player_unmelt
 
 
@@ -758,7 +759,7 @@ with tab3:
 		
 	st.plotly_chart(fig, use_container_width=True)
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
-## build specific team predictor
+## build team performance percentile
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
 	st.write("Performances better than x% of teams:")
@@ -776,6 +777,11 @@ with tab3:
 			st.header(team_2.Team)
 			val_str = str(team_2.Percent_rank) + "%"
 			st.header(val_str)
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## build specific team predictor
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+			
+	
 	if game_find != "" and game_find != "select":	
 		st.write("Winning team probability of succeeding in the bonus round and winning $15,000")
 		if team_1.Score_check >= team_2.Score_check:
@@ -790,23 +796,48 @@ with tab3:
 
 	fig = px.histogram(df_players, x="Answers_Correct_No_Bonus", nbins=20, color_discrete_sequence=['lavender'])
 	
-# 	if game_find != "" and game_find != "select":
-# 		df_specific_game = df_team[df_team.Game_id == game_find][['Team', 'Score_check', 'Percent_rank']]
-# 		team_1 = df_specific_game.iloc[0]
-# 		team_2 = df_specific_game.iloc[1]
-# 		if team_1.Score_check >= team_2.Score_check:
-# 			team_1['pos'] = "top right"
-# 			team_2['pos'] = "top left"
-# 		else:
-# 			team_1['pos'] = "top left"
-# 			team_2['pos'] = "top right"
+	if game_find != "" and game_find != "select":
+		df_specific_player = df_players[df_players.Game_id == game_find][['Team', 'Player', 'Answers_Correct_No_Bonus', 'Percent_rank']]
+		df_specific_player = df_specific_player.groupby('Team').first()
+		player_1 = df_specific_player[df_specific_player.Team == team_1.Team].iloc[0]
+		player_2 = df_specific_player[df_specific_player.Team == team_2.Team].iloc[0]
+		if player_1.Answers_Correct_No_Bonus >= player_2.Answers_Correct_No_Bonus:
+			player_1['pos'] = "top right"
+			player_2['pos'] = "top left"
+		else:
+			player_1['pos'] = "top left"
+			player_2['pos'] = "top right"
 	
-# 		fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text=team_1.Team, annotation_position=team_1.pos, line_color="red")
-# 		fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text=team_2.Team, annotation_position=team_2.pos, line_color="blue")
+		fig.add_vline(x=player_1.Answers_Correct_No_Bonus, line_dash="dot", annotation_text=player_1.Player, annotation_position=player_1.pos, line_color="red")
+		fig.add_vline(x=player_2.Answers_Correct_No_Bonus, line_dash="dot", annotation_text=player_2.Player, annotation_position=player_2.pos, line_color="blue")
 	
 		
 	st.plotly_chart(fig, use_container_width=True)
+	
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## build team performance percentile
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	
+	st.write("Performances better than x% of players:")
 		
+	st.write("""##""")	
+		
+	if game_find != "" and game_find != "select":
+		col1, col2 = st.columns(2)
+
+		with col1:
+			st.header(player_1.Player)
+			val_str = str(player_1.Percent_rank) + "%"
+			st.header(val_str)
+		with col2:
+			st.header(player_2.Team)
+			val_str = str(player_2.Percent_rank) + "%"
+			st.header(val_str)
+			
+			
+			
+			
 st.write("""##""")		     
 st.text("feedback and questions - america.says.data@gmail.com")
 st.write('''<style>
