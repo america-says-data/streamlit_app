@@ -743,7 +743,7 @@ with tab3:
 	st.write(game_find_1)
 	game_find_2 = game_find_1['game_id']
 	st.write(game_find_2)
-	game_find_3 = game_find_1.values()
+	game_find_3 = game_find_1.values()[0]
 	st.write(game_find_3)
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
