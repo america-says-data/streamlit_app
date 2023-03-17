@@ -740,7 +740,7 @@ with tab3:
 ###### pull in current parameters for the actual game to be used - to be able to find via url
 
 	game_find_dict = st.experimental_get_query_params()
-	game_find_1 = game_find_dict.get('game_id', None)[0]
+	game_find_1 = game_find_dict.get('game_id')[0]
 
 	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
