@@ -727,7 +727,8 @@ with tab3:
 			
 		
 	st.write(game_find)
-	st.experimental_get_query_params(game_id = game_find)
+	## TODO??? add game id to url so it can be visited within
+	st.experimental_get_query_params(selected = [game_find])
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
