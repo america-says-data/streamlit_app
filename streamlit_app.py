@@ -766,11 +766,11 @@ with tab3:
 		
 		with col1:
 			st.header(team_1.Team)
-			val_str = team_1.Percent_rank.values.str() + "%"
+			val_str = team_1.Percent_rank.str() + "%"
 			st.header(val_str)
 		with col2:
 			st.header(team_2.Team)
-			val_str = team_2.Percent_rank.values.str() + "%"
+			val_str = team_2.Percent_rank.str() + "%"
 			st.header(val_str)
 		
 
