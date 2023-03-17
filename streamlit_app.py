@@ -760,7 +760,7 @@ with tab3:
 
 	if game_find != "" and game_find != "select":
 		col1, col2 = st.columns(2)
-		st.write("Performances better than x% of teams:"
+		st.write("Performances better than x% of teams:")
 		with col1:
 			st.header(team_1.Team)
 			st.header(team_1.Percent_rank + "%")
