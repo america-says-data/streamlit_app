@@ -739,45 +739,45 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-# 	fig = px.histogram(df_team, x="Score_check", nbins=20, color_discrete_sequence=['lavender'])
+	fig = px.histogram(df_team, x="Score_check", nbins=20, color_discrete_sequence=['lavender'])
 	
-# 	if game_find != "" and game_find != "select":
-# 		df_specific_game = df_team[df_team.Game_id == game_find][['Team', 'Score_check', 'Percent_rank']]
-# 		team_1 = df_specific_game.iloc[0]
-# 		team_2 = df_specific_game.iloc[1]
-# 		if team_1.Score_check >= team_2.Score_check:
-# 			team_1['pos'] = "top right"
-# 			team_2['pos'] = "top left"
-# 		else:
-# 			team_1['pos'] = "top left"
-# 			team_2['pos'] = "top right"
+	if game_find != "" and game_find != "select":
+		df_specific_game = df_team[df_team.Game_id == game_find][['Team', 'Score_check', 'Percent_rank']]
+		team_1 = df_specific_game.iloc[0]
+		team_2 = df_specific_game.iloc[1]
+		if team_1.Score_check >= team_2.Score_check:
+			team_1['pos'] = "top right"
+			team_2['pos'] = "top left"
+		else:
+			team_1['pos'] = "top left"
+			team_2['pos'] = "top right"
 	
-# 		fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text=team_1.Team, annotation_position=team_1.pos, line_color="red")
-# 		fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text=team_2.Team, annotation_position=team_2.pos, line_color="blue")
+		fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text=team_1.Team, annotation_position=team_1.pos, line_color="red")
+		fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text=team_2.Team, annotation_position=team_2.pos, line_color="blue")
 	
 		
-# 	st.plotly_chart(fig, use_container_width=True)
-# 	st.write("Performances better than x% of teams:")
+	st.plotly_chart(fig, use_container_width=True)
+	st.write("Performances better than x% of teams:")
 		
-# 	st.write("""##""")	
+	st.write("""##""")	
 		
-# 	if game_find != "" and game_find != "select":
-# 		col1, col2 = st.columns(2)
+	if game_find != "" and game_find != "select":
+		col1, col2 = st.columns(2)
 
-# 		with col1:
-# 			st.header(team_1.Team)
-# 			val_str = str(team_1.Percent_rank) + "%"
-# 			st.header(val_str)
-# 		with col2:
-# 			st.header(team_2.Team)
-# 			val_str = str(team_2.Percent_rank) + "%"
-# 			st.header(val_str)
+		with col1:
+			st.header(team_1.Team)
+			val_str = str(team_1.Percent_rank) + "%"
+			st.header(val_str)
+		with col2:
+			st.header(team_2.Team)
+			val_str = str(team_2.Percent_rank) + "%"
+			st.header(val_str)
 		
-# 	st.write("Winning team probability of succeeding in the bonus round and winning $15,000")
-# 	if team_1.Score_check >= team_2.Score_check:
-# 		st.write("{:.2%}".format(win_prob[win_prob.test_score == team_1.Score_check]['test_probabilities']))
-# 	else:
-# 		st.write("{:.2%}".format(win_prob[win_prob.test_score == team_2.Score_check]['test_probabilities']))
+	st.write("Winning team probability of succeeding in the bonus round and winning $15,000")
+	if team_1.Score_check >= team_2.Score_check:
+		st.write("{:.2%}".format(win_prob[win_prob.test_score == team_1.Score_check]['test_probabilities']))
+	else:
+		st.write("{:.2%}".format(win_prob[win_prob.test_score == team_2.Score_check]['test_probabilities']))
 		
 		
 st.write("""##""")		     
