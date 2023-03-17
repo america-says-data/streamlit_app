@@ -809,9 +809,7 @@ with tab3:
 	
 	if game_find_1 != "" and game_find_1 != "select":
 		df_specific_player = df_players[df_players.Game_id == game_find_1][['Team', 'Player', 'Answers_Correct_No_Bonus', 'Percent_rank']]
-		st.dataframe(df_specific_player.head(20))
 		df_specific_player = df_specific_player.sort_values('Answers_Correct_No_Bonus', ascending = False).groupby('Team').first().reset_index()
-		st.dataframe(df_specific_player.head())
 		player_1 = df_specific_player[df_specific_player['Team'] == team_1.Team].iloc[0]
 		player_2 = df_specific_player[df_specific_player['Team'] == team_2.Team].iloc[0]
 		if player_1.Answers_Correct_No_Bonus >= player_2.Answers_Correct_No_Bonus:
@@ -844,7 +842,7 @@ with tab3:
 			val_str = str(player_1.Percent_rank) + "%"
 			st.header(val_str)
 		with col2:
-			st.header(player_2.Team)
+			st.header(player_2.Player)
 			val_str = str(player_2.Percent_rank) + "%"
 			st.header(val_str)
 			
