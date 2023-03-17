@@ -741,8 +741,8 @@ with tab3:
 	fig = px.histogram(df_team, x="Score_check")
 	
 	df_specific_game = df_team[df_team.Game_id == game_find][['Team', 'Score_check']]
-	team_1 = df_specific_game[0]
-	team_2 = df_specific_game[1]
+	team_1 = df_specific_game.iloc[0]
+	team_2 = df_specific_game.iloc[1]
 	fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text=team_1.Team, annotation_position="bottom right", line_color="green")
 	
 	st.plotly_chart(fig, use_container_width=True)
