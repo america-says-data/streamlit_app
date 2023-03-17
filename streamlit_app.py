@@ -726,7 +726,14 @@ with tab3:
 				game_find = st.selectbox('Select Game', options=['select']+list(df_team[df_team.Team == team_name_find].Game_id))	 
 			
 		
-st.write(game_find)
+	st.write(game_find)
+	st.experimental_get_query_params(game_id = game_find)
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## build game histogram
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+
+	
+	
 		
 st.write("##")		     
 st.text("feedback and questions - america.says.data@gmail.com")
