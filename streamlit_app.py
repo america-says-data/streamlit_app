@@ -738,7 +738,7 @@ with tab3:
 ## build game histogram
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
-	fig = px.histogram(df_team, x="Score_check")
+	fig = px.histogram(df_team, x="Score_check", nbins=20, color="lavender")
 	
 	df_specific_game = df_team[df_team.Game_id == game_find][['Team', 'Score_check']]
 	team_1 = df_specific_game.iloc[0]
