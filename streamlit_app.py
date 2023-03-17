@@ -698,7 +698,7 @@ with tab3:
 	game_dates['Month'] = game_dates.Date.str[:3]
 	game_dates['Year_month'] = game_dates.Year.astype(str).str.cat(game_dates.Month, sep='-')
 	
-	team_table = pd.DataFrame(zip(team_list, first_letter, clean_name), columns = ['Team_name', 'First_letter', 'Clean_name])
+	team_table = pd.DataFrame(zip(team_list, first_letter, clean_name), columns = ['Team_name', 'First_letter', 'Clean_name'])
 	team_table = team_table.sort_values(by = ['First_letter', 'Clean_name'])
 	
 
