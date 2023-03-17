@@ -24,7 +24,8 @@ scopes = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/a
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"], scopes = scopes
 )
-gc = gspread.oauth_from_dict(credentials=credentials, scopes=scopes)
+gc = gspread.oauth(scopes=gspread.auth.READONLY_SCOPES)
+gc = gspread.oauth_from_dict(credentials=credentials)
 
 sheet = gc.open_by_key("1wecLQmlElnGaUP92uVEgT0bdyqqwt4HTVlTaqyFFCIw")
 
