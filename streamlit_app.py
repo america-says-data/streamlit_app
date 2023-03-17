@@ -759,7 +759,7 @@ with tab3:
 	st.plotly_chart(fig, use_container_width=True)
 	st.write("Performances better than x% of teams:")
 		
-	st.write("##")	
+	st.write("""##""")	
 		
 	if game_find != "" and game_find != "select":
 		col1, col2 = st.columns(2)
@@ -773,9 +773,14 @@ with tab3:
 			val_str = str(team_2.Percent_rank) + "%"
 			st.header(val_str)
 		
+	st.write("Winning team probability of succeeding in the bonus round and winning $15,000")
+	if team_1.Score_check >= team_2.Score_check:
+		st.write("{:.2%}".format(win_prob[win_prob.test_score == team_1.Score_check]['test_probabilities']))
+	else:
+		st.write("{:.2%}".format(win_prob[win_prob.test_score == team_2.Score_check]['test_probabilities']))
 		
 		
-st.write("##")		     
+st.write("""##""")		     
 st.text("feedback and questions - america.says.data@gmail.com")
 st.write('''<style>
 	[data-testid="column"] {
