@@ -740,9 +740,9 @@ with tab3:
 ###### pull in current parameters for the actual game to be used - to be able to find via url
 
 	game_find_dict = st.experimental_get_query_params()
-	game_find_1 = list(game_find_dict.values())
+	game_find_1 = game_find_dict.get('game_id', None)[0]
+	st.write(game_find_dict)
 	st.write(game_find_1)
-	st.write(game_find_1[0])
 	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
