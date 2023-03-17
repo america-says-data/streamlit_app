@@ -799,6 +799,7 @@ with tab3:
 	if game_find != "" and game_find != "select":
 		df_specific_player = df_players[df_players.Game_id == game_find][['Team', 'Player', 'Answers_Correct_No_Bonus', 'Percent_rank']]
 		df_specific_player = df_specific_player.groupby('Team').first()
+		print(df_specific_player.head())
 		player_1 = df_specific_player[df_specific_player.Team == team_1.Team].iloc[0]
 		player_2 = df_specific_player[df_specific_player.Team == team_2.Team].iloc[0]
 		if player_1.Answers_Correct_No_Bonus >= player_2.Answers_Correct_No_Bonus:
