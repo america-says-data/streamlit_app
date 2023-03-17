@@ -805,10 +805,10 @@ with tab3:
 	if game_find_1 != "" and game_find_1 != "select":
 		df_specific_player = df_players[df_players.Game_id == game_find_1][['Team', 'Player', 'Answers_Correct_No_Bonus', 'Percent_rank']]
 		st.dataframe(df_specific_player.head(20))
-		df_specific_player = df_specific_player.groupby('Team').first()
+		df_specific_player = df_specific_player.groupby('Team').sorted_values(by = 'Answers_Correct_No_Bonus').first()
 		st.dataframe(df_specific_player.head())
-		player_1 = df_specific_player[df_specific_player.Team == team_1.Team].iloc[0]
-		player_2 = df_specific_player[df_specific_player.Team == team_2.Team].iloc[0]
+		player_1 = df_specific_player[df_specific_player['Team'] == team_1.Team].iloc[0]
+		player_2 = df_specific_player[df_specific_player['Team'] == team_2.Team].iloc[0]
 		if player_1.Answers_Correct_No_Bonus >= player_2.Answers_Correct_No_Bonus:
 			player_1['pos'] = "top right"
 			player_2['pos'] = "top left"
