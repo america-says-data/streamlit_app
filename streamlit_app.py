@@ -773,7 +773,11 @@ with tab3:
 			val_str = str(team_2.Percent_rank) + "%"
 			st.header(val_str)
 		
-
+		[data-testid="column"] {
+			box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px, rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+			border-radius: 15px;
+			padding: 5% 5% 5% 10%;
+		} 
 		
 st.write("##")		     
 st.text("feedback and questions - america.says.data@gmail.com")
