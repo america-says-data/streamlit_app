@@ -786,7 +786,26 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build player performance
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	fig = px.histogram(df_players, x="Answers_Correct_No_Bonus", nbins=20, color_discrete_sequence=['lavender'])
+	
+# 	if game_find != "" and game_find != "select":
+# 		df_specific_game = df_team[df_team.Game_id == game_find][['Team', 'Score_check', 'Percent_rank']]
+# 		team_1 = df_specific_game.iloc[0]
+# 		team_2 = df_specific_game.iloc[1]
+# 		if team_1.Score_check >= team_2.Score_check:
+# 			team_1['pos'] = "top right"
+# 			team_2['pos'] = "top left"
+# 		else:
+# 			team_1['pos'] = "top left"
+# 			team_2['pos'] = "top right"
+	
+# 		fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text=team_1.Team, annotation_position=team_1.pos, line_color="red")
+# 		fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text=team_2.Team, annotation_position=team_2.pos, line_color="blue")
+	
 		
+	st.plotly_chart(fig, use_container_width=True)
 		
 st.write("""##""")		     
 st.text("feedback and questions - america.says.data@gmail.com")
