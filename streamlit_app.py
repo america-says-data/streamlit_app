@@ -20,11 +20,11 @@ st.write ("""
 
 
 #### TODO : figure out the versioning of oauth2 etc to handle secrets
-scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+scopes = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/spreadsheets']
 credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"], scopes = scope
+    st.secrets["gcp_service_account"], scopes = scopes
 )
-gc = gspread.oauth_from_dict(credentials=credentials, scope=scope)
+gc = gspread.oauth_from_dict(credentials=credentials, scopes=scopes)
 
 sheet = gc.open_by_key("1wecLQmlElnGaUP92uVEgT0bdyqqwt4HTVlTaqyFFCIw")
 
