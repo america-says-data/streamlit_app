@@ -780,10 +780,10 @@ with tab3:
 		st.write("Winning team probability of succeeding in the bonus round and winning $15,000")
 		if team_1.Score_check >= team_2.Score_check:
 			win_prob_val = win_prob[win_prob.test_score == team_1.Score_check]['test_probabilities'].values
-			print(win_prob_val)
+			st.write(win_prob_val)
 		else:
 			win_prob_val = win_prob[win_prob.test_score == team_2.Score_check]['test_probabilities'].values
-			print(win_prob_val)
+			st.write(win_prob_val)
 		st.write("{:.2%}".format(win_prob_val))
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build player performance
