@@ -739,20 +739,19 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
 	fig = px.histogram(df_team, x="Score_check", nbins=20, color_discrete_sequence=['lavender'])
+	if game_find != "":
+		df_specific_game = df_team[df_team.Game_id == game_find][['Team', 'Score_check']]
+		team_1 = df_specific_game.iloc[0]
+		team_2 = df_specific_game.iloc[1]
+		if team_1.Score_check >= team_2.Score_check:
+			team_1['pos'] = "top right"
+			team_2['pos'] = "top left"
+		else:
+			team_1['pos'] = "top left"
+			team_2['pos'] = "top right"
 	
-	df_specific_game = df_team[df_team.Game_id == game_find][['Team', 'Score_check']]
-	print(df_specific_game.head())
-	team_1 = df_specific_game.iloc[0]
-	team_2 = df_specific_game.iloc[1]
-	if team_1.Score_check >= team_2.Score_check:
-		team_1['pos'] = "top right"
-		team_2['pos'] = "top left"
-	else:
-		team_1['pos'] = "top left"
-		team_2['pos'] = "top right"
-	
-	fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text=team_1.Team, annotation_position=team_1.pos, line_color="red")
-	fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text=team_2.Team, annotation_position=team_2.pos, line_color="blue")
+		fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text=team_1.Team, annotation_position=team_1.pos, line_color="red")
+		fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text=team_2.Team, annotation_position=team_2.pos, line_color="blue")
 	
 	st.plotly_chart(fig, use_container_width=True)
 
