@@ -885,23 +885,23 @@ with tab3:
 		
 	df_bonus_quick = df_game_adjusted[df_game_adjusted.After_Skipped_Time_Remaining.notna()]
 	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1].reset_index()
-	
+	spec_game_dict = df_spec_game.T.to_dict().values()
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Bonus Round Time To Fill All Boards", xaxis_title="Time Remaining on the Clock", yaxis_title="Number of Teams Successful in that Time Bucket")		
 
 	st.dataframe(df_spec_game)
 #	indicator = df_spec_game.loc[df_spec_game.Game_id == game_find_1]['Is_winner'].values
-	indicator = df_spec_game['Is_winner'].values
+	indicator = spec_game_dict['Is_winner']
 # 	st.write("length", len(df_spec_game['Is_winner'].to_list()))
 # 	st.write("list", df_spec_game['Is_winner'].to_list())
 # 	st.write("value", df_spec_game['Is_winner'].to_list()[0])
 	
-	time_remaining = df_spec_game['After_Skipped_Time_Remaining'].values
-	winning_team = df_spec_game['Winner'].values
+	time_remaining = spec_game_dict['After_Skipped_Time_Remaining']
+	winning_team = spec_game_dict['Winner']
 
 	st.write(winning_team)
 	st.write(type(winning_team))
-	st.write(winning_team[0,0])
+	st.write(winning_team)
 	if not spoiler:
 		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
 	else:
