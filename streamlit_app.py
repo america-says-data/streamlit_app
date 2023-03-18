@@ -889,8 +889,8 @@ with tab3:
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Bonus Round Time To Fill All Boards", xaxis_title="Time Remaining on the Clock", yaxis_title="Number of Teams Successful in that Time Bucket")		
 	indicator = np.where(df_spec_game.Is_winner == True, True, False)
-	time_remaining = df_spec_game.After_Skipped_Time_Remaining.values
-	winning_team = df_spec_game.Winner.values
+	time_remaining = df_spec_game.After_Skipped_Time_Remaining.loc[0]
+	winning_team = df_spec_game.Winner.loc[0]
 	
 	if not spoiler:
 		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
