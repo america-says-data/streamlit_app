@@ -918,7 +918,7 @@ with tab3:
 
 		
 	df_bonus_quick = df_game_adjusted[df_game_adjusted.After_Skipped_Time_Remaining.notna()]
-	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1].reset_index()
+	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == st.session_state.game_find_1].reset_index()
 	
 	
 	try:
