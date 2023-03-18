@@ -897,9 +897,9 @@ with tab3:
 	time_remaining = df_spec_game.loc[df_spec_game.Game_id == game_find_1]['After_Skipped_Time_Remaining'].values
 	winning_team = df_spec_game.loc[df_spec_game.Game_id == game_find_1]['Winner'].values
 
-	st.write(time_remaining.tolist())
-	st.write(winning_team.tolist())
-	st.write(type(winning_team.tolist()))
+	st.write(time_remaining.tolist()[0])
+	st.write(winning_team.tolist()[0])
+	st.write(type(winning_team.tolist()[0]))
 	if not spoiler:
 		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
 	else:
