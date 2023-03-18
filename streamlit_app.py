@@ -377,8 +377,7 @@ def answer_reset():
 	st.session_state.answer_button_7 = False
 	
 def selectbox_game_change():
-	st.experimental_set_query_params(game_id = [game_find])
-	game_find_1 = game_find
+	game_find_1 = ""
 	
 #################################################################################################################################################
 #### THIRD TAB!!! RANDOM QUESTION
