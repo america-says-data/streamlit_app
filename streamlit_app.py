@@ -892,8 +892,8 @@ with tab3:
 	st.dataframe(df_spec_game)
 
 	indicator = df_spec_game.Is_winner.values
-	time_remaining = df_spec_game.After_Skipped_Time_Remaining
-	winning_team = df_spec_game.Winner
+	time_remaining = df_spec_game.After_Skipped_Time_Remaining.values
+	winning_team = df_spec_game.Winner.values
 
 	st.write(indicator)
 	st.write(winning_team)
