@@ -677,7 +677,6 @@ with tab2:
 #################################################################################################################################################
 with tab3:
 	
-	st.write("UNDER CONSTRUCTION - be able to look up games and see how those teams and players compare to the rest of the games played")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## find game
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -731,7 +730,6 @@ with tab3:
 			
 		
 	st.write(game_find)
-	## TODO??? add game id to url so it can be visited within
 	st.experimental_set_query_params(game_id = '')
 	
 	st.experimental_set_query_params(game_id = [game_find])
