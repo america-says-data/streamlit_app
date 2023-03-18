@@ -376,6 +376,13 @@ def answer_reset():
 	st.session_state.answer_button_6 = False
 	st.session_state.answer_button_7 = False
 	
+
+def checkbox_spoiler():
+	st.session_state.spoiler_check = True
+
+def checkbox_reset():
+	st.session_state.spoiler_check = False
+	
 #################################################################################################################################################
 #### THIRD TAB!!! RANDOM QUESTION
 ####
@@ -737,9 +744,8 @@ with tab3:
 				game_find = st.selectbox('Select Game', options=['select']+list(df_team[df_team.Team == team_name_find].Game_id))	 
 			
 	if game_find != "" and game_find != "select":	
-		st.write("New game to follow: ", game_find)
 		st.experimental_set_query_params(game_id = [game_find])
-	
+		spoiler = checkbox_reset()
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## pull in game to stat
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -751,12 +757,13 @@ with tab3:
 			game_find_1 = dict(game_find_dict)["game_id"][0]
 		except (KeyError, TypeError):
 			game_find_1 = ""
+		
 	elif game_find == "" or game_find == "select":
 		game_find_1 = url_game_find
 	else:
 		st.write("No Game Selected")
 	
-	spoiler = st.checkbox('Spoilers')
+	spoiler = st.checkbox('Spoilers', on_click=checkbox_spoiler, key='spoiler')
 	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
