@@ -751,7 +751,7 @@ with tab3:
 
 
 	fig = px.histogram(df_team, x="Score_check", nbins=20, color_discrete_sequence=['lavender'])
-	
+	fig.update_layout(title="Plot Title", xaxis_title="X Axis Title", yaxis_title="Y Axis Title")
 	if game_find_1 != "" and game_find_1 != "select":
 		df_specific_game = df_team[df_team.Game_id == game_find_1][['Team', 'Score_check', 'Percent_rank']]
 		team_1 = df_specific_game.iloc[0]
@@ -820,7 +820,7 @@ with tab3:
 
 
 	fig = px.histogram(df_players, x="Answers_Correct_No_Bonus", nbins=20, color_discrete_sequence=['lavender'])
-	
+	fig.update_layout(title="Plot Title", xaxis_title="X Axis Title", yaxis_title="Y Axis Title")
 	if game_find_1 != "" and game_find_1 != "select":
 		df_specific_player = df_players[df_players.Game_id == game_find_1][['Team', 'Player', 'Answers_Correct_No_Bonus', 'Percent_rank']]
 		df_specific_player = df_specific_player.sort_values('Answers_Correct_No_Bonus', ascending = False).groupby('Team').first().reset_index()
@@ -884,7 +884,7 @@ with tab3:
 	df_bonus_quick = df_game_adjusted[df_game_adjusted.After_Skipped_Time_Remaining.notna()]
 	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1]
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
-		
+	fig.update_layout(title="Plot Title", xaxis_title="X Axis Title", yaxis_title="Y Axis Title")		
 	if not spoiler:
 		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
 	else:
@@ -892,7 +892,7 @@ with tab3:
 		if df_bonus_quick.Is_winner:
 			fig.add_vline(x=df_spec_game.After_Skipped_Time_Remaining, line_dash="dot", annotation_text=df_spec_game.Winner, annotation_position="top right", line_color="blue")
 		else:
-			fig.add_annotation(textposition='center', text="{} did not win in the bonus round.".format(df_spec_game.Winner, showarrow=False)
+			fig.add_annotation(textposition='center', text="{} did not win in the bonus round.".format(df_spec_game.Winner))
 
 	st.plotly_chart(fig, use_container_width=True)
 			
