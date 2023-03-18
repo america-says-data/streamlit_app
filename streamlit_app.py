@@ -926,7 +926,7 @@ with tab3:
 		if indicator:
 			fig.add_vline(x=time_remaining, line_dash="dot", annotation_text=winning_team, annotation_position="top right", line_color="blue")
 		else:
-			fig.add_annotation(text="{} did not win in the bonus round.".format(winning_team), showarrow = False, xref="paper", yref="paper", x=0.5, y=0.5, font=dict(color=["red"]))
+			fig.add_annotation(text="{} did not win in the bonus round.".format(winning_team), showarrow = False, xref="paper", yref="paper", x=0.5, y=0.5, font=dict(color=["maroon"]))
 
 	st.plotly_chart(fig, use_container_width=True)
 			
