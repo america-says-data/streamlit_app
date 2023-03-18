@@ -808,6 +808,12 @@ with tab3:
 		else:
 			win_prob_val = win_prob[win_prob.test_score == team_2.Score_check]['test_probabilities'].iloc[0]
 		st.header("Winning team has {:.2%} to win the $15,000".format(win_prob_val))
+		
+		if win_prob_val > win_rate:
+			st.write("{:.2%} better chance than the average".format((win_prob_val / win_rate)-1))
+		else:
+			st.write("{:.2%} worse chance than the average".format(1-(win_prob_val / win_rate)))
+		
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build player performance
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -863,7 +869,22 @@ with tab3:
 			val_str = str(player_2.Percent_rank) + "%"
 			st.header(val_str)
 			
-			
+	
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## did the team win
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+
+	if not spoiler:
+		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
+	else:
+		st.header("Does the winning team win the bonus round?")
+		
+		df_bonus_quick = df_game[df_game.After_Skipped_Time_Remaining.dropna()][["Game_id", "Winner", "After_Skipped_Time_Remaining"]]
+		df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1]
+		st.dataframe(df_bonus_quick)
+		fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
+		fig.add_vline(x=df_spec_game.After_Skipped_Time_Remaining, line_dash="dot", annotation_text=df_spec_game.Winner, annotation_position="top right", line_color="blue")
+	
 			
 			
 st.write("""##""")		     
