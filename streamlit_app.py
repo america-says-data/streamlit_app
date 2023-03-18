@@ -894,7 +894,7 @@ with tab3:
 		indicator = df_spec_game.Is_winner.values[0]
 		time_remaining = df_spec_game.After_Skipped_Time_Remaining.values[0]
 		winning_team = df_spec_game.Winner.values[0]
-	except (KeyError, TypeError):
+	except (KeyError, TypeError, IndexError):
 		pass
 		
 
