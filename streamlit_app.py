@@ -59,17 +59,16 @@ df_question, df_game, df_team, df_round = get_tables()
 
 st.write("Currently built off of ", len(df_game), " games")
 
-st.write("Last update - March 15th, 2023")
-
+st.write("Last update - March 18th, 2023")
+url_game_find = ""
 url_check = st.experimental_get_query_params()
 st.write(url_check)
 try:
 	url_game_find = dict(url_check)["game_id"][0]
 except (KeyError, TypeError):
 	url_game_find = ""
-if url_game_find != "":
-	
-	st.write(url_game_find)
+
+st.write("var url_game_find: ", url_game_find)
 
 tab3, tab2, tab1 = st.tabs(["Game Select", "Stats", "Quick Question"])
 
@@ -751,9 +750,9 @@ with tab3:
 		except (KeyError, TypeError):
 			game_find_1 = ""
 	else:
-		game_find_1 = ""
+		game_find_1 = url_game_find
 	
-	
+	st.write("Statted game to follow: ", game_find_1)
 	spoiler = st.checkbox('Spoilers')
 	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
