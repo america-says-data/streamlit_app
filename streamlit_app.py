@@ -61,13 +61,15 @@ st.write("Currently built off of ", len(df_game), " games")
 
 st.write("Last update - March 18th, 2023")
 
-url_game_find = ""
-url_check = st.experimental_get_query_params()
-try:
-	url_game_find = dict(url_check)["game_id"][0]
-except (KeyError, TypeError):
-	url_game_find = ""
+if "url_game_find" not in st.session_state:
+	url_check = st.experimental_get_query_params()
+	try:
+		st.session_state["url_game_find"] = dict(url_check)["game_id"][0]
+	except (KeyError, TypeError):
+		st.session_state["url_game_find"] = ""
 
+if "game_find" not in st.session_state:
+	st.session_state["game_find"] = ""
 
 tab3, tab2, tab1 = st.tabs(["Game Select", "Stats", "Quick Question"])
 
@@ -377,8 +379,8 @@ def answer_reset():
 	st.session_state.answer_button_7 = False
 	
 def selectbox_game_change():
-	game_find_1 = ""
-	url_game_find = ""
+	st.session_state.game_find = ""
+	st.session_state.url_game_find = ""
 	
 #################################################################################################################################################
 #### THIRD TAB!!! RANDOM QUESTION
@@ -727,7 +729,7 @@ with tab3:
 			month_find = st.selectbox('Select Month', options=['select']+list(game_dates[game_dates.Season == season_find].Year_month.unique()))
 	
 			if month_find != 'select':
-				game_find = st.selectbox('Select Game', options=['select']+list(game_dates[game_dates.Year_month == month_find].Game_id), on_change=selectbox_game_change)
+				st.sessions_state.game_find = st.selectbox('Select Game', options=['select']+list(game_dates[game_dates.Year_month == month_find].Game_id), on_change=selectbox_game_change)
 
 	
 	
@@ -738,11 +740,11 @@ with tab3:
 			team_name_find = st.selectbox('Select Team Name', options=['select']+list(team_table[team_table.First_letter == team_find].Team_name.unique()))	 
 			
 			if team_name_find != 'select':
-				game_find = st.selectbox('Select Game', options=['select']+list(df_team[df_team.Team == team_name_find].Game_id), on_change=selectbox_game_change)
+				st.sessions_state.game_find = st.selectbox('Select Game', options=['select']+list(df_team[df_team.Team == team_name_find].Game_id), on_change=selectbox_game_change)
 		
 			
-	if game_find != "" and game_find != "select":	
-		st.experimental_set_query_params(game_id = [game_find])
+	if st.sessions_state.game_find != "" and st.sessions_state.game_find != "select":	
+		st.experimental_set_query_params(game_id = [st.sessions_state.game_find])
 
 
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -750,23 +752,27 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 	
 ###### pull in current parameters for the actual game to be used - to be able to find via url
-	if game_find != "" and game_find != "select":
+	
+	if "game_find_1" not in st.session_state:
+		st.session_state["game_find_1"] = ""
+	
+	if st.session_state.game_find != "" and st.session_state.game_find != "select":
 		game_find_dict = st.experimental_get_query_params()
 		try:
-			game_find_1 = dict(game_find_dict)["game_id"][0]
+			st.session_state.game_find_1 = dict(game_find_dict)["game_id"][0]
 		except (KeyError, TypeError):
-			game_find_1 = ""
-	elif game_find == "" or game_find == "select":
-		game_find_1 = url_game_find
+			st.session_state.game_find_1 = ""
+	elif st.sessions_state.game_find == "" or st.sessions_state.game_find == "select":
+		st.session_state.game_find_1 = st.session_state.url_game_find
 	else:
 		st.write("No Game Selected")
 	
 	
-	st.write("current team check: ", game_find_1)
+	st.write("current team check: ", st.session_state.game_find_1)
 	
 	with st.form("run_game", clear_on_submit = True):
 		
-		game_select = st.selectbox('Select Game to Run', options=[game_find_1]+[""], key = 'selectbox_game')
+		game_select = st.selectbox('Select Game to Run', options=[st.session_state.game_find_1]+[""], key = 'selectbox_game')
 		spoiler = st.checkbox('Spoilers')
 		submission = st.form_submit_button("Run this game")
 		
@@ -780,8 +786,8 @@ with tab3:
 
 	fig = px.histogram(df_team, x="Score_check", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Team Final Score Histogram", xaxis_title="Final Score", yaxis_title="Number of Teams with Score")
-	if game_find_1 != "" and game_find_1 != "select":
-		df_specific_game = df_team[df_team.Game_id == game_find_1][['Team', 'Score_check', 'Percent_rank']]
+	if st.session_state.game_find_1 != "" and st.session_state.game_find_1 != "select":
+		df_specific_game = df_team[df_team.Game_id == st.session_state.game_find_1][['Team', 'Score_check', 'Percent_rank']]
 		team_1 = df_specific_game.iloc[0]
 		team_2 = df_specific_game.iloc[1]
 		if team_1.Score_check >= team_2.Score_check:
@@ -807,7 +813,7 @@ with tab3:
 		
 	st.write("""##""")	
 		
-	if game_find_1 != "" and game_find_1 != "select":
+	if st.session_state.game_find_1 != "" and st.session_state.game_find_1 != "select":
 		col1, col2 = st.columns(2)
 
 		with col1:
@@ -829,7 +835,7 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 	st.markdown("""---""")		
 	
-	if game_find_1 != "" and game_find_1 != "select":	
+	if st.session_state.game_find_1 != "" and st.session_state.game_find_1 != "select":	
 		st.write("Winning team probability of succeeding in the bonus round and winning $15,000")
 		if team_1.Score_check >= team_2.Score_check:
 			win_prob_val = win_prob[win_prob.test_score == team_1.Score_check]['test_probabilities'].iloc[0]
@@ -850,8 +856,8 @@ with tab3:
 
 	fig = px.histogram(df_players, x="Answers_Correct_No_Bonus", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Number of Answers by Players before the Bonus Round", xaxis_title="Number of Blanks Filled In", yaxis_title="Number of Players")
-	if game_find_1 != "" and game_find_1 != "select":
-		df_specific_player = df_players[df_players.Game_id == game_find_1][['Team', 'Player', 'Answers_Correct_No_Bonus', 'Percent_rank']]
+	if st.session_state.game_find_1 != "" and st.session_state.game_find_1 != "select":
+		df_specific_player = df_players[df_players.Game_id == st.session_state.game_find_1][['Team', 'Player', 'Answers_Correct_No_Bonus', 'Percent_rank']]
 		df_specific_player = df_specific_player.sort_values('Answers_Correct_No_Bonus', ascending = False).groupby('Team').first().reset_index()
 		player_1 = df_specific_player[df_specific_player['Team'] == team_1.Team].iloc[0]
 		player_2 = df_specific_player[df_specific_player['Team'] == team_2.Team].iloc[0]
@@ -880,7 +886,7 @@ with tab3:
 		
 	st.write("""##""")	
 		
-	if game_find_1 != "" and game_find_1 != "select":
+	if st.session_state.game_find_1 != "" and st.session_state.game_find_1 != "select":
 		col1, col2 = st.columns(2)
 
 		with col1:
@@ -904,9 +910,9 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	df_game_adjusted = df_game[["Game_id", "Winner", "After_Skipped_Time_Remaining"]]
-	df_game_adjusted["Is_winner"] = np.where((df_game_adjusted.Game_id == game_find_1) & (df_game_adjusted.After_Skipped_Time_Remaining.notna())
+	df_game_adjusted["Is_winner"] = np.where((df_game_adjusted.Game_id == st.session_state.game_find_1) & (df_game_adjusted.After_Skipped_Time_Remaining.notna())
 									    , True, False)
-	df_game_adjusted["After_Skipped_Time_Remaining"] = np.where((df_game_adjusted.Game_id == game_find_1) & (df_game_adjusted.After_Skipped_Time_Remaining.isna())
+	df_game_adjusted["After_Skipped_Time_Remaining"] = np.where((df_game_adjusted.Game_id == st.session_state.game_find_1) & (df_game_adjusted.After_Skipped_Time_Remaining.isna())
 									    , -1, df_game_adjusted.After_Skipped_Time_Remaining)
 	df_game_adjusted["Percent_rank"] = (100*df_game_adjusted.After_Skipped_Time_Remaining.rank(pct=True)).apply(np.floor)
 
