@@ -757,12 +757,10 @@ with tab3:
 		game_find_1 = url_game_find
 	else:
 		st.write("No Game Selected")
-	form = st.form("checkboxes", clear_on_submit = True)
-	with form:
-		spoiler = st.checkbox('Spoilers')
-		
-	submit = form.form_submit_button("Submit your answers")
 	
+	spoiler = st.checkbox('Spoilers - uncheck if new game selected')
+		
+
 	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
