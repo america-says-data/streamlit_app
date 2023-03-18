@@ -781,12 +781,14 @@ with tab3:
 	if "spoiler" not in st.session_state:
 		st.session_state["spoiler"] = False
 	
-	with st.form("run_game", clear_on_submit = True):
+	st.session_state.game_select = st.session_state.game_find_1
+	st.session_state.spoiler = st.checkbox('Spoilers')
+# 	with st.form("run_game", clear_on_submit = True):
 
-		st.session_state.game_select = st.selectbox('Select Game to Run', options=[st.session_state.game_find_1]+[""], key = 'selectbox_game')
-		st.session_state.spoiler = st.checkbox('Spoilers')
-		st.write(st.session_state.spoiler)
-		st.form_submit_button("Run this game")
+# 		st.session_state.game_select = st.selectbox('Select Game to Run', options=[st.session_state.game_find_1]+[""], key = 'selectbox_game')
+# 		st.session_state.spoiler = st.checkbox('Spoilers')
+# 		st.write(st.session_state.spoiler)
+# 		st.form_submit_button("Run this game")
 		
 
 	st.markdown("""---""")
