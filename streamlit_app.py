@@ -727,7 +727,7 @@ with tab3:
 		season_find = st.selectbox('Select Season', options=['select']+list(game_dates.Season.unique()))
 		
 		if season_find != 'select':
-			month_find = st.selectbox('Select Month', options=['select']+list(game_dates[game_dates.Season == season_find].Year_month.unique()))
+			month_find = st.selectbox('Select Month', options=['select']+list(game_dates[game_dates.Season == season_find].Year_month.unique()), on_change=selectbox_game_change)
 	
 			if month_find != 'select':
 				st.session_state.game_find = st.selectbox('Select Game', options=['select']+list(game_dates[game_dates.Year_month == month_find].Game_id), on_change=selectbox_game_change)
@@ -738,7 +738,7 @@ with tab3:
 		team_find = st.selectbox('Select Team Initial', options=['select']+list(team_table.First_letter.unique()))
 
 		if team_find != 'select':
-			team_name_find = st.selectbox('Select Team Name', options=['select']+list(team_table[team_table.First_letter == team_find].Team_name.unique()))	 
+			team_name_find = st.selectbox('Select Team Name', options=['select']+list(team_table[team_table.First_letter == team_find].Team_name.unique()), on_change=selectbox_game_change)	 
 			
 			if team_name_find != 'select':
 				st.session_state.game_find = st.selectbox('Select Game', options=['select']+list(df_team[df_team.Team == team_name_find].Game_id), on_change=selectbox_game_change)
