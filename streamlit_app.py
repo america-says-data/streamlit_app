@@ -910,10 +910,10 @@ with tab3:
 		pass
 		
 
-	if spoiler:
-		win_string = winning_team + " has won the game!"
-		st.header(win_string)
-		st.markdown("""---""")
+# 	if spoiler:
+# 		win_string = winning_team + " won the game!"
+# 		st.header(win_string)
+# 		st.markdown("""---""")
 	
 	st.header("BONUS ROUND")
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
