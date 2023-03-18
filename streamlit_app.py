@@ -381,6 +381,7 @@ def answer_reset():
 def selectbox_game_change():
 	st.session_state.game_find = ""
 	st.session_state.url_game_find = ""
+	st.session_state.game_find_1 = ""
 	
 #################################################################################################################################################
 #### THIRD TAB!!! RANDOM QUESTION
