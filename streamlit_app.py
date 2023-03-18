@@ -391,7 +391,7 @@ def selectbox_game_change():
 	st.session_state.game_find_1 = ""
 	st.session_state.game_find_dict = {}
 	st.session_state.game_select = ""
-	st.experimental_set_query_params()
+	st.experimental_get_query_params()
 	st.session_state.spoiler = False
 	
 #################################################################################################################################################
