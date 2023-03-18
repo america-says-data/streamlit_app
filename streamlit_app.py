@@ -879,7 +879,7 @@ with tab3:
 	else:
 		st.header("Does the winning team win the bonus round?")
 		
-		df_bonus_quick = df_game[df_game.After_Skipped_Time_Remaining.dropna()][["Game_id", "Winner", "After_Skipped_Time_Remaining"]]
+		df_bonus_quick = df_game[df_game.After_Skipped_Time_Remaining.notna()][["Game_id", "Winner", "After_Skipped_Time_Remaining"]]
 		df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1]
 		st.dataframe(df_bonus_quick)
 		fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
