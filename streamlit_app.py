@@ -889,11 +889,12 @@ with tab3:
 		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
 	else:
 		st.header("Does the winning team win the bonus round?")
-		if df_bonus_quick.Is_winner:
+		if df_bonus_quick.Is_winner.values():
 			fig.add_vline(x=df_spec_game.After_Skipped_Time_Remaining, line_dash="dot", annotation_text=df_spec_game.Winner, annotation_position="top right", line_color="blue")
 		else:
 			fig.add_annotation(textposition='center', text="{} did not win in the bonus round.".format(df_spec_game.Winner))
 
+	st.write(df_bonus_quick.Is_winner.values())
 	st.plotly_chart(fig, use_container_width=True)
 			
 st.write("""##""")		     
