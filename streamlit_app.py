@@ -751,15 +751,16 @@ with tab3:
 			
 	if st.session_state.game_find != "" and st.session_state.game_find != "select":	
 		st.experimental_set_query_params(game_id = [st.session_state.game_find])
+		st.write("current team check: ", st.session_state.game_find_1)
 
-
+	st.write("current team check: ", st.session_state.game_find_1)
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## pull in game to stat
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 	
 ###### pull in current parameters for the actual game to be used - to be able to find via url
 	
-
+	st.write("current team check: ", st.session_state.game_find_1)
 	
 	if st.session_state.game_find != "" and st.session_state.game_find != "select":
 		game_find_dict = st.experimental_get_query_params()
