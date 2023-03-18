@@ -910,10 +910,10 @@ with tab3:
 		pass
 		
 
-# 	if spoiler:
-# 		win_string = winning_team + " won the game!"
-# 		st.header(win_string)
-# 		st.markdown("""---""")
+	if spoiler:
+		win_string = winning_team + " won the game!"
+		st.header(win_string)
+		st.markdown("""---""")
 	
 	st.header("BONUS ROUND")
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
@@ -926,7 +926,7 @@ with tab3:
 		if indicator:
 			fig.add_vline(x=time_remaining, line_dash="dot", annotation_text=winning_team, annotation_position="top right", line_color="blue")
 		else:
-			fig.add_annotation(text="{} did not win in the bonus round.".format(winning_team), showarrow = False)
+			fig.add_annotation(text="{} did not win in the bonus round.".format(winning_team), showarrow = False, color="red")
 
 	st.plotly_chart(fig, use_container_width=True)
 			
