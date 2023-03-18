@@ -749,16 +749,12 @@ with tab3:
 ###### pull in current parameters for the actual game to be used - to be able to find via url
 	if game_find != "" and game_find != "select":
 		game_find_dict = st.experimental_get_query_params()
-		st.write("pre game: ", game_find_1)
-		st.write("pre game not 1? : ", game_find)
-		st.write("url game find: ", url_game_find)
 		try:
 			game_find_1 = dict(game_find_dict)["game_id"][0]
+			url_game_find = game_find_1
 		except (KeyError, TypeError):
 			game_find_1 = ""
-		st.write("pre game not 1? : ", game_find)
 	elif game_find == "" or game_find == "select":
-		st.write("made it here?????")
 		game_find_1 = url_game_find
 	else:
 		st.write("No Game Selected")
