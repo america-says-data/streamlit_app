@@ -881,7 +881,6 @@ with tab3:
 		
 		df_bonus_quick = df_game[df_game.After_Skipped_Time_Remaining.notna()][["Game_id", "Winner", "After_Skipped_Time_Remaining"]]
 		df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1]
-		df_spec_game = df_spec_game.iloc[0]
 		st.dataframe(df_spec_game)
 		fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
 		fig.add_vline(x=df_spec_game.After_Skipped_Time_Remaining, line_dash="dot", annotation_text=df_spec_game.Winner, annotation_position="top right", line_color="blue")
