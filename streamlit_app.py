@@ -741,6 +741,9 @@ with tab3:
 		st.write("New game to follow: ", game_find)
 		st.experimental_set_query_params(game_id = [game_find])
 	
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## pull in game to stat
+##----------------------------------------------------------------------------------------------------------------------------------------------------
 	
 ###### pull in current parameters for the actual game to be used - to be able to find via url
 	if game_find != "" and game_find != "select":
@@ -749,8 +752,10 @@ with tab3:
 			game_find_1 = dict(game_find_dict)["game_id"][0]
 		except (KeyError, TypeError):
 			game_find_1 = ""
-	else:
+	elif game_find == "" or game_find == "select":
 		game_find_1 = url_game_find
+	else:
+		st.write("No Game Selected")
 	
 	st.write("Statted game to follow: ", game_find_1)
 	spoiler = st.checkbox('Spoilers')
