@@ -748,7 +748,7 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
-
+	st.header("TEAM PERFORMANCE")
 
 	fig = px.histogram(df_team, x="Score_check", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Plot Title", xaxis_title="X Axis Title", yaxis_title="Y Axis Title")
@@ -817,7 +817,7 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build player performance
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
-
+	st.header("INDIVIDUAL PLAYER PERFORMANCE")
 
 	fig = px.histogram(df_players, x="Answers_Correct_No_Bonus", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Plot Title", xaxis_title="X Axis Title", yaxis_title="Y Axis Title")
@@ -873,7 +873,7 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## did the team win
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
-
+	st.header("BONUS ROUND")
 	df_game_adjusted = df_game[["Game_id", "Winner", "After_Skipped_Time_Remaining"]]
 	df_game_adjusted["Is_winner"] = np.where((df_game_adjusted.Game_id == game_find_1) & (df_game_adjusted.After_Skipped_Time_Remaining.notna())
 									    , True, False)
@@ -895,7 +895,7 @@ with tab3:
 		if indicator:
 			fig.add_vline(x=df_spec_game.After_Skipped_Time_Remaining, line_dash="dot", annotation_text=df_spec_game.Winner, annotation_position="top right", line_color="blue")
 		else:
-			fig.add_annotation(text="{} did not win in the bonus round.".format(df_spec_game.Winner))
+			fig.add_annotation(text="{} did not win in the bonus round.".format(df_spec_game.Winner), showarrow = False)
 
 	st.plotly_chart(fig, use_container_width=True)
 			
