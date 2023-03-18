@@ -890,7 +890,7 @@ with tab3:
 	fig.update_layout(title="Bonus Round Time To Fill All Boards", xaxis_title="Time Remaining on the Clock", yaxis_title="Number of Teams Successful in that Time Bucket")		
 	indicator = np.where(df_spec_game['Is_winner'] == True, True, False)
 	time_remaining = df_spec_game['After_Skipped_Time_Remaining'].values.astype(int)
-	winning_team = df_spec_game['Winner'].values.astype(string)
+	winning_team = df_spec_game['Winner'].values.astype(str)
 	st.write(winning_team,time_remaining)
 	
 	if not spoiler:
