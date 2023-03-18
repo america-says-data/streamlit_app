@@ -889,7 +889,7 @@ with tab3:
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Bonus Round Time To Fill All Boards", xaxis_title="Time Remaining on the Clock", yaxis_title="Number of Teams Successful in that Time Bucket")		
 
-	st.write(spec_game_dict['0'])
+	st.write(spec_game_dict["0"])
 #	indicator = df_spec_game.loc[df_spec_game.Game_id == game_find_1]['Is_winner'].values
 
 
