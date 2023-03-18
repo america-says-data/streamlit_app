@@ -911,7 +911,8 @@ with tab3:
 		
 
 	if spoiler:
-		st.header(winning_team, " has won the game!")
+		win_string = winning_team + " has won the game!"
+		st.header(win_string)
 		st.markdown("""---""")
 	
 	st.header("BONUS ROUND")
