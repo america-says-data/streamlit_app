@@ -61,7 +61,9 @@ st.write("Currently built off of ", len(df_game), " games")
 
 st.write("Last update - March 15th, 2023")
 
-tab1, tab2, tab3 = st.tabs(["Quick Question", "Stats", "Game Select"])
+st.write(st.experimental_get_query_params())
+
+tab3, tab2, tab1 = st.tabs(["Game Select", "Stats", "Quick Question"])
 
 	
 #### TODO : Create streamlit loading text that says "Creating Player Table"
@@ -730,6 +732,7 @@ with tab3:
 			
 		
 	st.write(game_find)
+	
 	st.experimental_set_query_params(game_id = '')
 	
 	st.experimental_set_query_params(game_id = [game_find])
@@ -743,6 +746,8 @@ with tab3:
 	except (KeyError, TypeError):
 		game_find_1 = ""
 
+	
+	
 	spoiler = st.checkbox('Spoilers')
 	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -894,10 +899,13 @@ with tab3:
 		indicator = df_spec_game.Is_winner.values[0]
 		time_remaining = df_spec_game.After_Skipped_Time_Remaining.values[0]
 		winning_team = df_spec_game.Winner.values[0]
-	except (KeyError, TypeError, IndexError):
+	except IndexError:
 		pass
 		
-
+	st.write(indicator)
+	st.write(time_remaining)
+	st.write(winning_team)
+	
 	if not spoiler:
 		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
 	else:
