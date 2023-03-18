@@ -785,6 +785,7 @@ with tab3:
 
 		st.session_state.game_select = st.selectbox('Select Game to Run', options=[st.session_state.game_find_1]+[""], key = 'selectbox_game')
 		st.session_state.spoiler = st.checkbox('Spoilers')
+		st.write(st.session_state.spoiler)
 		st.form_submit_button("Run this game")
 		
 
