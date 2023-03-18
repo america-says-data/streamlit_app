@@ -927,8 +927,8 @@ with tab3:
 	else:
 		st.header("Does the winning team win the bonus round?")
 		if indicator:
-			winning_string_1 = winning_team + " - " + "cleared in "+ str(time_remaining) +" seconds"
-			winning_string_2 = str(percent_rank) + "% better than winning teams"
+			winning_string_1 = winning_team + " - " + "cleared with "+ str(time_remaining) +" s remaining "
+			winning_string_2 = " " + str(percent_rank) + "% better than winning teams"
 			fig.add_vline(x=time_remaining, line_dash="dot", annotation_text=winning_string_1, annotation_position="top left", line_color="blue")
 			fig.add_vline(x=time_remaining, line_dash="dot", annotation_text=winning_string_2, annotation_position="top right", line_color="blue")
 		else:
