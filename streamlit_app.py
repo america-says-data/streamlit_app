@@ -748,6 +748,7 @@ with tab3:
 	
 ###### pull in current parameters for the actual game to be used - to be able to find via url
 	if game_find != "" and game_find != "select":
+		st.write("we don't get here yet after a team change after a team exists")
 		game_find_dict = st.experimental_get_query_params()
 		try:
 			game_find_1 = dict(game_find_dict)["game_id"][0]
