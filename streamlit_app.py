@@ -884,16 +884,16 @@ with tab3:
 
 		
 	df_bonus_quick = df_game_adjusted[df_game_adjusted.After_Skipped_Time_Remaining.notna()]
-	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1].groupby('Winner').first().reset_index().iloc[0]
-
+	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1].reset_index()
+	
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Bonus Round Time To Fill All Boards", xaxis_title="Time Remaining on the Clock", yaxis_title="Number of Teams Successful in that Time Bucket")		
 
 	st.dataframe(df_spec_game)
 
-	indicator = df_spec_game.Is_winner.values
-	time_remaining = df_spec_game.After_Skipped_Time_Remaining.values
-	winning_team = df_spec_game.Winner.values
+	indicator = df_spec_game.Is_winner.values[0]
+	time_remaining = df_spec_game.After_Skipped_Time_Remaining.values[0]
+	winning_team = df_spec_game.Winner.values[0]
 
 	st.write(indicator)
 	st.write(winning_team)
