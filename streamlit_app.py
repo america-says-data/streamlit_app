@@ -740,9 +740,9 @@ with tab3:
 				game_find = st.selectbox('Select Game', options=['select']+list(df_team[df_team.Team == team_name_find].Game_id), on_change=selectbox_game_change)
 		
 			
-# 	if game_find != "" and game_find != "select":	
-# 		st.experimental_set_query_params(game_id = [game_find])
-# 		game_find_1 = ""
+	if game_find != "" and game_find != "select":	
+		st.experimental_set_query_params(game_id = [game_find])
+
 
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## pull in game to stat
