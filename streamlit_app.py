@@ -784,8 +784,7 @@ with tab3:
 		st.session_state.spoiler = st.checkbox('Spoilers')
 		st.form_submit_button("Run this game")
 		
-	st.write("the spoiler: ", spoiler)
-	st.write("game select: ", game_select)
+
 	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
