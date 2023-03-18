@@ -378,6 +378,7 @@ def answer_reset():
 	
 def selectbox_game_change():
 	game_find_1 = ""
+	url_game_find = ""
 	
 #################################################################################################################################################
 #### THIRD TAB!!! RANDOM QUESTION
@@ -753,7 +754,6 @@ with tab3:
 		game_find_dict = st.experimental_get_query_params()
 		try:
 			game_find_1 = dict(game_find_dict)["game_id"][0]
-			url_game_find = game_find_1
 		except (KeyError, TypeError):
 			game_find_1 = ""
 	elif game_find == "" or game_find == "select":
