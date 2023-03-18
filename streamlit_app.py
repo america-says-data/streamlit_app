@@ -772,7 +772,7 @@ with tab3:
 	st.write("current team check: ", st.session_state.game_find_1)
 	
 	with st.form("run_game", clear_on_submit = True):
-		
+		st.experimental_rerun()
 		game_select = st.selectbox('Select Game to Run', options=[st.session_state.game_find_1]+[""], key = 'selectbox_game')
 		spoiler = st.checkbox('Spoilers')
 		submission = st.form_submit_button("Run this game")
