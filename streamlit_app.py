@@ -60,15 +60,14 @@ df_question, df_game, df_team, df_round = get_tables()
 st.write("Currently built off of ", len(df_game), " games")
 
 st.write("Last update - March 18th, 2023")
+
 url_game_find = ""
 url_check = st.experimental_get_query_params()
-st.write(url_check)
 try:
 	url_game_find = dict(url_check)["game_id"][0]
 except (KeyError, TypeError):
 	url_game_find = ""
 
-st.write("var url_game_find: ", url_game_find)
 
 tab3, tab2, tab1 = st.tabs(["Game Select", "Stats", "Quick Question"])
 
@@ -378,7 +377,7 @@ def answer_reset():
 	st.session_state.answer_button_7 = False
 	
 #################################################################################################################################################
-#### FIRST TAB!!! RANDOM QUESTION
+#### THIRD TAB!!! RANDOM QUESTION
 ####
 #################################################################################################################################################
 
@@ -681,7 +680,7 @@ with tab2:
 
 	st.dataframe(pd.concat([df_total, df_b1, df_b2, df_b3, df_b4]))
 #################################################################################################################################################
-#### THIRD TAB!!! STATS
+#### FIRST TAB!!! GAMES
 ####
 #################################################################################################################################################
 with tab3:
@@ -757,7 +756,6 @@ with tab3:
 	else:
 		st.write("No Game Selected")
 	
-	st.write("Statted game to follow: ", game_find_1)
 	spoiler = st.checkbox('Spoilers')
 	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
