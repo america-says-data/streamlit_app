@@ -773,9 +773,7 @@ with tab3:
 	else:
 		st.write("No Game Selected")
 	
-	
-	st.write("current team check: ", st.session_state.spoiler)
-	
+	### setting up game select and spoiler as a session state variable so they can be cleared when a new team is selected
 	if "game_select" not in st.session_state:
 		st.session_state["game_select"] = ""
 	if "spoiler" not in st.session_state:
