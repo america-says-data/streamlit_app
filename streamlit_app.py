@@ -891,10 +891,11 @@ with tab3:
 
 	st.dataframe(df_spec_game)
 
-	indicator = df_spec_game.Is_winner
+	indicator = df_spec_game.Is_winner.values
 	time_remaining = df_spec_game.After_Skipped_Time_Remaining
 	winning_team = df_spec_game.Winner
 
+	st.write(indicator)
 	st.write(winning_team)
 	st.write(type(winning_team))
 	st.write(winning_team)
