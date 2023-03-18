@@ -897,7 +897,7 @@ with tab3:
 # 	st.write("value", df_spec_game['Is_winner'].to_list()[0])
 	
 	time_remaining = df_spec_game['After_Skipped_Time_Remaining'].values
-	winning_team = df_spec_game['Winner'].values
+	winning_team = df_spec_game['Winner'].values[0]
 
 	st.write(df_spec_game['Is_winner'].values)
 	st.write(winning_team)
