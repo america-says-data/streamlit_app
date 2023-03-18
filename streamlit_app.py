@@ -73,6 +73,10 @@ if "game_find" not in st.session_state:
 
 if "game_find_1" not in st.session_state:
 	st.session_state["game_find_1"] = ""
+
+if "game_find_dict" not in st.session_state:
+	st.session_state["game_find_dict"] = ""
+	
 	
 tab3, tab2, tab1 = st.tabs(["Game Select", "Stats", "Quick Question"])
 
@@ -762,9 +766,6 @@ with tab3:
 	st.write("check u: ", st.session_state.url_game_find)
 	st.write("check 1: ", st.session_state.game_find_1)
 	st.write("check : ", st.session_state.game_find)
-
-	if "game_find_dict" not in st.session_state:
-		st.session_state["game_find_dict"] = ""
 	
 	if st.session_state.game_find != "" and st.session_state.game_find != "select":
 		st.session_state.game_find_dict = st.experimental_get_query_params()
