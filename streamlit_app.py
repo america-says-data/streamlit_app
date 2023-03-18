@@ -766,7 +766,7 @@ with tab3:
 	
 	with st.form("run_game", clear_on_submit = True):
 		
-		game_select = st.selectbox('Select Game to Run', options=[game_find_1]+[""])
+		game_select = st.selectbox('Select Game to Run', options=[game_find_1]+[""], key = 'selectbox_game')
 		spoiler = st.checkbox('Spoilers')
 		submission = st.form_submit_button("Run this game")
 		
