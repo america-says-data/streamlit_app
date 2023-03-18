@@ -788,8 +788,12 @@ with tab3:
 # 		st.write(st.session_state.spoiler)
 # 		st.form_submit_button("Run this game")
 	
-	game_string = st.session_state.game_select.split("-",2)
-	st.header(game_string)
+	game_string = st.session_state.game_select.split("-",3)
+	full_game_string = "America Says Game: " + game_string[3] 
+	secondary_string = "Aired during Season " + game_string[0]+ " on " + game_string[2] + ", " + game_string[1]
+	
+	st.header(full_game_string)
+	st.write(secondary_string)
 	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
