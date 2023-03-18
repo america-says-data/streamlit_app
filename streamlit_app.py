@@ -883,7 +883,7 @@ with tab3:
 		
 	df_bonus_quick = df_game_adjusted[df_game_adjusted.After_Skipped_Time_Remaining.notna()]
 	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1]
-	st.write(df_spec_game['Is_winner'])
+	st.write(df_spec_game['Is_winner'].iloc[0])
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Plot Title", xaxis_title="X Axis Title", yaxis_title="Y Axis Title")		
 	if not spoiler:
