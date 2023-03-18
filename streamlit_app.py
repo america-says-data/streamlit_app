@@ -740,7 +740,7 @@ with tab3:
 			
 	if game_find != "" and game_find != "select":	
 		st.experimental_set_query_params(game_id = [game_find])
-		
+		game_find_1 = ""
 
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## pull in game to stat
@@ -761,6 +761,8 @@ with tab3:
 		game_find_1 = url_game_find
 	else:
 		st.write("No Game Selected")
+	
+	
 	st.write("current team check: ", game_find_1)
 	
 	with st.form("run_game", clear_on_submit = True):
