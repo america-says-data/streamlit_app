@@ -774,7 +774,7 @@ with tab3:
 		st.write("No Game Selected")
 	
 	
-	st.write("current team check: ", st.session_state.game_find_1)
+	st.write("current team check: ", st.session_state.spoiler)
 	
 	if "game_select" not in st.session_state:
 		st.session_state["game_select"] = ""
