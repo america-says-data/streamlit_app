@@ -748,7 +748,6 @@ with tab3:
 	
 ###### pull in current parameters for the actual game to be used - to be able to find via url
 	if game_find != "" and game_find != "select":
-		st.write("we don't get here yet after a team change after a team exists")
 		game_find_dict = st.experimental_get_query_params()
 		try:
 			game_find_1 = dict(game_find_dict)["game_id"][0]
@@ -759,9 +758,10 @@ with tab3:
 		game_find_1 = url_game_find
 	else:
 		st.write("No Game Selected")
-	
+	st.write("current team check: ", game_find_1)
 	
 	with st.form("run_game", clear_on_submit = True):
+		
 		game_select = st.selectbox('Select Game to Run', options=[game_find_1]+[""])
 		spoiler = st.checkbox('Spoilers')
 		submission = st.form_submit_button("Run this game")
