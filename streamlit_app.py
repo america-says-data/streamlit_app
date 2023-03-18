@@ -61,7 +61,14 @@ st.write("Currently built off of ", len(df_game), " games")
 
 st.write("Last update - March 15th, 2023")
 
-st.write(st.experimental_get_query_params())
+url_check = st.experimental_get_query_params()
+try:
+	url_game_find = dict(url_check)["game_id"][0]
+except (KeyError, TypeError):
+	url_game_find = ""
+if url_game_find != "":
+	
+	st.write(url_game_find)
 
 tab3, tab2, tab1 = st.tabs(["Game Select", "Stats", "Quick Question"])
 
@@ -730,21 +737,18 @@ with tab3:
 			if team_name_find != 'select':
 				game_find = st.selectbox('Select Game', options=['select']+list(df_team[df_team.Team == team_name_find].Game_id))	 
 			
-		
-	st.write(game_find)
-	
-	st.experimental_set_query_params(game_id = '')
-	
-	st.experimental_set_query_params(game_id = [game_find])
+	if game_find != "" and game_find != "select":	
+		st.write("New game to follow: ", game_find)
+		st.experimental_set_query_params(game_id = [game_find])
 	
 	
 ###### pull in current parameters for the actual game to be used - to be able to find via url
-
-	game_find_dict = st.experimental_get_query_params()
-	try:
-		game_find_1 = dict(game_find_dict)["game_id"][0]
-	except (KeyError, TypeError):
-		game_find_1 = ""
+	if game_find != "" and game_find != "select":
+		game_find_dict = st.experimental_get_query_params()
+		try:
+			game_find_1 = dict(game_find_dict)["game_id"][0]
+		except (KeyError, TypeError):
+			game_find_1 = ""
 
 	
 	
