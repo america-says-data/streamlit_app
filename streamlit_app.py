@@ -71,6 +71,9 @@ if "url_game_find" not in st.session_state:
 if "game_find" not in st.session_state:
 	st.session_state["game_find"] = ""
 
+if "game_find_1" not in st.session_state:
+	st.session_state["game_find_1"] = ""
+	
 tab3, tab2, tab1 = st.tabs(["Game Select", "Stats", "Quick Question"])
 
 	
@@ -756,8 +759,7 @@ with tab3:
 	
 ###### pull in current parameters for the actual game to be used - to be able to find via url
 	
-	if "game_find_1" not in st.session_state:
-		st.session_state["game_find_1"] = ""
+
 	
 	if st.session_state.game_find != "" and st.session_state.game_find != "select":
 		game_find_dict = st.experimental_get_query_params()
