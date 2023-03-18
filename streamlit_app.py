@@ -882,7 +882,7 @@ with tab3:
 		df_game_adjusted["After_Skipped_Time_Remaining"] = np.where((df_game_adjusted.Game_id == game_find_1) & (df_game_adjusted.After_Skipped_Time_Remaining.isna())
 									    , -1, df_game_adjusted.After_Skipped_Time_Remaining)
 		df_game_adjusted["Percent_rank"] = (100*df_game_adjusted.After_Skipped_Time_Remaining.rank(pct=True)).apply(np.floor)
-		df_bonus_quick = df_game[df_game.After_Skipped_Time_Remaining.notna()]
+		df_bonus_quick = df_game_adjusted[df_game_adjusted.After_Skipped_Time_Remaining.notna()]
 		st.dataframe(df_bonus_quick)
 		df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1]
 		st.dataframe(df_spec_game)
