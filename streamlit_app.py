@@ -385,6 +385,7 @@ def selectbox_game_change():
 	st.session_state.game_find = ""
 	st.session_state.url_game_find = ""
 	st.session_state.game_find_1 = ""
+	st.session_state.game_find_dict = {}
 	st.session_state.game_select = ""
 	st.session_state.spoiler = False
 	
@@ -762,11 +763,14 @@ with tab3:
 	st.write("check 1: ", st.session_state.game_find_1)
 	st.write("check : ", st.session_state.game_find)
 
+	if "game_find_dict" not in st.session_state:
+		st.session_state["game_find_dict"] = ""
+	
 	if st.session_state.game_find != "" and st.session_state.game_find != "select":
-		game_find_dict = st.experimental_get_query_params()
-		st.write(game_find_dict)
+		st.session_state.game_find_dict = st.experimental_get_query_params()
+		st.write(st.session_state.game_find_dict)
 		try:
-			st.session_state.game_find_1 = dict(game_find_dict)["game_id"][0]
+			st.session_state.game_find_1 = dict(st.session_state.game_find_dict)["game_id"][0]
 		except (KeyError, TypeError):
 			st.session_state.game_find_1 = ""
 	elif st.session_state.game_find == "" or st.session_state.game_find == "select":
