@@ -874,22 +874,27 @@ with tab3:
 ## did the team win
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 
+	df_game_adjusted = df_game[["Game_id", "Winner", "After_Skipped_Time_Remaining"]]
+	df_game_adjusted["After_Skipped_Time_Remaining"] = np.where((df_game_adjusted.Game_id == game_find_1) & (df_game_adjusted.After_Skipped_Time_Remaining.isna())
+									    , -1, df_game_adjusted.After_Skipped_Time_Remaining)
+	df_game_adjusted["Percent_rank"] = (100*df_game_adjusted.After_Skipped_Time_Remaining.rank(pct=True)).apply(np.floor)
+	df_game_adjusted["Is_winner"] = np.where((df_game_adjusted.Game_id == game_find_1) & (df_game_adjusted.After_Skipped_Time_Remaining.notna())
+									    , True, False)
+		
+	df_bonus_quick = df_game_adjusted[df_game_adjusted.After_Skipped_Time_Remaining.notna()]
+	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1]
+	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
+		
 	if not spoiler:
 		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
 	else:
 		st.header("Does the winning team win the bonus round?")
-		df_game_adjusted = df_game[["Game_id", "Winner", "After_Skipped_Time_Remaining"]]
-		df_game_adjusted["After_Skipped_Time_Remaining"] = np.where((df_game_adjusted.Game_id == game_find_1) & (df_game_adjusted.After_Skipped_Time_Remaining.isna())
-									    , -1, df_game_adjusted.After_Skipped_Time_Remaining)
-		df_game_adjusted["Percent_rank"] = (100*df_game_adjusted.After_Skipped_Time_Remaining.rank(pct=True)).apply(np.floor)
-		df_bonus_quick = df_game_adjusted[df_game_adjusted.After_Skipped_Time_Remaining.notna()]
-		st.dataframe(df_bonus_quick)
-		df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1]
-		st.dataframe(df_spec_game)
-		fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
-		fig.add_vline(x=df_spec_game.After_Skipped_Time_Remaining, line_dash="dot", annotation_text=df_spec_game.Winner, annotation_position="top right", line_color="blue")
-	
-			
+		if df_bonus_quick.Is_winner:
+			fig.add_vline(x=df_spec_game.After_Skipped_Time_Remaining, line_dash="dot", annotation_text=df_spec_game.Winner, annotation_position="top right", line_color="blue")
+		else:
+			fig.add_annotation(textposition='center', text="{} did not win in the bonus round.".format(df_spec_game.Winner, showarrow=False)
+
+	st.plotly_chart(fig, use_container_width=True)
 			
 st.write("""##""")		     
 st.text("feedback and questions - america.says.data@gmail.com")
