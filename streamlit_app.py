@@ -756,8 +756,9 @@ with tab3:
 			game_find_1 = dict(game_find_dict)["game_id"][0]
 		except (KeyError, TypeError):
 			game_find_1 = ""
-		
+		st.write("pre game not 1? : ", game_find)
 	elif game_find == "" or game_find == "select":
+		st.write("made it here?????")
 		game_find_1 = url_game_find
 	else:
 		st.write("No Game Selected")
