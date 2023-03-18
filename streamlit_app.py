@@ -751,7 +751,7 @@ with tab3:
 	st.header("TEAM PERFORMANCE")
 
 	fig = px.histogram(df_team, x="Score_check", nbins=20, color_discrete_sequence=['lavender'])
-	fig.update_layout(title="Plot Title", xaxis_title="X Axis Title", yaxis_title="Y Axis Title")
+	fig.update_layout(title="Team Final Score Histogram", xaxis_title="Final Score", yaxis_title="Number of Teams with Score")
 	if game_find_1 != "" and game_find_1 != "select":
 		df_specific_game = df_team[df_team.Game_id == game_find_1][['Team', 'Score_check', 'Percent_rank']]
 		team_1 = df_specific_game.iloc[0]
@@ -820,7 +820,7 @@ with tab3:
 	st.header("INDIVIDUAL PLAYER PERFORMANCE")
 
 	fig = px.histogram(df_players, x="Answers_Correct_No_Bonus", nbins=20, color_discrete_sequence=['lavender'])
-	fig.update_layout(title="Plot Title", xaxis_title="X Axis Title", yaxis_title="Y Axis Title")
+	fig.update_layout(title="Number of Answers by Players before the Bonus Round", xaxis_title="Number of Blanks Filled In", yaxis_title="Number of Players")
 	if game_find_1 != "" and game_find_1 != "select":
 		df_specific_player = df_players[df_players.Game_id == game_find_1][['Team', 'Player', 'Answers_Correct_No_Bonus', 'Percent_rank']]
 		df_specific_player = df_specific_player.sort_values('Answers_Correct_No_Bonus', ascending = False).groupby('Team').first().reset_index()
@@ -883,10 +883,10 @@ with tab3:
 
 		
 	df_bonus_quick = df_game_adjusted[df_game_adjusted.After_Skipped_Time_Remaining.notna()]
-	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1].iloc[0]
+	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1].iloc[]
 	
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
-	fig.update_layout(title="Plot Title", xaxis_title="X Axis Title", yaxis_title="Y Axis Title")		
+	fig.update_layout(title="Bonus Round Time To Fill All Boards", xaxis_title="Time Remaining on the Clock", yaxis_title="Number of Teams Successful in that Time Bucket")		
 	indicator = df_spec_game.Is_winner
 	if not spoiler:
 		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
