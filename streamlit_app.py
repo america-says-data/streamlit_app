@@ -62,6 +62,7 @@ st.write("Currently built off of ", len(df_game), " games")
 st.write("Last update - March 15th, 2023")
 
 url_check = st.experimental_get_query_params()
+st.write(url_check)
 try:
 	url_game_find = dict(url_check)["game_id"][0]
 except (KeyError, TypeError):
@@ -749,7 +750,8 @@ with tab3:
 			game_find_1 = dict(game_find_dict)["game_id"][0]
 		except (KeyError, TypeError):
 			game_find_1 = ""
-
+	else:
+		game_find_1 = ""
 	
 	
 	spoiler = st.checkbox('Spoilers')
