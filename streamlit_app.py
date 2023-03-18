@@ -377,11 +377,6 @@ def answer_reset():
 	st.session_state.answer_button_7 = False
 	
 
-def checkbox_spoiler():
-	st.session_state.spoiler_check = True
-
-def checkbox_reset():
-	st.session_state.spoiler_check = False
 	
 #################################################################################################################################################
 #### THIRD TAB!!! RANDOM QUESTION
@@ -762,8 +757,12 @@ with tab3:
 		game_find_1 = url_game_find
 	else:
 		st.write("No Game Selected")
+	form = st.form("checkboxes", clear_on_submit = True)
+	with form:
+		spoiler = st.checkbox('Spoilers')
+		
+	submit = form.form_submit_button("Submit your answers")
 	
-	spoiler = st.checkbox('Spoilers', on_change = checkbox_spoiler, key='spoiler')
 	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
