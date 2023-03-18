@@ -745,7 +745,7 @@ with tab3:
 	except (KeyError, TypeError):
 		game_find_1 = ""
 
-	hide_teams = st.checkbox('No Spoilers')
+	spoiler = st.checkbox('Spoilers')
 	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
@@ -764,7 +764,7 @@ with tab3:
 		else:
 			team_1['pos'] = "top left"
 			team_2['pos'] = "top right"
-		if hide_teams:
+		if not spoiler:
 			fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text="???", annotation_position=team_1.pos, line_color="red")
 			fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text="???", annotation_position=team_2.pos, line_color="blue")
 		else:
@@ -785,14 +785,14 @@ with tab3:
 		col1, col2 = st.columns(2)
 
 		with col1:
-			if hide_teams:
+			if not spoiler:
 				st.header("???")
 			else:
 				st.header(team_1.Team)
 			val_str = str(team_1.Percent_rank) + "%"
 			st.header(val_str)
 		with col2:
-			if hide_teams:
+			if not spoiler:
 				st.header("???")
 			else:
 				st.header(team_2.Team)
@@ -828,7 +828,7 @@ with tab3:
 		else:
 			player_1['pos'] = "top left"
 			player_2['pos'] = "top right"
-		if hide_teams:
+		if not spoiler:
 			fig.add_vline(x=player_1.Answers_Correct_No_Bonus, line_dash="dot", annotation_text="???", annotation_position=team_1.pos, line_color="red")
 			fig.add_vline(x=player_2.Answers_Correct_No_Bonus, line_dash="dot", annotation_text="???", annotation_position=team_2.pos, line_color="blue")
 		else:
@@ -851,14 +851,14 @@ with tab3:
 		col1, col2 = st.columns(2)
 
 		with col1:
-			if hide_teams:
+			if not spoiler:
 				st.header("???")
 			else:
 				st.header(player_1.Player)
 			val_str = str(player_1.Percent_rank) + "%"
 			st.header(val_str)
 		with col2:
-			if hide_teams:
+			if not spoiler:
 				st.header("???")
 			else:
 				st.header(player_2.Player)
