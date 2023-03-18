@@ -382,6 +382,8 @@ def selectbox_game_change():
 	st.session_state.game_find = ""
 	st.session_state.url_game_find = ""
 	st.session_state.game_find_1 = ""
+	st.session_state.game_select = ""
+	st.session_state.spoiler = False
 	
 #################################################################################################################################################
 #### THIRD TAB!!! RANDOM QUESTION
@@ -771,11 +773,16 @@ with tab3:
 	
 	st.write("current team check: ", st.session_state.game_find_1)
 	
+	if "game_select" not in st.session_state:
+		st.session_state["game_select"] = ""
+	if "spoiler" not in st.session_state:
+		st.session_state["spoiler"] = False
+	
 	with st.form("run_game", clear_on_submit = True):
-		st.experimental_rerun()
-		game_select = st.selectbox('Select Game to Run', options=[st.session_state.game_find_1]+[""], key = 'selectbox_game')
-		spoiler = st.checkbox('Spoilers')
-		submission = st.form_submit_button("Run this game")
+
+		st.session_state.game_select = st.selectbox('Select Game to Run', options=[st.session_state.game_find_1]+[""], key = 'selectbox_game')
+		st.session_state.spoiler = st.checkbox('Spoilers')
+		st.form_submit_button("Run this game")
 		
 	st.write("the spoiler: ", spoiler)
 	st.write("game select: ", game_select)
@@ -787,8 +794,8 @@ with tab3:
 
 	fig = px.histogram(df_team, x="Score_check", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Team Final Score Histogram", xaxis_title="Final Score", yaxis_title="Number of Teams with Score")
-	if st.session_state.game_find_1 != "" and st.session_state.game_find_1 != "select":
-		df_specific_game = df_team[df_team.Game_id == st.session_state.game_find_1][['Team', 'Score_check', 'Percent_rank']]
+	if st.session_state.game_select != "" and st.session_state.game_select != "select":
+		df_specific_game = df_team[df_team.Game_id == st.session_state.game_select][['Team', 'Score_check', 'Percent_rank']]
 		team_1 = df_specific_game.iloc[0]
 		team_2 = df_specific_game.iloc[1]
 		if team_1.Score_check >= team_2.Score_check:
@@ -797,7 +804,7 @@ with tab3:
 		else:
 			team_1['pos'] = "top left"
 			team_2['pos'] = "top right"
-		if not spoiler:
+		if not st.session_state.spoiler:
 			fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text="???", annotation_position=team_1.pos, line_color="red")
 			fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text="???", annotation_position=team_2.pos, line_color="blue")
 		else:
@@ -814,18 +821,18 @@ with tab3:
 		
 	st.write("""##""")	
 		
-	if st.session_state.game_find_1 != "" and st.session_state.game_find_1 != "select":
+	if st.session_state.game_select != "" and st.session_state.game_select != "select":
 		col1, col2 = st.columns(2)
 
 		with col1:
-			if not spoiler:
+			if not st.session_state.spoiler:
 				st.header("???")
 			else:
 				st.header(team_1.Team)
 			val_str = str(team_1.Percent_rank) + "%"
 			st.header(val_str)
 		with col2:
-			if not spoiler:
+			if not st.session_state.spoiler:
 				st.header("???")
 			else:
 				st.header(team_2.Team)
@@ -836,7 +843,7 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 	st.markdown("""---""")		
 	
-	if st.session_state.game_find_1 != "" and st.session_state.game_find_1 != "select":	
+	if st.session_state.game_select != "" and st.session_state.game_select != "select":	
 		st.write("Winning team probability of succeeding in the bonus round and winning $15,000")
 		if team_1.Score_check >= team_2.Score_check:
 			win_prob_val = win_prob[win_prob.test_score == team_1.Score_check]['test_probabilities'].iloc[0]
@@ -857,8 +864,8 @@ with tab3:
 
 	fig = px.histogram(df_players, x="Answers_Correct_No_Bonus", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Number of Answers by Players before the Bonus Round", xaxis_title="Number of Blanks Filled In", yaxis_title="Number of Players")
-	if st.session_state.game_find_1 != "" and st.session_state.game_find_1 != "select":
-		df_specific_player = df_players[df_players.Game_id == st.session_state.game_find_1][['Team', 'Player', 'Answers_Correct_No_Bonus', 'Percent_rank']]
+	if st.session_state.game_select != "" and st.session_state.game_select != "select":
+		df_specific_player = df_players[df_players.Game_id == st.session_state.game_select][['Team', 'Player', 'Answers_Correct_No_Bonus', 'Percent_rank']]
 		df_specific_player = df_specific_player.sort_values('Answers_Correct_No_Bonus', ascending = False).groupby('Team').first().reset_index()
 		player_1 = df_specific_player[df_specific_player['Team'] == team_1.Team].iloc[0]
 		player_2 = df_specific_player[df_specific_player['Team'] == team_2.Team].iloc[0]
@@ -868,7 +875,7 @@ with tab3:
 		else:
 			player_1['pos'] = "top left"
 			player_2['pos'] = "top right"
-		if not spoiler:
+		if not st.session_state.spoiler:
 			fig.add_vline(x=player_1.Answers_Correct_No_Bonus, line_dash="dot", annotation_text="???", annotation_position=team_1.pos, line_color="red")
 			fig.add_vline(x=player_2.Answers_Correct_No_Bonus, line_dash="dot", annotation_text="???", annotation_position=team_2.pos, line_color="blue")
 		else:
@@ -887,18 +894,18 @@ with tab3:
 		
 	st.write("""##""")	
 		
-	if st.session_state.game_find_1 != "" and st.session_state.game_find_1 != "select":
+	if st.session_state.game_select != "" and st.session_state.game_select != "select":
 		col1, col2 = st.columns(2)
 
 		with col1:
-			if not spoiler:
+			if not st.session_state.spoiler:
 				st.header("???")
 			else:
 				st.header(player_1.Player)
 			val_str = str(player_1.Percent_rank) + "%"
 			st.header(val_str)
 		with col2:
-			if not spoiler:
+			if not st.session_state.spoiler:
 				st.header("???")
 			else:
 				st.header(player_2.Player)
@@ -911,15 +918,15 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	df_game_adjusted = df_game[["Game_id", "Winner", "After_Skipped_Time_Remaining"]]
-	df_game_adjusted["Is_winner"] = np.where((df_game_adjusted.Game_id == st.session_state.game_find_1) & (df_game_adjusted.After_Skipped_Time_Remaining.notna())
+	df_game_adjusted["Is_winner"] = np.where((df_game_adjusted.Game_id == st.session_state.game_select) & (df_game_adjusted.After_Skipped_Time_Remaining.notna())
 									    , True, False)
-	df_game_adjusted["After_Skipped_Time_Remaining"] = np.where((df_game_adjusted.Game_id == st.session_state.game_find_1) & (df_game_adjusted.After_Skipped_Time_Remaining.isna())
+	df_game_adjusted["After_Skipped_Time_Remaining"] = np.where((df_game_adjusted.Game_id == st.session_state.game_select) & (df_game_adjusted.After_Skipped_Time_Remaining.isna())
 									    , -1, df_game_adjusted.After_Skipped_Time_Remaining)
 	df_game_adjusted["Percent_rank"] = (100*df_game_adjusted.After_Skipped_Time_Remaining.rank(pct=True)).apply(np.floor)
 
 		
 	df_bonus_quick = df_game_adjusted[df_game_adjusted.After_Skipped_Time_Remaining.notna()]
-	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == st.session_state.game_find_1].reset_index()
+	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == st.session_state.game_select].reset_index()
 	
 	
 	try:
@@ -931,7 +938,7 @@ with tab3:
 		pass
 		
 
-	if spoiler:
+	if st.session_state.spoiler:
 		win_string = winning_team + " won the game!"
 		st.header(win_string)
 		st.markdown("""---""")
@@ -940,7 +947,7 @@ with tab3:
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Bonus Round Time To Fill All Boards", xaxis_title="Time Remaining on the Clock", yaxis_title="Number of Teams Successful in that Time Bucket")		
 
-	if not spoiler:
+	if not st.session_state.spoiler:
 		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
 	else:
 		st.header("Does the winning team win the bonus round?")
