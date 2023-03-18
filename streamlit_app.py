@@ -882,11 +882,13 @@ with tab3:
 									    , True, False)
 		
 	df_bonus_quick = df_game_adjusted[df_game_adjusted.After_Skipped_Time_Remaining.notna()]
-	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1]
+	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1].iloc[0]
 	
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Plot Title", xaxis_title="X Axis Title", yaxis_title="Y Axis Title")		
-	indicator = df_spec_game.Is_winner.iloc[0]
+	st.write(df_spec_game.Is_winner)
+	st.dataframe(df_spec_game)
+	indicator = df_spec_game.Is_winner
 	if not spoiler:
 		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
 	else:
