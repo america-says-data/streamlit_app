@@ -729,7 +729,7 @@ with tab3:
 			month_find = st.selectbox('Select Month', options=['select']+list(game_dates[game_dates.Season == season_find].Year_month.unique()))
 	
 			if month_find != 'select':
-				st.sessions_state.game_find = st.selectbox('Select Game', options=['select']+list(game_dates[game_dates.Year_month == month_find].Game_id), on_change=selectbox_game_change)
+				st.session_state.game_find = st.selectbox('Select Game', options=['select']+list(game_dates[game_dates.Year_month == month_find].Game_id), on_change=selectbox_game_change)
 
 	
 	
@@ -740,11 +740,11 @@ with tab3:
 			team_name_find = st.selectbox('Select Team Name', options=['select']+list(team_table[team_table.First_letter == team_find].Team_name.unique()))	 
 			
 			if team_name_find != 'select':
-				st.sessions_state.game_find = st.selectbox('Select Game', options=['select']+list(df_team[df_team.Team == team_name_find].Game_id), on_change=selectbox_game_change)
+				st.session_state.game_find = st.selectbox('Select Game', options=['select']+list(df_team[df_team.Team == team_name_find].Game_id), on_change=selectbox_game_change)
 		
 			
-	if st.sessions_state.game_find != "" and st.sessions_state.game_find != "select":	
-		st.experimental_set_query_params(game_id = [st.sessions_state.game_find])
+	if st.session_state.game_find != "" and st.session_state.game_find != "select":	
+		st.experimental_set_query_params(game_id = [st.session_state.game_find])
 
 
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -762,7 +762,7 @@ with tab3:
 			st.session_state.game_find_1 = dict(game_find_dict)["game_id"][0]
 		except (KeyError, TypeError):
 			st.session_state.game_find_1 = ""
-	elif st.sessions_state.game_find == "" or st.sessions_state.game_find == "select":
+	elif st.session_state.game_find == "" or st.session_state.game_find == "select":
 		st.session_state.game_find_1 = st.session_state.url_game_find
 	else:
 		st.write("No Game Selected")
