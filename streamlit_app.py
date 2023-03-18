@@ -886,12 +886,12 @@ with tab3:
 	
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Plot Title", xaxis_title="X Axis Title", yaxis_title="Y Axis Title")		
-	
+	indicator = df_spec_game.Is_winner.iloc[0]
 	if not spoiler:
 		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
 	else:
 		st.header("Does the winning team win the bonus round?")
-		if df_spec_game.Is_winner.iloc[0]:
+		if indicator:
 			fig.add_vline(x=df_spec_game.After_Skipped_Time_Remaining, line_dash="dot", annotation_text=df_spec_game.Winner, annotation_position="top right", line_color="blue")
 		else:
 			fig.add_annotation(textposition='center', text="{} did not win in the bonus round.".format(df_spec_game.Winner))
