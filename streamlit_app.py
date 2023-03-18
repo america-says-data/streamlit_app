@@ -787,8 +787,9 @@ with tab3:
 # 		st.session_state.spoiler = st.checkbox('Spoilers')
 # 		st.write(st.session_state.spoiler)
 # 		st.form_submit_button("Run this game")
-		
-
+	
+	game_string = st.session_state.game_select.split("-",3)
+	print(game_string)
 	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
