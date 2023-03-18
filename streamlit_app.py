@@ -789,7 +789,7 @@ with tab3:
 # 		st.form_submit_button("Run this game")
 	
 	game_string = st.session_state.game_select.split("-",3)
-	print(game_string)
+	st.header(game_string)
 	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
