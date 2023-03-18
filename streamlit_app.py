@@ -895,7 +895,7 @@ with tab3:
 		if indicator:
 			fig.add_vline(x=df_spec_game.After_Skipped_Time_Remaining, line_dash="dot", annotation_text=df_spec_game.Winner, annotation_position="top right", line_color="blue")
 		else:
-			fig.add_annotation(textposition='center', text="{} did not win in the bonus round.".format(df_spec_game.Winner))
+			fig.add_annotation(text="{} did not win in the bonus round.".format(df_spec_game.Winner))
 
 	st.plotly_chart(fig, use_container_width=True)
 			
