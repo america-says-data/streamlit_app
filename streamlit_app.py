@@ -757,6 +757,7 @@ with tab3:
 			
 	if st.session_state.game_find != "" and st.session_state.game_find != "select":	
 		st.experimental_set_query_params(game_id = [st.session_state.game_find])
+		st.session_state.url_game_find = ""
 
 
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -764,17 +765,9 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 	
 ###### pull in current parameters for the actual game to be used - to be able to find via url
-	st.write("check u: ", st.session_state.url_game_find)
-	st.write("check 1: ", st.session_state.game_find_1)
-	st.write("check : ", st.session_state.game_find)
 	
 	if st.session_state.game_find != "" and st.session_state.game_find != "select":
-		st.session_state.game_find_dict = st.experimental_get_query_params()
-		st.write(st.session_state.game_find_dict)
-		try:
-			st.session_state.game_find_1 = dict(st.session_state.game_find_dict)["game_id"][0]
-		except (KeyError, TypeError):
-			st.session_state.game_find_1 = ""
+		st.session_state.game_find_1 = st.session_state.game_find
 	elif st.session_state.game_find == "" or st.session_state.game_find == "select":
 		st.session_state.game_find_1 = st.session_state.url_game_find
 	else:
