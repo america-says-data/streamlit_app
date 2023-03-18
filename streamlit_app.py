@@ -891,7 +891,7 @@ with tab3:
 
 	st.write(spec_game_dict)
 #	indicator = df_spec_game.loc[df_spec_game.Game_id == game_find_1]['Is_winner'].values
-	st.write(spec_game_dict.keys())
+	st.write(spec_game_dict[0])
 
 	indicator = spec_game_dict['Is_winner']
 	time_remaining = spec_game_dict['After_Skipped_Time_Remaining']
