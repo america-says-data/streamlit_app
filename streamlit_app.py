@@ -783,8 +783,8 @@ with tab3:
 			fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text="???", annotation_position=team_1.pos, line_color="red")
 			fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text="???", annotation_position=team_2.pos, line_color="blue")
 		else:
-			fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text=team_1.Team, annotation_position=team_1.pos, line_color="red")
-			fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text=team_2.Team, annotation_position=team_2.pos, line_color="blue")
+			fig.add_vline(x=team_1.Score_check, line_dash="dot", annotation_text=team_1.Team+" - "+str(team_1.Score_check), annotation_position=team_1.pos, line_color="red")
+			fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text=team_2.Team+" - "+str(team_2.Score_check), annotation_position=team_2.pos, line_color="blue")
 	
 		
 	st.plotly_chart(fig, use_container_width=True)
@@ -908,6 +908,7 @@ with tab3:
 		indicator = df_spec_game.Is_winner.values[0]
 		time_remaining = df_spec_game.After_Skipped_Time_Remaining.values[0]
 		winning_team = df_spec_game.Winner.values[0]
+		percent_rank = df_spec_game.Percent_rank.values[0]
 	except IndexError:
 		pass
 		
@@ -926,7 +927,7 @@ with tab3:
 	else:
 		st.header("Does the winning team win the bonus round?")
 		if indicator:
-			fig.add_vline(x=time_remaining, line_dash="dot", annotation_text=winning_team, annotation_position="top right", line_color="blue")
+			fig.add_vline(x=time_remaining, line_dash="dot", annotation_text=winning_team + " " + percent_rank + "%", annotation_position="top right", line_color="blue")
 		else:
 			fig.add_annotation(text="{} did not win in the bonus round.".format(winning_team), showarrow = False, xref="paper", yref="paper", x=0.5, y=0.5, font=dict(color='#ff0000'))
 
