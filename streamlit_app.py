@@ -763,7 +763,7 @@ with tab3:
 	else:
 		st.write("No Game Selected")
 	
-	spoiler = st.checkbox('Spoilers', on_click=checkbox_spoiler, key='spoiler')
+	spoiler = st.checkbox('Spoilers', on_change = checkbox_spoiler, key='spoiler')
 	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
