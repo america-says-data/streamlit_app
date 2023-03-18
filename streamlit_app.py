@@ -883,6 +883,7 @@ with tab3:
 		
 	df_bonus_quick = df_game_adjusted[df_game_adjusted.After_Skipped_Time_Remaining.notna()]
 	df_spec_game = df_bonus_quick[df_bonus_quick.Game_id == game_find_1]
+	st.write(df_bonus_quick.Is_winner.values())
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Plot Title", xaxis_title="X Axis Title", yaxis_title="Y Axis Title")		
 	if not spoiler:
@@ -894,7 +895,6 @@ with tab3:
 		else:
 			fig.add_annotation(textposition='center', text="{} did not win in the bonus round.".format(df_spec_game.Winner))
 
-	st.write(df_bonus_quick.Is_winner.values())
 	st.plotly_chart(fig, use_container_width=True)
 			
 st.write("""##""")		     
