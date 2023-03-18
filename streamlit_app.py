@@ -744,7 +744,7 @@ with tab3:
 		game_find_1 = ""
 
 	spoiler = st.checkbox('Spoilers')
-	
+	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build game histogram
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -813,7 +813,8 @@ with tab3:
 			st.write("{:.2%} better chance than the average".format((win_prob_val / win_rate)-1))
 		else:
 			st.write("{:.2%} worse chance than the average".format(1-(win_prob_val / win_rate)))
-		
+	
+	st.markdown("""---""")	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build player performance
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -869,7 +870,7 @@ with tab3:
 			val_str = str(player_2.Percent_rank) + "%"
 			st.header(val_str)
 			
-	
+	st.markdown("""---""")
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## did the team win
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -888,14 +889,17 @@ with tab3:
 	fig = px.histogram(df_bonus_quick, x="After_Skipped_Time_Remaining", nbins=20, color_discrete_sequence=['lavender'])
 	fig.update_layout(title="Bonus Round Time To Fill All Boards", xaxis_title="Time Remaining on the Clock", yaxis_title="Number of Teams Successful in that Time Bucket")		
 	indicator = np.where(df_spec_game.Is_winner == True, True, False)
+	st.write(df_spec_game.After_Skipped_Time_Remaining.values())
+	st.write(df_spec_game.Winner.values())
+	
 	if not spoiler:
 		st.header("Does the winning team win the bonus round? Click Spoiler to find out or tune in!")
 	else:
 		st.header("Does the winning team win the bonus round?")
 		if indicator:
-			fig.add_vline(x=df_spec_game.After_Skipped_Time_Remaining, line_dash="dot", annotation_text=df_spec_game.Winner, annotation_position="top right", line_color="blue")
+			fig.add_vline(x=df_spec_game.After_Skipped_Time_Remaining.values(), line_dash="dot", annotation_text=df_spec_game.Winner.values(), annotation_position="top right", line_color="blue")
 		else:
-			fig.add_annotation(text="{} did not win in the bonus round.".format(df_spec_game.Winner), showarrow = False)
+			fig.add_annotation(text="{} did not win in the bonus round.".format(df_spec_game.Winner.values()), showarrow = False)
 
 	st.plotly_chart(fig, use_container_width=True)
 			
