@@ -890,16 +890,16 @@ with tab3:
 	fig.update_layout(title="Bonus Round Time To Fill All Boards", xaxis_title="Time Remaining on the Clock", yaxis_title="Number of Teams Successful in that Time Bucket")		
 
 	st.dataframe(df_spec_game)
-	indicator = df_spec_game.loc[df_spec_game.Game_id == game_find_1]['Is_winner'].values
-#	indicator = df_spec_game['Is_winner'][0]
+#	indicator = df_spec_game.loc[df_spec_game.Game_id == game_find_1]['Is_winner'].values
+	indicator = df_spec_game['Is_winner'].values
 # 	st.write("length", len(df_spec_game['Is_winner'].to_list()))
 # 	st.write("list", df_spec_game['Is_winner'].to_list())
 # 	st.write("value", df_spec_game['Is_winner'].to_list()[0])
 	
-	time_remaining = df_spec_game['After_Skipped_Time_Remaining'][0]
-	winning_team = df_spec_game['Winner'][0]
+	time_remaining = df_spec_game['After_Skipped_Time_Remaining'].values
+	winning_team = df_spec_game['Winner'].values
 
-	st.write(df_spec_game['Is_winner'])
+	st.write(df_spec_game['Is_winner'].values)
 	st.write(winning_team)
 	st.write(type(winning_team))
 	if not spoiler:
