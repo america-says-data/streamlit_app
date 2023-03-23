@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import plotly.figure_factory as ff
 import plotly.express as px
 import plotly.graph_objs as go
+from plotly.subplots import make_subplots
 from sklearn.linear_model import LogisticRegression
 
 st.write ("""
@@ -617,8 +618,17 @@ with tab2:
 	df_season_cleanup.reset_index(inplace=True)
 	df_season_cleanup = df_season_cleanup.set_index("Season")
 	
-	st.line_chart(df_season_cleanup[["Average Answers Cleaned Up", "Average Answers Missed by Both Teams", "Percent Possible Answers Cleaned Up"]])
+#	st.line_chart(df_season_cleanup[["Average Answers Cleaned Up", "Average Answers Missed by Both Teams", "Percent Possible Answers Cleaned Up"]])
+	subfig = make_subplots(specs=[[{"secondary_y": True}]])
 
+	fig = px.line(df_season_cleanup, y = "Average Answers Cleaned Up")
+	fig.add_trace(go.Scatter(df_season_cleanup, y="Average Answers Missed by Both Teams", mode='lines'))
+	fig2 = px.line(df_season_cleanup, y = "Percent Possible Answers Cleaned Up")
+	
+	fig2.update_traces(yaxis="y2")
+
+	subfig.add_traces(fig.data + fig2.data)
+	st.plotly_chart(subfig, use_container_width=True)
 	st.markdown("""---""")
 	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
