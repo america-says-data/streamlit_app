@@ -622,12 +622,12 @@ with tab2:
 #	st.line_chart(df_season_cleanup[["Average Answers Cleaned Up", "Average Answers Missed by Both Teams", "Percent Possible Answers Cleaned Up"]])
 	subfig = make_subplots(specs=[[{"secondary_y": True}]])
 
-	fig = px.line(df_season_cleanup, y = "Average Answers Cleaned Up", )
+	fig = px.line(df_season_cleanup, y = "Average Answers Cleaned Up")
 	fig.add_trace(go.Scatter(x=df_season_cleanup.index, y=df_season_cleanup["Average Answers Missed by Both Teams"], mode='lines'))
 	fig2 = px.line(df_season_cleanup, y = "Percent Possible Answers Cleaned Up")
 	fig2.update_traces(line_color='#ff0000')
 	fig2.update_traces(yaxis="y2")
-
+	fig2.update_yaxes(title_font_color="red")
 	subfig.add_traces(fig.data + fig2.data)
 	subfig.layout.xaxis.title="Season"
 	subfig.layout.yaxis2.title="Percentage of Answers"
