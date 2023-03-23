@@ -617,17 +617,22 @@ with tab2:
 					""")
 	df_season_cleanup.reset_index(inplace=True)
 	df_season_cleanup = df_season_cleanup.set_index("Season")
-	
+
+# SAME AXIS, COMMENTING OUT TO USE PLOTLY FOR DIFFERENT AXIS EFFORTS	
 #	st.line_chart(df_season_cleanup[["Average Answers Cleaned Up", "Average Answers Missed by Both Teams", "Percent Possible Answers Cleaned Up"]])
 	subfig = make_subplots(specs=[[{"secondary_y": True}]])
 
-	fig = px.line(df_season_cleanup, y = "Average Answers Cleaned Up")
+	fig = px.line(df_season_cleanup, y = "Average Answers Cleaned Up", )
 	fig.add_trace(go.Scatter(x=df_season_cleanup.index, y=df_season_cleanup["Average Answers Missed by Both Teams"], mode='lines'))
-	fig2 = px.line(df_season_cleanup, y = "Percent Possible Answers Cleaned Up")
+	fig2 = px.line(df_season_cleanup, y = "Percent Possible Answers Cleaned Up", line_color= "red")
 	
 	fig2.update_traces(yaxis="y2")
 
 	subfig.add_traces(fig.data + fig2.data)
+	subfig.layout.xaxis.title="Season"
+	subfig.layout.yaxis2.title="Percentage of Answers"
+	subfig.layout.yaxis.title="Number of Answers"
+	
 	st.plotly_chart(subfig, use_container_width=True)
 	st.markdown("""---""")
 	
