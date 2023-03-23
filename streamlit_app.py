@@ -622,7 +622,7 @@ with tab2:
 	subfig = make_subplots(specs=[[{"secondary_y": True}]])
 
 	fig = px.line(df_season_cleanup, y = "Average Answers Cleaned Up")
-	fig.add_trace(go.Scatter(df_season_cleanup.index, y=df_season_cleanup["Average Answers Missed by Both Teams"], mode='lines'))
+	fig.add_trace(go.Scatter(x=df_season_cleanup.index, y=df_season_cleanup["Average Answers Missed by Both Teams"], mode='lines'))
 	fig2 = px.line(df_season_cleanup, y = "Percent Possible Answers Cleaned Up")
 	
 	fig2.update_traces(yaxis="y2")
