@@ -631,7 +631,7 @@ with tab2:
 	subfig.add_traces(fig.data + fig2.data)
 	subfig.layout.xaxis.title="Season"
 	#subfig.layout.yaxis2.title="Percentage of Answers"
-	yaxis2 = dict(title="Percentage of Answers", titlefont=dict(color='#ff0000'), tickfont=dict(color='#ff0000')
+	yaxis2 = dict(title="Percentage of Answers", titlefont=dict(color='#ff0000'), tickfont=dict(color='#ff0000'))
 	subfig.layout.yaxis.title="Number of Answers"
 	
 	st.plotly_chart(subfig, use_container_width=True)
