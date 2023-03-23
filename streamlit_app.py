@@ -623,8 +623,8 @@ with tab2:
 	subfig = make_subplots(specs=[[{"secondary_y": True}]])
 
 	fig = px.line(df_season_cleanup, y = ["Average Answers Cleaned Up","Average Answers Missed by Both Teams"])
-	#fig.add_trace(go.Scatter(x=df_season_cleanup.index, y=df_season_cleanup["Average Answers Missed by Both Teams"], mode='lines'), name = "Average Answers Missed by Both Teams")
-	fig2 = px.line(df_season_cleanup, y = "Percent Possible Answers Cleaned Up")
+	fig2 = px.line(df_season_cleanup, y = ["Percent Possible Answers Cleaned Up"])
+	
 	fig2.update_traces(line_color='#ff0000')
 	fig2.update_traces(yaxis="y2")
 	
@@ -632,11 +632,13 @@ with tab2:
 	subfig.layout.xaxis.title="Season"
 	subfig.layout.yaxis2.title="Percentage of Answers"
 	subfig.layout.yaxis2.titlefont=dict(color='#ff0000')
-	#yaxis2 = dict(title="Percentage of Answers", titlefont=dict(color='#ff0000'), tickfont=dict(color='#ff0000'))
+	
 	subfig.layout.yaxis.title="Number of Answers"
 	subfig.update_layout(yaxis2 = dict(range=[0,1]))
 	subfig.update_layout(yaxis = dict(range=[0,2]))
+	
 	st.plotly_chart(subfig, use_container_width=True)
+	
 	st.markdown("""---""")
 	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
