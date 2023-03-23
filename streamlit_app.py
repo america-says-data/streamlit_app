@@ -622,15 +622,16 @@ with tab2:
 #	st.line_chart(df_season_cleanup[["Average Answers Cleaned Up", "Average Answers Missed by Both Teams", "Percent Possible Answers Cleaned Up"]])
 	subfig = make_subplots(specs=[[{"secondary_y": True}]])
 
-	fig = px.line(df_season_cleanup, y = "Average Answers Cleaned Up")
-	fig.add_trace(go.Scatter(x=df_season_cleanup.index, y=df_season_cleanup["Average Answers Missed by Both Teams"], mode='lines'))
-	fig2 = px.line(df_season_cleanup, y = "Percent Possible Answers Cleaned Up")
+	fig = px.line(df_season_cleanup, y = "Average Answers Cleaned Up", name = "Average Answers Cleaned Up")
+	fig.add_trace(go.Scatter(x=df_season_cleanup.index, y=df_season_cleanup["Average Answers Missed by Both Teams"], mode='lines'), name = "Average Answers Missed by Both Teams")
+	fig2 = px.line(df_season_cleanup, y = "Percent Possible Answers Cleaned Up", name = "Percent Possible Answers Cleaned Up")
 	fig2.update_traces(line_color='#ff0000')
 	fig2.update_traces(yaxis="y2")
 	fig2.update_yaxes(title_font_color="red")
 	subfig.add_traces(fig.data + fig2.data)
 	subfig.layout.xaxis.title="Season"
-	subfig.layout.yaxis2.title="Percentage of Answers"
+	#subfig.layout.yaxis2.title="Percentage of Answers"
+	yaxis2 = dict(title="Percentage of Answers", titlefont=dict(color='#ff0000'), tickfont=dict(color='#ff0000')
 	subfig.layout.yaxis.title="Number of Answers"
 	
 	st.plotly_chart(subfig, use_container_width=True)
