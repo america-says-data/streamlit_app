@@ -624,7 +624,7 @@ with tab2:
 
 	fig = px.line(df_season_cleanup, y = ["Average Answers Cleaned Up","Average Answers Missed by Both Teams"])
 	#fig.add_trace(go.Scatter(x=df_season_cleanup.index, y=df_season_cleanup["Average Answers Missed by Both Teams"], mode='lines'), name = "Average Answers Missed by Both Teams")
-	fig2 = px.line(df_season_cleanup, y = "Percent Possible Answers Cleaned Up", name = "Percent Possible Answers Cleaned Up")
+	fig2 = px.line(df_season_cleanup, y = "Percent Possible Answers Cleaned Up")
 	fig2.update_traces(line_color='#ff0000')
 	fig2.update_traces(yaxis="y2")
 
