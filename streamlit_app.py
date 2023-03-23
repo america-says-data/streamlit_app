@@ -636,6 +636,7 @@ with tab2:
 	subfig.layout.yaxis.title="Number of Answers"
 	subfig.update_layout(yaxis2 = dict(range=[0,1]))
 #	subfig.update_layout(yaxis = dict(range=[0,2]))
+	subfig.update_layout(legend=dict(orientation="h", yanchor="bottom"))
 	
 	st.plotly_chart(subfig, use_container_width=True)
 	
