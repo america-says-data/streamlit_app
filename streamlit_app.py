@@ -627,7 +627,7 @@ with tab2:
 	fig2 = px.line(df_season_cleanup, y = "Percent Possible Answers Cleaned Up", name = "Percent Possible Answers Cleaned Up")
 	fig2.update_traces(line_color='#ff0000')
 	fig2.update_traces(yaxis="y2")
-	fig2.update_yaxes(title_font_color="red")
+
 	subfig.add_traces(fig.data + fig2.data)
 	subfig.layout.xaxis.title="Season"
 	#subfig.layout.yaxis2.title="Percentage of Answers"
