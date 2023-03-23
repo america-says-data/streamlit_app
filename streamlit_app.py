@@ -637,7 +637,7 @@ with tab2:
 	subfig.update_layout(yaxis2 = dict(range=[0,1]))
 	subfig.update_layout(yaxis2 = dict(tickformat = ',.0%'))
 #	subfig.update_layout(yaxis = dict(range=[0,2]))
-	subfig.update_layout(legend=dict(orientation="h", yanchor="top",y=1.02,xanchor="left"))
+	subfig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left"))
 	
 	st.plotly_chart(subfig, use_container_width=True)
 	
