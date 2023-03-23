@@ -633,7 +633,7 @@ with tab2:
 	#subfig.layout.yaxis2.title="Percentage of Answers"
 	yaxis2 = dict(title="Percentage of Answers", titlefont=dict(color='#ff0000'), tickfont=dict(color='#ff0000'))
 	subfig.layout.yaxis.title="Number of Answers"
-	
+	subfig.layout.yaxis.rangemode: 'tozero'
 	st.plotly_chart(subfig, use_container_width=True)
 	st.markdown("""---""")
 	
