@@ -1069,7 +1069,7 @@ with tab3:
 		game_flow_final_df = game_flow_table[game_flow_table.GAME_ID == st.session_state.game_select]
 		flow_team_1 = game_flow_final_df[game_flow_final_df['TEAM_NUM'] == 1].iloc[0]
 		flow_team_2 = game_flow_final_df[game_flow_final_df['TEAM_NUM'] == 2].iloc[0]
-		fig = px.line(flow_team_1, x = "variable", y = "value", line_color="red")
+		fig = px.line(flow_team_1, x = "variable", y = "value", color_discrete_sequence=["#ff0000"])
 	#	fig.for_each_trace(lambda t: t.update(name = game_flow_final_df[t.TEAM_NAME]))
 		st.plotly_chart(fig, use_container_width=True)
 
