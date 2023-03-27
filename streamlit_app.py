@@ -1067,7 +1067,7 @@ with tab3:
 	
 	if st.session_state.spoiler:
 		game_flow_final_df = game_flow_table[game_flow_table.GAME_ID == st.session_state.game_select]
-		fig = px.line(game_flow_final_df, x = "variable", y = "value", color = "TEAM_NUM", color_discrete_map = {1:'red', 2:'blue'})#, labels={"TEAM_NAME": "Team Name"})
+		fig = px.line(game_flow_final_df, x = "variable", y = "value", color = "TEAM_NUM", color_discrete_map = {1:'red', 2:'blue'}, labels={"TEAM_NAME": "Team Name"})
 		st.plotly_chart(fig, use_container_width=True)
 
 		
