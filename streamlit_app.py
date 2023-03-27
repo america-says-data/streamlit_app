@@ -1072,8 +1072,8 @@ with tab3:
 		flow_team_2 = game_flow_final_df[game_flow_final_df['TEAM_NUM'] == 2]
 		
 		addfig = make_subplots()
-		fig = px.line(flow_team_1, x = "variable", y = "value", color_discrete_sequence=["#ff0000"], name = "TEAM_NAME")
-		fig2 = px.line(flow_team_2, x = "variable", y = "value", color_discrete_sequence=["#0000ff"], name = "TEAM_NAME")
+		fig = px.line(flow_team_1, x = "variable", y = "value", color_discrete_sequence=["#ff0000"], labels = "TEAM_NAME")
+		fig2 = px.line(flow_team_2, x = "variable", y = "value", color_discrete_sequence=["#0000ff"], labels = "TEAM_NAME")
 		
 		addfig.add_traces(fig.data + fig2.data)
 		addfig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left"))
