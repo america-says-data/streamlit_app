@@ -1056,6 +1056,10 @@ with tab3:
 	
 	
 	if st.session_state.spoiler:
+# 		try:
+# 			win_string = winning_team + " won the game!"
+# 		except NameError:
+# 			pass
 		win_string = winning_team + " won the game!"
 		st.header(win_string)
 		st.markdown("""---""")
