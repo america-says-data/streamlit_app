@@ -287,7 +287,7 @@ def game_flow_table():
 		, FTFQ + STFQCU + STFQ + FTFQCU + FTSQ + STSQCU + STSQ + FTSQCU + LTFQ + TTFQCU + TTFQ as TTFQ_R
 		, FTFQ + STFQCU + STFQ + FTFQCU + FTSQ + STSQCU + STSQ + FTSQCU + LTFQ + TTFQCU + TTFQ + LTFQCU as LTFQCU_R
 	from (
-	select GAME_ID, TEAM_NAME
+	select GAME_ID as GAME_ID, TEAM_NAME
 		, MAX(FIRST_TEAM_FIRST_QUESTION) FTFQ
 		, MAX(SECOND_TEAM_FIRST_QUESTION_CLEAN_UP) STFQCU
 		, MAX(SECOND_TEAM_FIRST_QUESTION) STFQ
@@ -341,13 +341,14 @@ def game_flow_table():
 	group by GAME_ID, TEAM_NAME
 	)
 	""")
-	game_flow_table_small = game_flow_table[["Game_id", "TEAM_NAME", "FTFQ_R", "STFQCU_R", "STFQ_R", "FTFQCU_R", "FTSQ_R", "STSQCU_R", "STSQ_R", "FTSQCU_R", "LTFQ_R", "TTFQCU_R", "TTFQ_R", "LTFQCU_R"]]
+	game_flow_table_small = game_flow_table[["GAME_ID", "TEAM_NAME", "FTFQ_R", "STFQCU_R", "STFQ_R", "FTFQCU_R", "FTSQ_R", "STSQCU_R", "STSQ_R", "FTSQCU_R", "LTFQ_R", "TTFQCU_R", "TTFQ_R", "LTFQCU_R"]]
 	print(game_flow_table_small.head())
-	game_flow_df = pd.melt(game_flow_table, id_vars =["Game_id", "TEAM_NAME"])
+	game_flow_df = pd.melt(game_flow_table, id_vars =["GAME_ID", "TEAM_NAME"])
 	print(game_flow_df.head())
 	return game_flow_df
 
 game_flow_table = game_flow_table()
+print(game_flow_table.head())
 
 @st.cache_data(ttl=86400)
 def best_question():
