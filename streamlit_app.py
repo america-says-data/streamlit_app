@@ -342,9 +342,7 @@ def game_flow_table():
 	)
 	""")
 	game_flow_table_small = game_flow_table[["GAME_ID", "TEAM_NAME", "FTFQ_R", "STFQCU_R", "STFQ_R", "FTFQCU_R", "FTSQ_R", "STSQCU_R", "STSQ_R", "FTSQCU_R", "LTFQ_R", "TTFQCU_R", "TTFQ_R", "LTFQCU_R"]]
-	print(game_flow_table_small.head())
-	game_flow_df = pd.melt(game_flow_table, id_vars =["GAME_ID", "TEAM_NAME"])
-	print(game_flow_df.head())
+	game_flow_df = pd.melt(game_flow_table_small, id_vars =["GAME_ID", "TEAM_NAME"])
 	return game_flow_df
 
 game_flow_table = game_flow_table()
@@ -1068,8 +1066,9 @@ with tab3:
 	
 	
 	if st.session_state.spoiler:
-		game_flow_df = game_flow_table[game_flow_table.Game_id == st.session_state.game_select]
-		#fig = px.scatter(game_flow_df, x = cols_of_interest, y = "[cols_of_interest]", )
+		game_flow_final_df = game_flow_table[game_flow_table.Game_id == st.session_state.game_select]
+		fig = px.scatter(game_flow_final_df, x = "variable", y = "values", )
+		st.plotly_chart(fig, use_container_width=True)
 
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## bonus round
