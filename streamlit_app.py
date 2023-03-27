@@ -342,6 +342,7 @@ def game_flow_table():
 	)
 	""")
 	game_flow_table_small = game_flow_table[["Game_id", "TEAM_NAME", "FTFQ_R", "STFQCU_R", "STFQ_R", "FTFQCU_R", "FTSQ_R", "STSQCU_R", "STSQ_R", "FTSQCU_R", "LTFQ_R", "TTFQCU_R", "TTFQ_R", "LTFQCU_R"]]
+	print(game_flow_table_small.head())
 	game_flow_df = pd.melt(game_flow_table, id_vars =["Game_id", "TEAM_NAME"])
 	print(game_flow_df.head())
 	return game_flow_df
