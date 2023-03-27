@@ -269,6 +269,86 @@ def create_probability():
 win_rate, win_prob = create_probability()
 
 @st.cache_data(ttl=86400)
+def game_flow_table():
+	game_flow_table = ps.sqldf("""
+	select * 
+		, FTFQ as FTFQ_R
+		, FTFQ_R + STFQCU as STFQCU_R
+		, STFQCU_R + STFQ as STFQ_R
+		, STFQ_R + FTFQCU as FTFQCU_R
+		
+		, FTFQCU_R + FTSQ as FTSQ_R
+		, FTSQ_R + STSQCU as STSQCU_R
+		, STSQCU_R + STSQ as STSQ_R
+		, STSQ_R + FTSQCU as FTSQCU_R
+		
+		, FTSQCU_R + LTFQ as LTFQ_R
+		, LTFQ_R + TTFQCU as TTFQCU_R
+		, TTFQCU_R + TTFQ as TTFQ_R
+		, TTFQ_R + LTFQCU as LTFQCU_R
+	from (
+	select GAME_ID, TEAM_NAME
+		, MAX(FIRST_TEAM_FIRST_QUESTION) FTFQ
+		, MAX(SECOND_TEAM_FIRST_QUESTION_CLEAN_UP) STFQCU
+		, MAX(SECOND_TEAM_FIRST_QUESTION) STFQ
+		, MAX(FIRST_TEAM_FIRST_QUESTION_CLEAN_UP) FTFQCU
+		
+	
+		, MAX(FIRST_TEAM_SECOND_QUESTION) FTSQ
+		, MAX(SECOND_TEAM_SECOND_QUESTION_CLEAN_UP) STSQCU
+		, MAX(SECOND_TEAM_SECOND_QUESTION) STSQ
+		, MAX(FIRST_TEAM_SECOND_QUESTION_CLEAN_UP) FTSQCU
+		
+		, MAX(LEADING_TEAM_FINAL_QUESTION) LTFQ
+		, MAX(TRAILING_TEAM_FINAL_QUESTION_CLEAN_UP) TTFQCU
+		, MAX(TRAILING_TEAM_FINAL_QUESTION) TTFQ
+		, MAX(LEADING_TEAM_FINAL_QUESTION_CLEAN_UP) LTFQCU
+	
+	from (
+	select t.GAME_ID, t.TEAM as TEAM_NAME, r.TEAM, t.TEAM_NUM, 
+		CASE WHEN r.ROUND = 1 and r.TEAM = 1 THEN r.SCORE_NO_CLEAN_UP ELSE 0 END as FIRST_TEAM_FIRST_QUESTION,
+		CASE WHEN r.ROUND = 1 and r.TEAM = 2 THEN r.SCORE_TOTAL - r.SCORE_NO_CLEAN_UP ELSE 0 END as SECOND_TEAM_FIRST_QUESTION_CLEAN_UP,
+		CASE WHEN r.ROUND = 1 and r.TEAM = 2 THEN r.SCORE_NO_CLEAN_UP ELSE 0 END as SECOND_TEAM_FIRST_QUESTION,
+		CASE WHEN r.ROUND = 1 and r.TEAM = 1 THEN r.SCORE_TOTAL - r.SCORE_NO_CLEAN_UP ELSE 0 END as FIRST_TEAM_FIRST_QUESTION_CLEAN_UP,
+		
+		CASE WHEN r.ROUND = 2 and r.TEAM = 1 THEN r.SCORE_NO_CLEAN_UP ELSE 0 END as FIRST_TEAM_SECOND_QUESTION,
+		CASE WHEN r.ROUND = 2 and r.TEAM = 2 THEN r.SCORE_TOTAL - r.SCORE_NO_CLEAN_UP ELSE 0 END as SECOND_TEAM_SECOND_QUESTION_CLEAN_UP,
+		CASE WHEN r.ROUND = 2 and r.TEAM = 2 THEN r.SCORE_NO_CLEAN_UP ELSE 0 END as SECOND_TEAM_SECOND_QUESTION,
+		CASE WHEN r.ROUND = 2 and r.TEAM = 1 THEN r.SCORE_TOTAL - r.SCORE_NO_CLEAN_UP ELSE 0 END as FIRST_TEAM_SECOND_QUESTION_CLEAN_UP,
+		
+		fq.LEADING_TEAM, fq.TRAILING_TEAM,
+		fq.LEADING_TEAM_FINAL_QUESTION,
+		fq.TRAILING_TEAM_FINAL_QUESTION_CLEAN_UP,
+		fq.TRAILING_TEAM_FINAL_QUESTION,
+		fq.LEADING_TEAM_FINAL_QUESTION_CLEAN_UP
+		
+	from df_round r 
+	join df_team t 
+		on t.TEAM_ID = r.TEAM_ID 
+	join 
+	(select TEAM_ID, LEADING_TEAM, TRAILING_TEAM,
+		CASE WHEN substr(QUESTION_ID, -3) = '3-1' AND TEAM = LEADING_TEAM THEN SCORE_NO_CLEAN_UP ELSE 0 end LEADING_TEAM_FINAL_QUESTION,
+		CASE WHEN substr(QUESTION_ID, -3) = '3-2' AND TEAM = TRAILING_TEAM THEN SCORE_TOTAL - SCORE_NO_CLEAN_UP ELSE 0 end TRAILING_TEAM_FINAL_QUESTION_CLEAN_UP,
+		CASE WHEN substr(QUESTION_ID, -3) = '3-2' AND TEAM = TRAILING_TEAM THEN SCORE_NO_CLEAN_UP ELSE 0 end TRAILING_TEAM_FINAL_QUESTION,
+		CASE WHEN substr(QUESTION_ID, -3) = '3-1' AND TEAM = LEADING_TEAM THEN SCORE_TOTAL - SCORE_NO_CLEAN_UP ELSE 0 end LEADING_TEAM_FINAL_QUESTION_CLEAN_UP
+	from (select TEAM_ID, TEAM, QUESTION_ID, ROUND, SCORE_TOTAL, SCORE_NO_CLEAN_UP,
+		CASE WHEN substr(QUESTION_ID, -3) = '3-1' THEN TEAM ELSE 0 end leading_team,
+		CASE WHEN substr(QUESTION_ID, -3) = '3-2' THEN TEAM ELSE 0 end trailing_team
+		from df_round)
+	where round = 3) fq
+		on r.TEAM_ID = fq.TEAM_ID
+	)
+	group by GAME_ID, TEAM_NAME
+	)
+	""")
+	game_flow_table_small = game_flow_table[["Game_id", "TEAM_NAME", "FTFQ_R", "STFQCU_R", "STFQ_R", "FTFQCU_R", "FTSQ_R", "STSQCU_R", "STSQ_R", "FTSQCU_R", "LTFQ_R", "TTFQCU_R", "TTFQ_R", "LTFQCU_R"]]
+	game_flow_df = pd.melt(game_flow_table, id_vars =["Game_id", "TEAM_NAME"])
+	print(game_flow_df.head())
+	return game_flow_df
+
+game_flow_table = game_flow_table()
+
+@st.cache_data(ttl=86400)
 def best_question():
 	return ps.sqldf("""
         select distinct q.SEASON, q.GAME, q.ROUND, t.TEAM, TIME_REMAINING, QUESTION_TEXT
@@ -985,7 +1065,13 @@ with tab3:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	
-	
+	if st.session_state.spoiler:
+		game_flow_df = game_flow_table[game_flow_table.Game_id == st.session_state.game_select]
+		#fig = px.scatter(game_flow_df, x = cols_of_interest, y = "[cols_of_interest]", )
+
+##----------------------------------------------------------------------------------------------------------------------------------------------------
+## bonus round
+##----------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	
 	st.header("BONUS ROUND")
