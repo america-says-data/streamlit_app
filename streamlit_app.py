@@ -305,7 +305,7 @@ def game_flow_table():
 		, MAX(LEADING_TEAM_FINAL_QUESTION_CLEAN_UP) LTFQCU
 	
 	from (
-	select t.GAME_ID, t.TEAM as TEAM_NAME, r.TEAM, t.TEAM_NUM, 
+	select t.GAME_ID, t.TEAM as TEAM_NAME, r.TEAM, t.TEAM_NUM as TEAM_NUM, 
 		CASE WHEN r.ROUND = 1 and r.TEAM = 1 THEN r.SCORE_NO_CLEAN_UP ELSE 0 END as FIRST_TEAM_FIRST_QUESTION,
 		CASE WHEN r.ROUND = 1 and r.TEAM = 2 THEN r.SCORE_TOTAL - r.SCORE_NO_CLEAN_UP ELSE 0 END as SECOND_TEAM_FIRST_QUESTION_CLEAN_UP,
 		CASE WHEN r.ROUND = 1 and r.TEAM = 2 THEN r.SCORE_NO_CLEAN_UP ELSE 0 END as SECOND_TEAM_FIRST_QUESTION,
@@ -1067,7 +1067,7 @@ with tab3:
 	
 	if st.session_state.spoiler:
 		game_flow_final_df = game_flow_table[game_flow_table.GAME_ID == st.session_state.game_select]
-		fig = px.line(game_flow_final_df, x = "variable", y = "value", color = "TEAM_NAME", color_discrete_sequence = ['red', 'blue'])
+		fig = px.line(game_flow_final_df, x = "variable", y = "value", color = "TEAM_NUM", color_discrete_sequence = [1:'red', 2:'blue'], labels={"TEAM_NAME": "Team Name"})
 		st.plotly_chart(fig, use_container_width=True)
 
 		
