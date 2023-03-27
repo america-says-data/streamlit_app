@@ -287,7 +287,7 @@ def game_flow_table():
 		, FTFQ + STFQCU + STFQ + FTFQCU + FTSQ + STSQCU + STSQ + FTSQCU + LTFQ + TTFQCU + TTFQ as TTFQ_R
 		, FTFQ + STFQCU + STFQ + FTFQCU + FTSQ + STSQCU + STSQ + FTSQCU + LTFQ + TTFQCU + TTFQ + LTFQCU as LTFQCU_R
 	from (
-	select GAME_ID as GAME_ID, TEAM_NAME
+	select GAME_ID as GAME_ID, TEAM_NAME, TEAM_NUM
 		, MAX(FIRST_TEAM_FIRST_QUESTION) FTFQ
 		, MAX(SECOND_TEAM_FIRST_QUESTION_CLEAN_UP) STFQCU
 		, MAX(SECOND_TEAM_FIRST_QUESTION) STFQ
@@ -341,8 +341,8 @@ def game_flow_table():
 	group by GAME_ID, TEAM_NAME
 	)
 	""")
-	game_flow_table_small = game_flow_table[["GAME_ID", "TEAM_NAME", "FTFQ_R", "STFQCU_R", "STFQ_R", "FTFQCU_R", "FTSQ_R", "STSQCU_R", "STSQ_R", "FTSQCU_R", "LTFQ_R", "TTFQCU_R", "TTFQ_R", "LTFQCU_R"]]
-	game_flow_df = pd.melt(game_flow_table_small, id_vars =["GAME_ID", "TEAM_NAME"])
+	game_flow_table_small = game_flow_table[["GAME_ID", "TEAM_NAME", "TEAM_NUM", "FTFQ_R", "STFQCU_R", "STFQ_R", "FTFQCU_R", "FTSQ_R", "STSQCU_R", "STSQ_R", "FTSQCU_R", "LTFQ_R", "TTFQCU_R", "TTFQ_R", "LTFQCU_R"]]
+	game_flow_df = pd.melt(game_flow_table_small, id_vars =["GAME_ID", "TEAM_NAME", "TEAM_NUM"])
 	return game_flow_df
 
 game_flow_table = game_flow_table()
@@ -1067,7 +1067,7 @@ with tab3:
 	
 	if st.session_state.spoiler:
 		game_flow_final_df = game_flow_table[game_flow_table.GAME_ID == st.session_state.game_select]
-		fig = px.line(game_flow_final_df, x = "variable", y = "value", color = "TEAM_NAME", color_discrete_sequence = ['red', 'blue'])
+		fig = px.line(game_flow_final_df, x = "variable", y = "value", color = "TEAM_NUM", color_discrete_sequence = ['red', 'blue'])
 		st.plotly_chart(fig, use_container_width=True)
 
 		
