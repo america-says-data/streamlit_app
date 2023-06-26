@@ -30,7 +30,7 @@ gc = gspread.service_account(filename='.config/gspread/service_account.json')
 
 sheet = gc.open_by_key("1wecLQmlElnGaUP92uVEgT0bdyqqwt4HTVlTaqyFFCIw")
 
-#@st.cache_data(ttl=36000)
+@st.cache_data(ttl=36000)
 def get_tables():
 	df_question = pd.DataFrame(sheet.worksheet("Question").get_all_records())
 	df_game = pd.DataFrame(sheet.worksheet("Game").get_all_records())
@@ -83,7 +83,7 @@ tab3, tab2, tab1 = st.tabs(["Game Select", "Stats", "Quick Question"])
 
 	
 #### TODO : Create streamlit loading text that says "Creating Player Table"
-#@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400)
 def build_players_table():
 	df_individual = df_team[["Season", "Game", "Game_id", "Team", "Team_Num", "Team_id", "Captain", "Member_2", "Member_3", "Member_4"]]
 	df_individual = pd.melt(df_individual, 
@@ -170,7 +170,7 @@ def build_players_table():
 	return df_player_unmelt
 
 
-#@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400)
 def build_hattots():
 	df_round["Score_total"] = df_round["Score_total"].astype(int)
 	df_round["Score_after_round"] = df_round[["Team_id", "Score_total"]].groupby("Team_id").cumsum()
@@ -248,7 +248,7 @@ def build_hattots():
 df_players = build_players_table()
 df_hattots = build_hattots()
 
-#@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400)
 def create_probability():
 	df_win_prediction = df_team[df_team.Bonus_Rounds_Complete.notnull()][['Score_check', 'Bonus_Rounds_Complete']]
 	df_win_prediction['win'] = np.where(df_win_prediction['Bonus_Rounds_Complete'] == 4, 1, 0)
@@ -268,7 +268,7 @@ def create_probability():
 
 win_rate, win_prob = create_probability()
 
-#@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400)
 def game_flow_table():
 	game_flow_table = ps.sqldf("""
 	select * 
@@ -348,7 +348,7 @@ def game_flow_table():
 game_flow_table = game_flow_table()
 
 
-#@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400)
 def best_question():
 	return ps.sqldf("""
         select distinct q.SEASON, q.GAME, q.ROUND, t.TEAM, TIME_REMAINING, QUESTION_TEXT
@@ -361,7 +361,7 @@ def best_question():
         order by TIME_REMAINING desc
         """)
 
-#@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400)
 def best_bonus_round():
 	return ps.sqldf("""
                 select SEASON, GAME, WINNER, AFTER_SKIPPED_TIME_REMAINING, BONUS_Q_1, BONUS_Q_2, BONUS_Q_3, BONUS_Q_4
@@ -370,7 +370,7 @@ def best_bonus_round():
                 order by AFTER_SKIPPED_TIME_REMAINING desc
                 """)
 
-#@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400)
 def worst_question():
 	return ps.sqldf("""
                 select distinct q.SEASON, q.GAME, q.ROUND, t.TEAM, ANSWERS_CORRECT_BY_ANSWERING_TEAM, QUESTION_TEXT
@@ -383,7 +383,7 @@ def worst_question():
                 order by ANSWERS_CORRECT_BY_ANSWERING_TEAM
                 """)
 
-#@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400)
 def top_player_of_team():
 	return ps.sqldf("""
                 select p.PLAYER, p.TEAM, p.TOTAL_ANSWERS_CORRECT, t.TOTAL_ANSWERS
@@ -397,7 +397,7 @@ def top_player_of_team():
 		limit 11
                 """)
 
-#@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400)
 def top_player_overall():
 	return ps.sqldf("""
                         select p.PLAYER, p.ANSWERS_CORRECT_NO_BONUS, p.TOTAL_ANSWERS_CORRECT
@@ -406,7 +406,7 @@ def top_player_overall():
 			limit 11
                 """)
 
-#@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400)
 def best_individual_round():
 	return ps.sqldf("""
 			select p.PLAYER, q.TIME_REMAINING, q.QUESTION_TEXT, q.ROUND, q.SEASON, q.GAME, q.DATE, q.YEAR
