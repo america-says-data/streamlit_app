@@ -143,7 +143,7 @@ def build_players_table():
                         """)
 
 
-	df_tally = df_question_tally_new.append(df_bonus_tally_new)
+	df_tally = pd.concat([df_question_tally_new, df_bonus_tally_new])
 
 
 	player_join_df = ps.sqldf("""
