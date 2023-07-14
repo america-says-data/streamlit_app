@@ -79,7 +79,7 @@ if "game_find_dict" not in st.session_state:
 	st.session_state["game_find_dict"] = ""
 	
 	
-tab3, tab2, tab1 = st.tabs(["Game Select", "Stats", "Quick Question"])
+tab1, tab2, tab3 = st.tabs(["Game Select", "Stats", "Quick Question"])
 
 	
 #### TODO : Create streamlit loading text that says "Creating Player Table"
