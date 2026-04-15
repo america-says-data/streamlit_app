@@ -16,10 +16,8 @@ st.write ("""
 """)
 
  
-
-gc = gspread.service_account(filename='.config/gspread/service_account.json')
-
-
+###### Original build with google and gpsread, migrating to supabase
+# gc = gspread.service_account(filename='.config/gspread/service_account.json')
 #### TODO : figure out the versioning of oauth2 etc to handle secrets
 # scopes = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/spreadsheets']
 # credentials = service_account.Credentials.from_service_account_info(
@@ -28,14 +26,22 @@ gc = gspread.service_account(filename='.config/gspread/service_account.json')
 # # gc = gspread.oauth(scopes=scopes)
 # gc = gspread.oauth_from_dict(credentials=credentials)
 
-sheet = gc.open_by_key("1wecLQmlElnGaUP92uVEgT0bdyqqwt4HTVlTaqyFFCIw")
+# sheet = gc.open_by_key("1wecLQmlElnGaUP92uVEgT0bdyqqwt4HTVlTaqyFFCIw")
 
 @st.cache_data(ttl=36000)
 def get_tables():
-	df_question = pd.DataFrame(sheet.worksheet("Question").get_all_records())
-	df_game = pd.DataFrame(sheet.worksheet("Game").get_all_records())
-	df_team = pd.DataFrame(sheet.worksheet("Team").get_all_records())
-	df_round = pd.DataFrame(sheet.worksheet("Round").get_all_records())
+	### original bringing in via sheet
+	# df_question = pd.DataFrame(sheet.worksheet("Question").get_all_records())
+	# df_game = pd.DataFrame(sheet.worksheet("Game").get_all_records())
+	# df_team = pd.DataFrame(sheet.worksheet("Team").get_all_records())
+	# df_round = pd.DataFrame(sheet.worksheet("Round").get_all_records())
+	
+
+	
+	
+	
+	
+	
 	df_question = df_question.replace('NA', np.nan)
 	df_game = df_game.replace('NA', np.nan)
 	df_team = df_team.replace('NA', np.nan)
