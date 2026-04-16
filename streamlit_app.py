@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pandasql as ps
-from google.oauth2 import service_account
-import gspread
+from supabase import create_client, Client
 import numpy as np
 import matplotlib.pyplot as plt
 import plotly.figure_factory as ff
