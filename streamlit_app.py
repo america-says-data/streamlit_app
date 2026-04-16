@@ -106,11 +106,11 @@ st.write("Currently built off of ", len(df_game), " games")
 st.write("Last update - March 18th, 2023")
 
 if "url_game_find" not in st.session_state:
-	url_check = st.query_params()
-	try:
-		st.session_state["url_game_find"] = dict(url_check)["game_id"][0]
-	except (KeyError, TypeError):
-		st.session_state["url_game_find"] = ""
+    # st.query_params acts like a dict and returns single values as strings ### replacing url_check = st.experimental_get_query_params()
+    try:
+        st.session_state["url_game_find"] = st.query_params.get("game_id", "")
+    except Exception:
+        st.session_state["url_game_find"] = ""
 
 if "game_find" not in st.session_state:
 	st.session_state["game_find"] = ""
