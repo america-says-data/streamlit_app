@@ -28,6 +28,40 @@ st.write ("""
 
 # sheet = gc.open_by_key("1wecLQmlElnGaUP92uVEgT0bdyqqwt4HTVlTaqyFFCIw")
 
+
+# 1. Initialize the Supabase Client
+@st.cache_resource
+def init_connection():
+    url = st.secrets["SUPABASE_URL"]
+    key = st.secrets["SUPABASE_KEY"]
+    return create_client(url, key)
+
+supabase = init_connection()
+
+# 2. Function to Query Data
+# We use st.cache_data to prevent hitting the DB on every user chat toggle
+@st.cache_data(ttl=600) # Cache for 10 minutes
+def run_query_questions():
+    # .select("*") fetches all columns; .execute() returns the response object
+    return supabase.table("questions").select("*").execute()
+
+@st.cache_data(ttl=600) # Cache for 10 minutes
+def run_query_rounds():
+    # .select("*") fetches all columns; .execute() returns the response object
+    return supabase.table("rounds").select("*").execute()
+
+@st.cache_data(ttl=600) # Cache for 10 minutes
+def run_query_games():
+    # .select("*") fetches all columns; .execute() returns the response object
+    return supabase.table("games").select("*").execute()
+
+@st.cache_data(ttl=600) # Cache for 10 minutes
+def run_query_teams():
+    # .select("*") fetches all columns; .execute() returns the response object
+    return supabase.table("teams").select("*").execute()
+
+
+
 @st.cache_data(ttl=36000)
 def get_tables():
 	### original bringing in via sheet
@@ -36,7 +70,11 @@ def get_tables():
 	# df_team = pd.DataFrame(sheet.worksheet("Team").get_all_records())
 	# df_round = pd.DataFrame(sheet.worksheet("Round").get_all_records())
 	
-
+	df_question = pd.DataFrame(run_query_questions().data)
+	df_game = pd.DataFrame(run_query_games().data)
+	df_team = pd.DataFrame(run_query_teams().data)
+	df_round = pd.DataFrame(run_query_rounds().data)
+	
 	
 	
 	
