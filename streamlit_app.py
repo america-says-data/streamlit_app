@@ -903,7 +903,7 @@ with tab3:
 		
 			
 	if st.session_state.game_find != "" and st.session_state.game_find != "select":	
-		st.query_params.get("game_id" = [st.session_state.game_find])
+		st.query_params.get("game_id" == [st.session_state.game_find])
 		st.session_state.url_game_find = ""
 
 
