@@ -296,7 +296,6 @@ def create_probability():
 	df_win_prediction = df_team[df_team.Bonus_Rounds_Complete.notnull()][['Score_check', 'Bonus_Rounds_Complete']]
 	df_win_prediction['win'] = np.where(df_win_prediction['Bonus_Rounds_Complete'] == '4', 1, 0)
 
-
 	
 	# extract x y for prediction
 	X = df_win_prediction.Score_check
@@ -757,7 +756,7 @@ with tab2:
 	subfig.add_traces(fig.data + fig2.data)
 	subfig.layout.xaxis.title="Season"
 	subfig.layout.yaxis2.title="Percentage of Answers"
-	subfig.layout.yaxis2.titlefont=dict(color='#ff0000')
+	subfig.layout.yaxis2.title.font=dict(color='#ff0000')
 	
 	subfig.layout.yaxis.title="Number of Answers"
 	subfig.update_layout(yaxis2 = dict(range=[0,1]))
