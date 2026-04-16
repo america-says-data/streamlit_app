@@ -294,13 +294,9 @@ df_hattots = build_hattots()
 @st.cache_data(ttl=86400)
 def create_probability():
 	df_win_prediction = df_team[df_team.Bonus_Rounds_Complete.notnull()][['Score_check', 'Bonus_Rounds_Complete']]
-	df_win_prediction['win'] = np.where(df_win_prediction['Bonus_Rounds_Complete'] == 4, 1, 0)
+	df_win_prediction['win'] = np.where(df_win_prediction['Bonus_Rounds_Complete'] == '4', 1, 0)
 
-	print(df_win_prediction)
-	st.dataframe(df_win_prediction)
-	print(df_win_prediction['win'])
 
-	print(df_win_prediction['Score_check'])
 	
 	# extract x y for prediction
 	X = df_win_prediction.Score_check
