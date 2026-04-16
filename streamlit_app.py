@@ -311,6 +311,7 @@ def create_probability():
 
 win_rate, win_prob = create_probability()
 
+
 @st.cache_data(ttl=86400)
 def game_flow_table():
 	game_flow_table = ps.sqldf("""
