@@ -753,7 +753,7 @@ with tab2:
 	df_season_cleanup = ps.sqldf("""select SEASON as 'Season'
 					, avg(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as 'Average Answers Cleaned Up'
 					, avg(ANSWERS_MISSED_BY_CLEAN_UP_TEAM) as 'Average Answers Missed by Both Teams'
-					, sum(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) / sum(CLEAN_UP_OPPORTUNITIES) as 'Percent Possible Answers Cleaned Up'
+					, cast(sum(ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as float) / sum(CLEAN_UP_OPPORTUNITIES) as 'Percent Possible Answers Cleaned Up'
 					from (
 					select SEASON, ANSWERS_CORRECT_BY_CLEAN_UP_TEAM,
 					7 - (ANSWERS_CORRECT_BY_ANSWERING_TEAM + ANSWERS_CORRECT_BY_CLEAN_UP_TEAM) as ANSWERS_MISSED_BY_CLEAN_UP_TEAM,
