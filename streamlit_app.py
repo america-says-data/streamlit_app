@@ -37,27 +37,51 @@ def init_connection():
 
 supabase = init_connection()
 
+def fetch_all_supabase_data(table_name):
+    all_rows = []
+    step = 1000
+    start = 0
+    
+    while True:
+        # Fetch the next batch
+        # .range(0, 999), then (1000, 1999), etc.
+        response = supabase.table(table_name) \
+            .select("*") \
+            .range(start, start + step - 1) \
+            .execute()
+        
+        batch_data = response.data
+        all_rows.extend(batch_data)
+        
+        # If we got fewer rows than the step, we've reached the end
+        if len(batch_data) < step:
+            break
+            
+        start += step
+        
+    return all_rows
+
 # 2. Function to Query Data
 # We use st.cache_data to prevent hitting the DB on every user chat toggle
 @st.cache_data(ttl=600) # Cache for 10 minutes
 def run_query_questions():
     # .select("*") fetches all columns; .execute() returns the response object
-    return supabase.table("questions").select("*").execute()
+    return fetch_all_supabase_data("questions")
 
 @st.cache_data(ttl=600) # Cache for 10 minutes
 def run_query_rounds():
     # .select("*") fetches all columns; .execute() returns the response object
-    return supabase.table("rounds").select("*").execute()
+    return fetch_all_supabase_data("rounds")
 
 @st.cache_data(ttl=600) # Cache for 10 minutes
 def run_query_games():
     # .select("*") fetches all columns; .execute() returns the response object
-    return supabase.table("games").select("*").execute()
+    return fetch_all_supabase_data("games")
 
 @st.cache_data(ttl=600) # Cache for 10 minutes
 def run_query_teams():
     # .select("*") fetches all columns; .execute() returns the response object
-    return supabase.table("teams").select("*").execute()
+    return fetch_all_supabase_data("teams")
 
 
 
@@ -69,10 +93,10 @@ def get_tables():
 	# df_team = pd.DataFrame(sheet.worksheet("Team").get_all_records())
 	# df_round = pd.DataFrame(sheet.worksheet("Round").get_all_records())
 	
-	df_question = pd.DataFrame(run_query_questions().data)
-	df_game = pd.DataFrame(run_query_games().data)
-	df_team = pd.DataFrame(run_query_teams().data)
-	df_round = pd.DataFrame(run_query_rounds().data)
+	df_question = pd.DataFrame(run_query_questions())
+	df_game = pd.DataFrame(run_query_games())
+	df_team = pd.DataFrame(run_query_teams())
+	df_round = pd.DataFrame(run_query_rounds())
 	
 	
 	
