@@ -553,7 +553,7 @@ def selectbox_game_change():
 with tab1:
 	st.header("Random America Says Question")
 	
-	if st.button('Produce Question!', use_container_width = True):
+	if st.button('Produce Question!', width='stretch'):
 		if 'question' in st.session_state:
 			del st.session_state.question
 		if 'question' not in st.session_state:
@@ -788,7 +788,7 @@ with tab2:
 #	subfig.update_layout(yaxis = dict(range=[0,2]))
 	subfig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left"))
 	
-	st.plotly_chart(subfig, use_container_width=True)
+	st.plotly_chart(subfig, width='stretch')
 	
 	st.markdown("""---""")
 	
@@ -802,7 +802,7 @@ with tab2:
                  }, title='Probability of Win Based on Team Score')
 	fig.add_hline(y=win_rate, line_dash="dot", annotation_text="Historical Win Rate: {:.2%}".format(win_rate), annotation_position="bottom right")
 	
-	st.plotly_chart(fig, use_container_width=True)
+	st.plotly_chart(fig, width='stretch')
 
 
 	
@@ -994,7 +994,7 @@ with tab3:
 			fig.add_vline(x=team_2.Score_check, line_dash="dot", annotation_text=team_2.Team+" - "+str(team_2.Score_check), annotation_position=team_2.pos, line_color="blue")
 	
 		
-	st.plotly_chart(fig, use_container_width=True)
+	st.plotly_chart(fig, width='stretch')
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build team performance percentile
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1065,7 +1065,7 @@ with tab3:
 			fig.add_vline(x=player_2.Answers_Correct_No_Bonus, line_dash="dot", annotation_text=player_2.Player, annotation_position=player_2.pos, line_color="blue")
 	
 		
-	st.plotly_chart(fig, use_container_width=True)
+	st.plotly_chart(fig, width='stretch')
 	
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## build team performance percentile
@@ -1151,7 +1151,7 @@ with tab3:
 		addfig.add_traces(fig.data + fig2.data)
 		addfig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left"))
 	
-		st.plotly_chart(addfig, use_container_width=True)
+		st.plotly_chart(addfig, width='stretch')
 
 		
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1175,7 +1175,7 @@ with tab3:
 		else:
 			fig.add_annotation(text="{} did not win in the bonus round.".format(winning_team), showarrow = False, xref="paper", yref="paper", x=0.5, y=0.5, font=dict(color='#ff0000'))
 
-	st.plotly_chart(fig, use_container_width=True)
+	st.plotly_chart(fig, width='stretch')
 			
 st.write("""##""")		     
 st.text("feedback and questions - america.says.data@gmail.com")
