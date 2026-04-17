@@ -756,7 +756,7 @@ with tab2:
 	subfig.add_traces(fig.data + fig2.data)
 	subfig.layout.xaxis.title="Season"
 	subfig.layout.yaxis2.title="Percentage of Answers"
-	subfig.layout.yaxis2.title.font=dict(color='#ff0000')
+	# subfig.layout.yaxis2.title.font=dict(color='#ff0000')
 	
 	subfig.layout.yaxis.title="Number of Answers"
 	subfig.update_layout(yaxis2 = dict(range=[0,1]))
