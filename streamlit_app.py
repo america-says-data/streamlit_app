@@ -127,7 +127,7 @@ df_question, df_game, df_team, df_round = get_tables()
 
 st.write("Currently built off of ", len(df_game), " games")
 
-st.write("Last update - March 18th, 2023")
+st.write("Last update - April 25th, 2026")
 
 if "url_game_find" not in st.session_state:
     # st.query_params acts like a dict and returns single values as strings ### replacing url_check = st.experimental_get_query_params()
