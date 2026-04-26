@@ -634,10 +634,10 @@ with tab2:
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 	season_select = st.selectbox(
     		'What season would you like to look at?',
-		    ('All Seasons', '1', '2', '3', '4', '5'))
+		    ('All Seasons', '1', '2', '3', '4', '5', '6'))
 
 	if season_select == "All Seasons":
-		season_select_clause = "IN ('1','2','3','4','5')"
+		season_select_clause = "IN ('1','2','3','4','5','6')"
 	elif season_select == "1":
 		season_select_clause = "= '1'"
 	elif season_select == "2":
@@ -648,7 +648,8 @@ with tab2:
 		season_select_clause = "= '4'"
 	elif season_select == "5":
 		season_select_clause = "= '5'"
-	
+	elif season_select == "6":
+		season_select_clause = "= '6'"
 
 ##----------------------------------------------------------------------------------------------------------------------------------------------------
 ## Answers correct histogram (by season)
