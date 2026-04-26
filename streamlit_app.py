@@ -247,7 +247,6 @@ def build_hattots():
 	df_round["Opponent_score_before_round"] = df_round[["Opponent", "Round"]].merge(df_round[["Team_id", "Round", "Score_before_round"]], left_on = ["Opponent", "Round"], right_on = ["Team_id", "Round"])[["Score_before_round"]]
 	df_round["Question_Text"] =  df_round[["Question_id"]].merge(df_question[["Question_id", "Question_Text"]], on = "Question_id")[["Question_Text"]]
 	df_round_1 = df_round[df_round.Question_Text.notnull()]
-	st.dataframe(df_round_1)
 	df_round_2 = df_round[(df_round.Question_Text.notnull()) & (df_round.Round == 3)]
 	df_round_3 = df_round[(df_round.Question_Text.notnull()) & (df_round.Round == 3)
                                 & (df_round.Opponent_score_before_round >= df_round.Score_before_round)
@@ -260,18 +259,22 @@ def build_hattots():
                                         from df_round_1
                                         group by SEASON""")
 
+	st.dataframe(df_round_1_agg)
+
 	df_round_2_agg = ps.sqldf("""select SEASON
                                         , count(*) as 'Third_Round_Total_questions'
                                         , SUM(CASE WHEN SCORE_TOTAL > SCORE_TOTAL_NO_BONUS THEN 1 ELSE 0 END) as 'Third_Round_Boards_Cleared'
                                         from df_round_2
                                         group by SEASON""")
 
+	st.dataframe(df_round_2_agg)
 	df_round_3_agg = ps.sqldf("""select SEASON
                                         , count(*) as 'Third_Round_Deficit_Total_questions'
                                         , SUM(CASE WHEN SCORE_TOTAL > SCORE_TOTAL_NO_BONUS THEN 1 ELSE 0 END) as 'Third_Round_Deficit_Boards_Cleared'
                                         from df_round_3
                                         group by SEASON""")
 
+	st.dataframe(df_round_3_agg)
 	df_hattots = ps.sqldf("""select o.SEASON
                                         , Total_questions
                                         , Boards_Cleared
