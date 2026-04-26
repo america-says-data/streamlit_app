@@ -237,16 +237,17 @@ def build_players_table():
 	return df_player_unmelt
 
 
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=400)
 def build_hattots():
 	df_round["Score_total"] = df_round["Score_total"].astype(int)
+	print(df_round.tail())
 	df_round["Score_after_round"] = df_round[["Team_id", "Score_total"]].groupby("Team_id").cumsum()
 	df_round["Score_before_round"] = df_round[["Team_id", "Score_after_round"]].groupby("Team_id").shift(1)
 	df_round["Opponent"] = np.where(df_round.Team_id.str[-1:] == '1', df_round.Team_id.str[:-1]+'2',df_round.Team_id.str[:-1]+'1')
 	df_round["Opponent_score_after_round"] = df_round[["Opponent", "Round"]].merge(df_round[["Team_id", "Round", "Score_after_round"]], left_on = ["Opponent", "Round"], right_on = ["Team_id", "Round"])[["Score_after_round"]]
 	df_round["Opponent_score_before_round"] = df_round[["Opponent", "Round"]].merge(df_round[["Team_id", "Round", "Score_before_round"]], left_on = ["Opponent", "Round"], right_on = ["Team_id", "Round"])[["Score_before_round"]]
 	df_round["Question_Text"] =  df_round[["Question_id"]].merge(df_question[["Question_id", "Question_Text"]], on = "Question_id")[["Question_Text"]]
-
+	print(df_round.tail())
 	df_round_1 = df_round[df_round.Question_Text.notnull()]
 	df_round_2 = df_round[(df_round.Question_Text.notnull()) & (df_round.Round == 3)]
 	df_round_3 = df_round[(df_round.Question_Text.notnull()) & (df_round.Round == 3)
